@@ -24,5 +24,13 @@ fixtures:
 	cp -r $(ZARK_FIXTURES) tests/fixtures
 
 ## pack: the zip for extensions.gnome.org (dev/, tests/ and debian/ stay out)
+# Packs the committed tree, not the working copy, with every entry dated at
+# the commit, so the same commit always gives the same zip.
+PACK_DIR := build/pack
 pack:
-	gnome-extensions pack --force --extra-source=lib --extra-source=icons .
+	rm -rf $(PACK_DIR)
+	mkdir -p $(PACK_DIR)
+	git archive HEAD | tar -x -C $(PACK_DIR)
+	gnome-extensions pack --force --extra-source=lib --extra-source=icons --out-dir=$(CURDIR) $(PACK_DIR)
+	python3 -I dev/zip-dates.py $(UUID).shell-extension.zip $$(git log -1 --format=%ct)
+	rm -rf build
