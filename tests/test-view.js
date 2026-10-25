@@ -140,7 +140,9 @@ export const tests = [
         assertEqual(blue.summary, 'Not connected');
         assertEqual(blue.segments.map(s => s.id), ['used', 'reserved', 'free']);
         assertTrue(blue.marker > 0.85 && blue.marker < 0.95, `${blue.marker}`);
-        assertTrue(blue.fill.includes('reserved by ZFS; measured '), blue.fill);
+        assertTrue(blue.fill.startsWith('68% used of '), blue.fill);
+        assertEqual(blue.legend.map(e => e.id), ['used', 'reserved', 'free']);
+        assertTrue(blue.markerLabel.startsWith('Margin: the last '), blue.markerLabel);
         const rows = Object.fromEntries(blue.rows.map(r => [r.label, r]));
         assertEqual(rows['Retention'].value, '60-day window, nothing older than 365 days, 10% margin');
         assertEqual(rows['Ejects itself'].value, 'no');
@@ -177,7 +179,9 @@ export const tests = [
         assertEqual(c.months.length, 12);
         assertEqual(c.months[0].label, 'Nov 2025');
         assertEqual(c.months.filter(m => m.next).map(m => m.month), ['2026-09']);
-        assertTrue(c.summary.startsWith('40 backup points, oldest '), c.summary);
+        assertTrue(c.summary.startsWith('40 points, oldest '), c.summary);
+        assertEqual(c.months.find(m => m.month === '2026-08').fraction, 1, 'the largest month fills its bar');
+        assertTrue(c.months[0].size.endsWith(' GiB'), c.months[0].size);
         assertTrue(c.next.startsWith('The next backup\'s retention removes 7 points ('), c.next);
         assertTrue(c.next.includes(', freeing about '), c.next);
         assertEqual(c.datasets.count, 29);

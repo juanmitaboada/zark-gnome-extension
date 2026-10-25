@@ -48,8 +48,7 @@
 .zark-usage-bar-large { height: 10px; }
 .zark-donut { width: 140px; height: 140px; -zark-donut-thickness: 20px; }
 .zark-donut,
-.zark-usage-bar,
-.zark-months {
+.zark-usage-bar {
     -zark-user-data-color: #3584e4;
     -zark-user-snapshots-color: #99c1f1;
     -zark-system-data-color: #9141ac;
@@ -95,7 +94,13 @@
 .zark-copy:hover,
 .zark-copy:focus { background-color: rgba(127, 127, 127, 0.3); }
 .zark-facts { spacing: 3px; }
-.zark-points { spacing: 4px; }
-.zark-months { height: 56px; margin-top: 4px; }
+.zark-details-scroll { min-width: 30em; }
+.zark-bar-legend { spacing: 2px; }
+.zark-marker-swatch { width: 2px; height: 12px; margin: 0 4px; background-color: #f8e45c; }
+.zark-seg-used { background-color: #c0bfbc; }
+.zark-switcher { spacing: 4px; padding-top: 6px; }
+.zark-month-track { height: 8px; min-width: 6em; }
+.zark-month-bar { height: 8px; border-radius: 2px; background-color: #c0bfbc; }
+.zark-month-next { background-color: #f8e45c; }
 .zark-fact { spacing: 14px; }
 .zark-fact-label { min-width: 7em; }
