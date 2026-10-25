@@ -17,7 +17,10 @@ Three one-shot actions instead of a run, for the notifications:
   <root>/dev/disk/by-id (point the extension's by-id-path there);
 - --overdue raises status.json's backup_age notice to a warning.
 
-Usage: dev/simulate.py <root> [--result completed|incomplete] [--speed N]
+--answer-after S answers every question after S seconds instead of 5 or 6
+(the extension notifies a question still open after 15 s).
+
+Usage: dev/simulate.py <root> [--result completed|incomplete] [--speed N] [--answer-after S]
        dev/simulate.py <root> --plug NAME | --unplug NAME | --overdue
 """
 
@@ -65,7 +68,7 @@ def start_ticks() -> int:
 
 
 class Run:
-    def __init__(self, root: Path, speed: float) -> None:
+    def __init__(self, root: Path, speed: float, answer_after: float | None = None) -> None:
         self.run_dir = root / "run" / "zark"
         self.lib_dir = root / "var" / "lib" / "zark"
         # The contract asks for 0755 whatever the umask.
@@ -75,6 +78,7 @@ class Run:
         self.progress_path = self.run_dir / "progress.json"
         self.status_path = self.lib_dir / "status.json"
         self.speed = speed
+        self.answer_after = answer_after
 
         self.status: dict[str, Any] = json.loads(FIXTURE.read_text(encoding="utf-8"))
         self.status["generated_at"] = now()
@@ -119,7 +123,7 @@ class Run:
 
     def ask(self, question: str, seconds: float) -> None:
         self.emit(waiting_for_input=True, waiting_for=question)
-        self.wait(seconds)
+        self.wait(seconds if self.answer_after is None else self.answer_after)
         self.emit(waiting_for_input=False, waiting_for=None)
 
     def transfer(self, failures: int) -> None:
@@ -249,6 +253,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("root", type=Path)
     parser.add_argument("--result", choices=["completed", "incomplete"], default="completed")
     parser.add_argument("--speed", type=float, default=1.0, help="transfer speed multiplier")
+    parser.add_argument("--answer-after", type=float, metavar="S", help="seconds before each answer")
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--plug", metavar="NAME", help="plug a registered drive in, then exit")
     action.add_argument("--unplug", metavar="NAME", help="unplug a registered drive, then exit")
@@ -259,7 +264,7 @@ def main(argv: list[str]) -> int:
         return plug(root, args.plug or args.unplug, plugged=bool(args.plug))
     if args.overdue:
         return raise_overdue(root)
-    run = Run(root, args.speed)
+    run = Run(root, args.speed, args.answer_after)
     print(f"progress: {run.progress_path}\nstatus:   {run.status_path}")
     try:
         run.play(args.result)

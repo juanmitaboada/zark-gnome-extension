@@ -37,7 +37,7 @@ the one from extensions.gnome.org, and ignores the system one.
 | `make fixtures ZARK_FIXTURES=<zark>/tests/fixtures/status` | copies the status files contract's fixtures into `tests/fixtures/` |
 | `make icons ZARK_BRAND=<zark>/docs/images/brand/zark-symbolic.svg` | rebuilds the panel icons from zark's panel mark |
 | `npm install && make lint` | ESLint with GNOME's rules |
-| `dev/simulate.py <dir> [--speed N] [--result incomplete]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them; point the extension's paths there in its preferences |
+| `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them; point the extension's paths there in its preferences |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
 
 `lib/contract.js`, `lib/state.js`, `lib/format.js` and `lib/usage.js` import
