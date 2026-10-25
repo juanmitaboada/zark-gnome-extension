@@ -7,7 +7,7 @@ import GLib from 'gi://GLib';
 
 import {FileState, PROGRESS_KIND, STATUS_KIND, parseFile, parseTimestamp} from '../lib/contract.js';
 import {Indicator, classifyProgress} from '../lib/state.js';
-import {buildView, panelIcon} from '../lib/view.js';
+import {buildView, iconFrames, panelIcon} from '../lib/view.js';
 import {assertEqual, assertTrue} from './harness.js';
 
 const ROOT = GLib.build_filenamev([GLib.path_get_dirname(import.meta.url.replace('file://', '')), 'fixtures']);
@@ -70,6 +70,12 @@ export const tests = [
         assertEqual(view('running').icon.pulse, true);
         assertEqual(view('stalled').icon.pulse, false);
         assertEqual(view('waiting').icon.pulse, false);
+    }],
+    ['a beat starts with the next sector white', () => {
+        assertEqual(iconFrames({kind: 'progress', sectors: 3, pulse: true}),
+            ['zark-progress-3-next', 'zark-progress-3']);
+        assertEqual(iconFrames({kind: 'progress', sectors: 8, pulse: false}), ['zark-progress-8']);
+        assertEqual(iconFrames({kind: 'waiting', sectors: 0, pulse: false}), ['zark-waiting-on', 'zark-waiting-off']);
     }],
     ['idle: disk usage of rpool, as on carmen', () => {
         const u = view('idle').usage;
