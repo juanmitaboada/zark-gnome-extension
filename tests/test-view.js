@@ -7,7 +7,7 @@ import GLib from 'gi://GLib';
 
 import {FileState, PROGRESS_KIND, STATUS_KIND, parseFile, parseTimestamp} from '../lib/contract.js';
 import {Indicator, classifyProgress} from '../lib/state.js';
-import {buildView, iconFrames, panelIcon} from '../lib/view.js';
+import {buildView, datasetRow, iconFrames, panelIcon} from '../lib/view.js';
 import {assertEqual, assertTrue} from './harness.js';
 
 const ROOT = GLib.build_filenamev([GLib.path_get_dirname(import.meta.url.replace('file://', '')), 'fixtures']);
@@ -89,8 +89,32 @@ export const tests = [
         const u = rpool.usage;
         assertEqual(u.legend.length, 7);
         assertTrue(u.snapshots.startsWith('Snapshots hold 142.'), u.snapshots);
-        assertTrue(u.largest[0].name.startsWith('USERDATA/home_'), u.largest[0].name);
-        assertTrue(u.largest.length > 0 && u.largest.length <= 8, 'largest');
+        assertEqual(u.bySize[0].prefix, 'USERDATA/');
+        assertTrue(u.bySize[0].name.startsWith('home_'), u.bySize[0].name);
+        assertTrue(u.bySize.length > 8 && u.bySize.length <= 12, 'twelve rows at most');
+        assertTrue(u.note.includes(` of ${u.datasetCount} datasets`), u.note);
+    }],
+    ['idle: datasets by snapshot space, for a prune', () => {
+        const u = view('idle').details[0].usage;
+        assertTrue(u.bySnapshots[0].name.startsWith('home_'), u.bySnapshots[0].name);
+        const names = u.bySnapshots.map(r => r.prefix + r.name);
+        assertTrue(names.indexOf('ROOT/ubuntu_7k2m4p/var/lib') < names.indexOf('ROOT/ubuntu_7k2m4p/var/lib/flatpak'),
+            'var/lib holds more snapshots than flatpak');
+    }],
+    ['dataset rows: the shared part of the name dimmed, sizes or a dash', () => {
+        const ds = (name, data, snaps) => ({name, usedbydataset_bytes: data, usedbysnapshots_bytes: snaps,
+            usedbyrefreservation_bytes: 0});
+        assertEqual(datasetRow(ds('rpool/ROOT/ubuntu_x/var/lib', 2048, 0)),
+            {prefix: 'ROOT/ubuntu_x/', name: 'var/lib', data: '2.0 KiB', snapshots: '-'});
+        assertEqual(datasetRow(ds('rpool/USERDATA/home_x', 0, 1024)).prefix, 'USERDATA/');
+        assertEqual(datasetRow(ds('rpool/keystore', 1024, 0)).prefix, '');
+        assertEqual(datasetRow(ds('rpool', 1024, 0)).name, 'rpool');
+    }],
+    ['idle: the rpool tab collects the cleanup notices', () => {
+        const [rpool, bpool] = view('idle').details;
+        assertEqual(rpool.cleanup.map(n => n.level), ['warning', 'info']);
+        assertTrue(rpool.cleanup[1].text.startsWith('In origin: '), rpool.cleanup[1].text);
+        assertEqual(bpool.cleanup, []);
     }],
     ['idle: the rpool bar shows what fills it', () => {
         const rpool = view('idle').pools[0];
@@ -100,11 +124,14 @@ export const tests = [
     ['idle: a drive tab with its space and its facts', () => {
         const blue = view('idle').details.find(t => t.id === 'drive:blue');
         assertEqual(blue.summary, 'Not connected');
-        assertEqual(blue.segments.map(s => s.id), ['used', 'free', 'reserved']);
+        assertEqual(blue.segments.map(s => s.id), ['used', 'reserved', 'free']);
+        assertEqual(blue.marker, 0.9);
         assertTrue(blue.fill.includes('reserved by ZFS; measured '), blue.fill);
         const rows = Object.fromEntries(blue.rows.map(r => [r.label, r]));
         assertEqual(rows['Retention'].value, '60-day window, nothing older than 365 days, 10% margin');
         assertEqual(rows['Ejects itself'].value, 'no');
+        assertEqual(rows['Margin'].value, '32% free, above the 10% zark keeps before a backup');
+        assertEqual(rows['Margin'].style, 'ok');
         assertEqual(rows['Last backup'].style, 'warning');
         assertTrue(rows['Last run'].value.startsWith('completed, '), rows['Last run'].value);
     }],

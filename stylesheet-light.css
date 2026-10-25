@@ -56,6 +56,7 @@
     -zark-used-color: #77767b;
     -zark-free-color: rgba(127, 127, 127, 0.25);
     -zark-reserved-color: rgba(127, 127, 127, 0.6);
+    -zark-marker-color: #e5a50a;
 }
 .zark-chart-row { spacing: 14px; }
 .zark-legend { spacing: 3px; }
@@ -78,7 +79,17 @@
 .zark-tab:hover,
 .zark-tab:focus { background-color: rgba(127, 127, 127, 0.15); }
 .zark-tab:checked { background-color: rgba(127, 127, 127, 0.3); color: #241f31; font-weight: bold; }
-.zark-largest { spacing: 2px; }
+.zark-dataset { max-width: 24em; }
+.zark-sort { color: #5e5c64; border-radius: 6px; padding: 1px 4px; }
+.zark-sort:hover,
+.zark-sort:focus { background-color: rgba(127, 127, 127, 0.15); }
+.zark-sort-on { color: #241f31; font-weight: bold; }
+.zark-sort-box { spacing: 2px; }
+.zark-sort-icon { icon-size: 12px; }
+.zark-cleanup { spacing: 6px; padding: 10px 12px; border-radius: 10px; background-color: rgba(127, 127, 127, 0.12); }
+.zark-copy { padding: 5px 14px; border-radius: 8px; background-color: rgba(127, 127, 127, 0.2); }
+.zark-copy:hover,
+.zark-copy:focus { background-color: rgba(127, 127, 127, 0.3); }
 .zark-facts { spacing: 3px; }
 .zark-fact { spacing: 14px; }
 .zark-fact-label { min-width: 7em; }
