@@ -47,12 +47,14 @@
 .zark-usage-bar-large { height: 10px; }
 .zark-donut { width: 140px; height: 140px; -zark-donut-thickness: 20px; }
 .zark-donut,
-.zark-usage-bar {
+.zark-usage-bar,
+.zark-months {
     -zark-user-data-color: #3584e4;
     -zark-user-snapshots-color: #99c1f1;
     -zark-system-data-color: #9141ac;
     -zark-system-snapshots-color: #dc8add;
     -zark-other-color: #b5835a;
+    -zark-metadata-color: #9a9996;
     -zark-used-color: #77767b;
     -zark-free-color: rgba(127, 127, 127, 0.25);
     -zark-reserved-color: rgba(127, 127, 127, 0.6);
@@ -67,6 +69,7 @@
 .zark-seg-system-data { background-color: #9141ac; }
 .zark-seg-system-snapshots { background-color: #dc8add; }
 .zark-seg-other { background-color: #b5835a; }
+.zark-seg-metadata { background-color: #9a9996; }
 .zark-seg-free { background-color: rgba(127, 127, 127, 0.25); }
 .zark-seg-reserved { background-color: rgba(127, 127, 127, 0.6); }
 
@@ -91,5 +94,7 @@
 .zark-copy:hover,
 .zark-copy:focus { background-color: rgba(127, 127, 127, 0.3); }
 .zark-facts { spacing: 3px; }
+.zark-points { spacing: 4px; }
+.zark-months { height: 56px; margin-top: 4px; }
 .zark-fact { spacing: 14px; }
 .zark-fact-label { min-width: 7em; }

@@ -13,7 +13,8 @@ import {formatBytes} from '../lib/format.js';
 import {
     classifyProgress, classifyStatus, indicatorState, startTicksFromStat, transferEta, transferProgress,
 } from '../lib/state.js';
-import {ownBytes, poolUsage} from '../lib/usage.js';
+import {Segment, ownBytes, poolUsage} from '../lib/usage.js';
+import {driveContents, marginBytes} from '../lib/view.js';
 import {assertEqual, assertTrue} from './harness.js';
 
 const ROOT = GLib.build_filenamev([GLib.path_get_dirname(import.meta.url.replace('file://', '')), 'fixtures']);
@@ -80,17 +81,42 @@ function load(name, file, kind) {
 const names = GLib.file_test(ROOT, GLib.FileTest.IS_DIR) ? caseNames() : [];
 
 export const tests = [
-    ['the contract has 18 cases', () => {
-        assertTrue(names.length === 18, `found ${names.length} cases in ${ROOT}; run make fixtures`);
+    ['the contract has 20 cases', () => {
+        assertTrue(names.length === 20, `found ${names.length} cases in ${ROOT}; run make fixtures`);
     }],
     ...names.map(name => [name, () => checkCase(name)]),
-    ['idle: own shares add up to rpool used, snapshots as on carmen', () => {
+    ['idle: own shares fall short of rpool used by the pool metadata, snapshots as on carmen', () => {
         const rpool = load('idle', 'var/lib/zark/status.json', STATUS_KIND).source_pools[0];
         const usage = poolUsage(rpool);
-        assertEqual(rpool.datasets.reduce((a, d) => a + ownBytes(d), 0), rpool.space.used_bytes);
+        const shares = rpool.datasets.reduce((a, d) => a + ownBytes(d), 0);
+        assertTrue(shares < rpool.space.used_bytes, 'a hidden part');
+        const metadata = usage.segments.find(s => s.id === Segment.METADATA).bytes;
+        assertEqual(metadata, rpool.space.used_bytes - shares);
         assertEqual(formatBytes(usage.snapshots).split('.')[0], '142');
         assertEqual(usage.segments.reduce((a, s) => a + s.bytes, 0), usage.total);
     }],
+    ...['drive-contents', 'drive-contents-partial'].map(name => [`${name}: drives as expected.json says`, () => {
+        const expected = JSON.parse(readText(GLib.build_filenamev([ROOT, name, 'expected.json'])));
+        const status = load(name, 'var/lib/zark/status.json', STATUS_KIND);
+        const ctx = {nowMs: parseTimestamp(expected.now), progress: null, progressClass: 'idle', connected: new Set()};
+        for (const [driveName, want] of Object.entries(expected.drives)) {
+            const drive = status.drives.find(d => d.name === driveName);
+            assertEqual(marginBytes(drive.space, drive.retention), want.margin_bytes, `${name} ${driveName} margin`);
+            const got = driveContents(drive, ctx);
+            if (want.contents === null) {
+                assertEqual(got, null, `${name} ${driveName} contents`);
+                continue;
+            }
+            const c = want.contents;
+            assertEqual(drive.points.length, c.points, `${name} ${driveName} points`);
+            const months = Object.fromEntries(got.months.filter(m => m.count > 0).map(m => [m.month, m.count]));
+            assertEqual(months, c.months, `${name} ${driveName} months`);
+            assertEqual(drive.retention_next.points.length, c.next_points, `${name} ${driveName} next`);
+            assertEqual(drive.retention_next.reclaim_bytes, c.next_reclaim_bytes, `${name} ${driveName} reclaim`);
+            assertEqual(got.afterPolicy, c.available_after_policy_bytes, `${name} ${driveName} after policy`);
+            assertEqual(got.datasets === null ? null : got.datasets.count, c.datasets, `${name} ${driveName} datasets`);
+        }
+    }]),
     ['running: bytes ring and ETA', () => {
         const {transfer} = load('running', 'run/zark/progress.json', PROGRESS_KIND);
         assertEqual(transferProgress(transfer).source, 'bytes');

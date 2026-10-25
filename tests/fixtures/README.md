@@ -13,6 +13,21 @@ except where the case says otherwise (`newer-schema`, `progress-unreadable`).
 Pool figures are carmen's of 2026-10-24 (rpool at 89 %, bpool at 14 %); the
 dataset names under them are illustrative. The drives' figures are made up.
 
+As on a real pool, each `datasets` listing has a hidden part above zero:
+the root's `usedbychildren` minus its listed children's `used`, what ZFS
+keeps in `$MOS` and the other directories `zfs list` never shows (rpool
+437.8 MiB, bpool 3.0 MiB, black 1.2 GiB; the sizes are illustrative). So
+the own shares sum to a little less than the pool's `used_bytes`, and the
+shares plus the hidden part make it.
+
+In the drive contents cases, black's points come from daily backups from
+November 2025 to its last backup, passed through zark's retention policy
+(`lib/retention.py`, `plan_prune`) with black's settings (30-day window):
+one point a month outside the window, every point inside it, one
+incomplete run. `retention_next` is the same policy with the clock moved
+7 days forward. The bytes are made up; `reclaim_bytes` is not a ZFS
+figure.
+
 ## expected.json
 
 | Field | Meaning |
@@ -23,6 +38,7 @@ dataset names under them are illustrative. The drives' figures are made up.
 | `status` | `ok`, `stale`, `newer`, `unreadable` or `absent` |
 | `indicator` | the state of "Reading the files", Indicator state |
 | `what` | the case in one line |
+| `drives` | only in the drive contents cases: per drive, what its tab shows. `margin_bytes`, and `contents`: null when the drive carries none of the optional contents (the tab keeps its space bar and margin), else `points`, `months` (count per UTC month), `next_points`, `next_reclaim_bytes`, `available_after_policy_bytes` and `datasets`, each null when the field it comes from is absent |
 
 ## Cases
 
@@ -46,6 +62,8 @@ dataset names under them are illustrative. The drives' figures are made up.
 | `progress-unreadable` | truncated JSON | as `idle` | `edge` |
 | `overdue` | absent | newest backup 9 days old | `overdue` |
 | `no-status` | absent | absent | `none` |
+| `drive-contents` | absent | as `idle`, black with `datasets`, `points`, `non_point_snapshots` and `retention_next`; blue without them | `ok` |
+| `drive-contents-partial` | absent | as `idle`, black with `points` and `retention_next` (`reclaim_bytes` null), no `datasets` | `ok` |
 
 ## Liveness
 

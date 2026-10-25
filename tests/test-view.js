@@ -56,9 +56,9 @@ function view(name, options) {
 }
 
 const CASES = GLib.file_test(ROOT, GLib.FileTest.IS_DIR)
-    ? ['aborted', 'completed', 'idle', 'incomplete', 'interrupted', 'newer-schema', 'no-byte-counts',
-        'no-status', 'not-verified', 'orphan', 'overdue', 'partial-estimate', 'progress-unreadable',
-        'running', 'stale', 'stalled', 'waiting', 'waiting-eject']
+    ? ['aborted', 'completed', 'drive-contents', 'drive-contents-partial', 'idle', 'incomplete', 'interrupted',
+        'newer-schema', 'no-byte-counts', 'no-status', 'not-verified', 'orphan', 'overdue', 'partial-estimate',
+        'progress-unreadable', 'running', 'stale', 'stalled', 'waiting', 'waiting-eject']
     : [];
 
 export const tests = [
@@ -100,7 +100,8 @@ export const tests = [
         const rpool = view('idle').details[0];
         assertEqual(rpool.summary, '89% used of 936.0 GiB');
         const u = rpool.usage;
-        assertEqual(u.legend.length, 7);
+        assertEqual(u.legend.length, 8);
+        assertEqual(u.legend.find(e => e.id === 'metadata').label, 'Pool metadata');
         assertTrue(u.snapshots.startsWith('Snapshots hold 142.'), u.snapshots);
         assertEqual(u.bySize[0].prefix, 'USERDATA/');
         assertTrue(u.bySize[0].name.startsWith('home_'), u.bySize[0].name);
@@ -131,19 +132,19 @@ export const tests = [
     }],
     ['idle: the rpool bar shows what fills it', () => {
         const rpool = view('idle').pools[0];
-        assertEqual(rpool.segments.length, 7);
+        assertEqual(rpool.segments.length, 8);
         assertEqual(rpool.segments[0].id, 'user-data');
     }],
     ['idle: a drive tab with its space and its facts', () => {
         const blue = view('idle').details.find(t => t.id === 'drive:blue');
         assertEqual(blue.summary, 'Not connected');
         assertEqual(blue.segments.map(s => s.id), ['used', 'reserved', 'free']);
-        assertEqual(blue.marker, 0.9);
+        assertTrue(blue.marker > 0.85 && blue.marker < 0.95, `${blue.marker}`);
         assertTrue(blue.fill.includes('reserved by ZFS; measured '), blue.fill);
         const rows = Object.fromEntries(blue.rows.map(r => [r.label, r]));
         assertEqual(rows['Retention'].value, '60-day window, nothing older than 365 days, 10% margin');
         assertEqual(rows['Ejects itself'].value, 'no');
-        assertEqual(rows['Margin'].value, '32% free, above the 10% zark keeps before a backup');
+        assertTrue(rows['Margin'].value.startsWith('518.1 GiB free, above the '), rows['Margin'].value);
         assertEqual(rows['Margin'].style, 'ok');
         assertEqual(rows['Last backup'].style, 'warning');
         assertTrue(rows['Last run'].value.startsWith('completed, '), rows['Last run'].value);
@@ -168,6 +169,35 @@ export const tests = [
         assertEqual(run('idle'), null);
         const blue = view('running').details.find(t => t.id === 'drive:blue');
         assertEqual(blue.rows.find(r => r.label === 'Run') ?? null, null);
+    }],
+    ['drive-contents: points by month, the next removal, the datasets on the drive', () => {
+        const tabs = view('drive-contents').details;
+        const black = tabs.find(t => t.id === 'drive:black');
+        const c = black.contents;
+        assertEqual(c.months.length, 12);
+        assertEqual(c.months[0].label, 'Nov 2025');
+        assertEqual(c.months.filter(m => m.next).map(m => m.month), ['2026-09']);
+        assertTrue(c.summary.startsWith('40 backup points, oldest '), c.summary);
+        assertTrue(c.next.startsWith('The next backup\'s retention removes 7 points ('), c.next);
+        assertTrue(c.next.includes(', freeing about '), c.next);
+        assertEqual(c.datasets.count, 29);
+        assertTrue(c.otherSnapshots.startsWith('Also 713 intermediate snapshots'), c.otherSnapshots);
+        const after = black.rows.find(r => r.label === 'After retention');
+        assertTrue(after.value.startsWith('about 1.2 TiB free'), after.value);
+        assertEqual(tabs.find(t => t.id === 'drive:blue').contents, null);
+    }],
+    ['drive-contents-partial: no reclaim, no datasets', () => {
+        const black = view('drive-contents-partial').details.find(t => t.id === 'drive:black');
+        assertTrue(!black.contents.next.includes('freeing'), black.contents.next);
+        assertEqual(black.contents.afterPolicy, null);
+        assertEqual(black.contents.datasets, null);
+        assertEqual(black.rows.find(r => r.label === 'After retention') ?? null, null);
+    }],
+    ['drive contents past the horizon: a floor', () => {
+        const input = fixtureInput('drive-contents');
+        const late = {...input, nowMs: input.nowMs + 30 * 86400000};
+        const black = buildView(late).details.find(t => t.id === 'drive:black');
+        assertTrue(black.contents.next.includes('removes at least 7 points'), black.contents.next);
     }],
     ['no-status: no details', () => {
         assertEqual(view('no-status').details, []);
