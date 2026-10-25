@@ -43,3 +43,27 @@
 .zark-level-critical { -barlevel-active-background-color: #ff938c; }
 .zark-level-progress { -barlevel-active-background-color: #E8592A; }
 
+/* Disk usage: the donut reads -zark-<segment>-color, the legend the swatches. */
+.zark-chart-row { spacing: 14px; }
+.zark-legend { spacing: 3px; }
+.zark-legend-row { spacing: 8px; }
+.zark-swatch { width: 10px; height: 10px; border-radius: 2px; }
+.zark-donut {
+    width: 112px;
+    height: 112px;
+    -zark-donut-thickness: 16px;
+    -zark-user-data-color: #3584e4;
+    -zark-user-snapshots-color: #99c1f1;
+    -zark-system-data-color: #9141ac;
+    -zark-system-snapshots-color: #dc8add;
+    -zark-other-color: #b5835a;
+    -zark-free-color: rgba(127, 127, 127, 0.25);
+    -zark-reserved-color: rgba(127, 127, 127, 0.6);
+}
+.zark-seg-user-data { background-color: #3584e4; }
+.zark-seg-user-snapshots { background-color: #99c1f1; }
+.zark-seg-system-data { background-color: #9141ac; }
+.zark-seg-system-snapshots { background-color: #dc8add; }
+.zark-seg-other { background-color: #b5835a; }
+.zark-seg-free { background-color: rgba(127, 127, 127, 0.25); }
+.zark-seg-reserved { background-color: rgba(127, 127, 127, 0.6); }

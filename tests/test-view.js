@@ -71,6 +71,18 @@ export const tests = [
         assertEqual(view('stalled').icon.pulse, false);
         assertEqual(view('waiting').icon.pulse, false);
     }],
+    ['idle: disk usage of rpool, as on carmen', () => {
+        const u = view('idle').usage;
+        assertEqual(u.title, 'Disk usage (rpool)');
+        assertEqual(u.summary, '89% used of 936.0 GiB');
+        assertEqual(u.legend.length, 7);
+        assertTrue(u.snapshots.startsWith('Snapshots hold 142.'), u.snapshots);
+        assertTrue(u.largest[0].name.startsWith('USERDATA/home_'), u.largest[0].name);
+        assertTrue(u.largest.length > 0 && u.largest.length <= 8, 'largest');
+    }],
+    ['no-status: no disk usage', () => {
+        assertEqual(view('no-status').usage, null);
+    }],
     ['stalled: still a run, figures marked', () => {
         const v = view('stalled');
         assertEqual(v.indicator, Indicator.RUNNING);
