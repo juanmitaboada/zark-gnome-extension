@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.zark" path="/org/gnome/shell/extensions/zark/">
+    <key name="status-path" type="s">
+      <default>'/var/lib/zark/status.json'</default>
+      <summary>Status file</summary>
+      <description>The status.json zark writes. Changed only to test with example files.</description>
+    </key>
+    <key name="progress-path" type="s">
+      <default>'/run/zark/progress.json'</default>
+      <summary>Progress file</summary>
+      <description>The progress.json zark writes while a command runs. Changed only to test with example files.</description>
+    </key>
+    <key name="notify-overdue" type="b">
+      <default>true</default>
+      <summary>Notify when a backup is overdue</summary>
+    </key>
+    <key name="notify-pool" type="b">
+      <default>true</default>
+      <summary>Notify when a system pool fills up</summary>
+    </key>
+    <key name="notify-drive" type="b">
+      <default>true</default>
+      <summary>Notify when a backup drive is connected</summary>
+    </key>
+    <key name="notify-finished" type="b">
+      <default>true</default>
+      <summary>Notify when a backup finishes</summary>
+    </key>
+  </schema>
+</schemalist>
