@@ -10,12 +10,47 @@ It is read-only. It reads the two status files zark 2.1 and later write
 zark's `docs/STATUS-FILES.md`), and never starts, stops or changes anything.
 Backups stay `sudo zark backup` in a terminal.
 
-It notifies what zark itself does not: an overdue backup (once a day), a
-registered backup drive plugged in, zark waiting for an answer in its
-terminal, and a run that stopped answering. zark already notifies a
-backup's start and result and a full pool.
-
 Requires GNOME Shell 50 and zark 2.1 or later.
+
+## What it shows
+
+The panel icon is zark's ring and z:
+
+| Icon | State |
+|---|---|
+| white | backups up to date |
+| orange z, the ring filling clockwise | a backup is running; the next sector beats while data moves |
+| blue, the z blinking | zark is waiting for an answer in its terminal |
+| red | the last backup to a drive needs attention |
+| yellow | a backup is overdue, the status is old or unreadable, or a run stopped answering |
+| grey | no status from zark yet |
+
+The menu has the running backup's step, dataset and figures, the system
+pools with what fills them, each backup drive with its last backup, zark's
+warnings, "Show details..." and a button that copies `sudo zark backup`.
+
+"Show details..." (or a click on a pool or a drive) opens a dialog with a
+tab per pool and per drive:
+
+- a pool: a donut of user data, snapshots, system and the rest, its
+  datasets as a table sorted by size or by snapshots, and zark's cleanup
+  notices with a button that copies `sudo zark prune`;
+- a drive: its space with the margin zark keeps free, its last backup and
+  run, its retention policy, and, when zark measured them, its backup
+  points by month and what the next backup's retention removes.
+
+## Notifications
+
+It notifies what zark itself does not; zark already notifies a backup's
+start and result and a full pool.
+
+- A backup overdue, once a day.
+- A registered backup drive plugged in, with its last backup.
+- A question zark has waited 15 s for; clicking it brings zark's terminal
+  forward, and it goes away once answered.
+- A zark run that stopped answering.
+
+Each can be turned off in the preferences.
 
 ## Install
 
@@ -29,20 +64,44 @@ Requires GNOME Shell 50 and zark 2.1 or later.
 If both are installed, GNOME Shell loads the copy in your user's directory,
 the one from extensions.gnome.org, and ignores the system one.
 
+## Preferences
+
+In the Extensions app:
+
+- General: the four notifications, and what the extension is.
+- Development: the status file, the progress file and the drive links
+  directory. Change them only to test with example files; zark writes the
+  defaults. "Restore defaults" puts them back.
+
+## Privacy
+
+It reads zark's two status files, `/proc` (to tell a live zark run from one
+that stopped) and `/dev/disk/by-id` (to tell which drives are plugged in).
+It uses no network and runs no program. It writes to the clipboard only
+when a Copy button is pressed, and reads nothing from it.
+
+## If it says "Status not refreshed"
+
+zark writes `status.json` at the end of every run and from an hourly timer.
+An old status means the timer is not installed, or the zark it runs is gone
+(a stick that was unplugged). `sudo zark alerts install` installs it again.
+
 ## Development
 
 | Command | What it does |
 |---|---|
 | `make test` | runs the tests under gjs |
+| `npm install && make lint` | ESLint with GNOME's rules |
+| `make pack` | builds `zark@juanmitaboada.com.shell-extension.zip` for extensions.gnome.org (needs `gnome-extensions`) |
 | `make fixtures ZARK_FIXTURES=<zark>/tests/fixtures/status` | copies the status files contract's fixtures into `tests/fixtures/` |
 | `make icons ZARK_BRAND=<zark>/docs/images/brand/zark-symbolic.svg` | rebuilds the panel icons from zark's panel mark |
-| `npm install && make lint` | ESLint with GNOME's rules |
 | `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S] [--fixture CASE]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them, from the `idle` fixture or another case (`drive-contents` for a drive's contents); point the extension's paths there in its preferences |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
 
-`lib/contract.js`, `lib/state.js`, `lib/format.js` and `lib/usage.js` import
-nothing from GNOME, so the tests run them without a shell. The fixture tests
-check every case of the contract against its `expected.json`.
+`lib/contract.js`, `lib/state.js`, `lib/format.js`, `lib/usage.js`,
+`lib/view.js` and `lib/events.js` import nothing from GNOME Shell, so the
+tests run them without a shell. The fixture tests check every case of the
+contract against its `expected.json`.
 
 ## License
 
