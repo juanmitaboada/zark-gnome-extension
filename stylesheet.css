@@ -43,23 +43,25 @@
 .zark-level-critical { -barlevel-active-background-color: #ff7b7b; }
 .zark-level-progress { -barlevel-active-background-color: #E8592A; }
 
-/* Disk usage: the donut reads -zark-<segment>-color, the legend the swatches. */
-.zark-chart-row { spacing: 14px; }
-.zark-legend { spacing: 3px; }
-.zark-legend-row { spacing: 8px; }
-.zark-swatch { width: 10px; height: 10px; border-radius: 2px; }
-.zark-donut {
-    width: 112px;
-    height: 112px;
-    -zark-donut-thickness: 16px;
+/* Space: the donut and the bars read -zark-<segment>-color, the legend the swatches. */
+.zark-usage-bar { height: 6px; margin: 4px 0 1px 0; }
+.zark-usage-bar-large { height: 10px; }
+.zark-donut { width: 140px; height: 140px; -zark-donut-thickness: 20px; }
+.zark-donut,
+.zark-usage-bar {
     -zark-user-data-color: #3584e4;
     -zark-user-snapshots-color: #99c1f1;
     -zark-system-data-color: #9141ac;
     -zark-system-snapshots-color: #dc8add;
     -zark-other-color: #b5835a;
+    -zark-used-color: #c0bfbc;
     -zark-free-color: rgba(127, 127, 127, 0.25);
     -zark-reserved-color: rgba(127, 127, 127, 0.6);
 }
+.zark-chart-row { spacing: 14px; }
+.zark-legend { spacing: 3px; }
+.zark-legend-row { spacing: 8px; }
+.zark-swatch { width: 10px; height: 10px; border-radius: 2px; }
 .zark-seg-user-data { background-color: #3584e4; }
 .zark-seg-user-snapshots { background-color: #99c1f1; }
 .zark-seg-system-data { background-color: #9141ac; }
@@ -67,3 +69,17 @@
 .zark-seg-other { background-color: #b5835a; }
 .zark-seg-free { background-color: rgba(127, 127, 127, 0.25); }
 .zark-seg-reserved { background-color: rgba(127, 127, 127, 0.6); }
+
+/* Details dialog: a tab per pool and per drive. */
+.zark-details-body { min-width: 30em; spacing: 10px; }
+.zark-details-summary { text-align: center; }
+.zark-tabs { spacing: 4px; padding-bottom: 12px; }
+.zark-tab-gap { width: 12px; }
+.zark-tab { padding: 5px 12px; border-radius: 8px; color: #c0bfbc; }
+.zark-tab:hover,
+.zark-tab:focus { background-color: rgba(127, 127, 127, 0.15); }
+.zark-tab:checked { background-color: rgba(127, 127, 127, 0.3); color: #ffffff; font-weight: bold; }
+.zark-largest { spacing: 2px; }
+.zark-facts { spacing: 3px; }
+.zark-fact { spacing: 14px; }
+.zark-fact-label { min-width: 7em; }

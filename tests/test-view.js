@@ -77,17 +77,39 @@ export const tests = [
         assertEqual(iconFrames({kind: 'progress', sectors: 8, pulse: false}), ['zark-progress-8']);
         assertEqual(iconFrames({kind: 'waiting', sectors: 0, pulse: false}), ['zark-waiting-on', 'zark-waiting-off']);
     }],
+    ['idle: details have a tab per pool, then per drive', () => {
+        const tabs = view('idle').details;
+        assertEqual(tabs.map(t => t.id), ['pool:rpool', 'pool:bpool', 'drive:black', 'drive:blue']);
+        assertEqual(view('idle').pools.map(p => p.tab), ['pool:rpool', 'pool:bpool']);
+        assertEqual(view('idle').drives.map(d => d.tab), ['drive:black', 'drive:blue']);
+    }],
     ['idle: disk usage of rpool, as on carmen', () => {
-        const u = view('idle').usage;
-        assertEqual(u.title, 'Disk usage (rpool)');
-        assertEqual(u.summary, '89% used of 936.0 GiB');
+        const rpool = view('idle').details[0];
+        assertEqual(rpool.summary, '89% used of 936.0 GiB');
+        const u = rpool.usage;
         assertEqual(u.legend.length, 7);
         assertTrue(u.snapshots.startsWith('Snapshots hold 142.'), u.snapshots);
         assertTrue(u.largest[0].name.startsWith('USERDATA/home_'), u.largest[0].name);
         assertTrue(u.largest.length > 0 && u.largest.length <= 8, 'largest');
     }],
-    ['no-status: no disk usage', () => {
-        assertEqual(view('no-status').usage, null);
+    ['idle: the rpool bar shows what fills it', () => {
+        const rpool = view('idle').pools[0];
+        assertEqual(rpool.segments.length, 7);
+        assertEqual(rpool.segments[0].id, 'user-data');
+    }],
+    ['idle: a drive tab with its space and its facts', () => {
+        const blue = view('idle').details.find(t => t.id === 'drive:blue');
+        assertEqual(blue.summary, 'Not connected');
+        assertEqual(blue.segments.map(s => s.id), ['used', 'free', 'reserved']);
+        assertTrue(blue.fill.includes('reserved by ZFS; measured '), blue.fill);
+        const rows = Object.fromEntries(blue.rows.map(r => [r.label, r]));
+        assertEqual(rows['Retention'].value, '60-day window, nothing older than 365 days, 10% margin');
+        assertEqual(rows['Ejects itself'].value, 'no');
+        assertEqual(rows['Last backup'].style, 'warning');
+        assertTrue(rows['Last run'].value.startsWith('completed, '), rows['Last run'].value);
+    }],
+    ['no-status: no details', () => {
+        assertEqual(view('no-status').details, []);
     }],
     ['stalled: still a run, figures marked', () => {
         const v = view('stalled');
@@ -119,6 +141,8 @@ export const tests = [
         assertEqual(v.pools[0].label.split(',')[0], '89% used');
         const blue = v.drives.find(d => d.name === 'blue');
         assertEqual(blue.lastIsOld, true);
+        assertTrue(blue.last.startsWith('Last backup '), blue.last);
+        assertEqual(v.drives.find(d => d.name === 'black').fill, '64%, 1.2 TiB free');
         assertEqual(v.notes, []);
     }],
     ['connected drives come from /dev/disk/by-id names', () => {
@@ -133,7 +157,11 @@ export const tests = [
         const black = v.drives.find(d => d.name === 'black');
         assertEqual(black.badge, 'Last run incomplete');
         assertEqual(black.badgeAttention, true);
-        assertTrue(black.message !== null, 'message');
+        const rows = v.details.find(t => t.id === 'drive:black').rows;
+        const run = rows.findIndex(r => r.label === 'Last run');
+        assertTrue(rows[run].value.startsWith('incomplete, '), rows[run].value);
+        assertEqual(rows[run].style, 'critical');
+        assertEqual(rows[run + 1].style, 'critical', 'message');
     }],
     ['aborted: badge without attention', () => {
         const black = view('aborted').drives.find(d => d.name === 'black');
