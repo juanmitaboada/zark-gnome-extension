@@ -18,9 +18,12 @@ Three one-shot actions instead of a run, for the notifications:
 - --overdue raises status.json's backup_age notice to a warning.
 
 --answer-after S answers every question after S seconds instead of 5 or 6
-(the extension notifies a question still open after 15 s).
+(the extension notifies a question still open after 15 s). --fixture CASE
+starts from that fixture case's status.json instead of idle's
+(drive-contents: black with the drive contents fields).
 
 Usage: dev/simulate.py <root> [--result completed|incomplete] [--speed N] [--answer-after S]
+                             [--fixture CASE]
        dev/simulate.py <root> --plug NAME | --unplug NAME | --overdue
 """
 
@@ -36,7 +39,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-FIXTURE = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "idle" / "var" / "lib" / "zark" / "status.json"
+FIXTURES = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+
+
+def fixture(name: str) -> Path:
+    """The status.json of a contract fixture case."""
+    return FIXTURES / name / "var" / "lib" / "zark" / "status.json"
 
 GIB = 1024**3
 TRANSFERS = [
@@ -68,7 +76,7 @@ def start_ticks() -> int:
 
 
 class Run:
-    def __init__(self, root: Path, speed: float, answer_after: float | None = None) -> None:
+    def __init__(self, root: Path, speed: float, answer_after: float | None = None, base: str = "idle") -> None:
         self.run_dir = root / "run" / "zark"
         self.lib_dir = root / "var" / "lib" / "zark"
         # The contract asks for 0755 whatever the umask.
@@ -80,7 +88,7 @@ class Run:
         self.speed = speed
         self.answer_after = answer_after
 
-        self.status: dict[str, Any] = json.loads(FIXTURE.read_text(encoding="utf-8"))
+        self.status: dict[str, Any] = json.loads(fixture(base).read_text(encoding="utf-8"))
         self.status["generated_at"] = now()
         self.status["generated_by"] = "timer"
         write_atomic(self.status_path, self.status)
@@ -209,9 +217,9 @@ class Run:
 
 
 def current_status(root: Path) -> dict[str, Any]:
-    """The status.json under <root>, or the fixture when there is none yet."""
+    """The status.json under <root>, or the idle fixture when there is none yet."""
     path = root / "var" / "lib" / "zark" / "status.json"
-    source = path if path.exists() else FIXTURE
+    source = path if path.exists() else fixture("idle")
     data: dict[str, Any] = json.loads(source.read_text(encoding="utf-8"))
     return data
 
@@ -254,6 +262,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--result", choices=["completed", "incomplete"], default="completed")
     parser.add_argument("--speed", type=float, default=1.0, help="transfer speed multiplier")
     parser.add_argument("--answer-after", type=float, metavar="S", help="seconds before each answer")
+    parser.add_argument("--fixture", default="idle", metavar="CASE",
+                        help="the fixture case whose status.json the run starts from (drive-contents: black with R9)")
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--plug", metavar="NAME", help="plug a registered drive in, then exit")
     action.add_argument("--unplug", metavar="NAME", help="unplug a registered drive, then exit")
@@ -264,7 +274,10 @@ def main(argv: list[str]) -> int:
         return plug(root, args.plug or args.unplug, plugged=bool(args.plug))
     if args.overdue:
         return raise_overdue(root)
-    run = Run(root, args.speed, args.answer_after)
+    if not fixture(args.fixture).exists():
+        print(f"no status.json in fixture case {args.fixture!r}", file=sys.stderr)
+        return 2
+    run = Run(root, args.speed, args.answer_after, args.fixture)
     print(f"progress: {run.progress_path}\nstatus:   {run.status_path}")
     try:
         run.play(args.result)
