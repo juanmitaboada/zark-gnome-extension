@@ -1,0 +1,44 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+
+/*
+ * Light style. The same rules as stylesheet.css (dark style and fallback),
+ * with text colours for light menus, each at least 4.5:1 on the menu.
+ */
+
+/* Panel icon: the panel is dark in both styles. */
+.zark-state-overdue,
+.zark-state-edge { color: #f8e45c; }
+.zark-state-attention { color: #ff7b63; }
+.zark-state-none { color: #9a9996; }
+
+.zark-item { spacing: 4px; min-width: 22em; }
+.zark-row { spacing: 12px; }
+.zark-title { font-weight: bold; }
+.zark-name { font-weight: bold; }
+.zark-small { font-size: 0.9em; }
+.zark-mono { font-family: monospace; }
+.zark-dim { color: #5e5c64; }
+.zark-note { color: #7a5600; }
+.zark-waiting { color: #1a5fb4; font-weight: bold; }
+.zark-connected { color: #1b7a4a; }
+
+.zark-text-warning { color: #7a5600; }
+.zark-text-critical { color: #a51d2d; }
+.zark-headline.zark-state-overdue,
+.zark-headline.zark-state-edge { color: #7a5600; }
+.zark-headline.zark-state-attention { color: #a51d2d; }
+.zark-headline.zark-state-waiting { color: #1a5fb4; }
+.zark-headline.zark-state-none { color: #5e5c64; }
+
+.zark-bar {
+    height: 8px;
+    -barlevel-height: 6px;
+    -barlevel-background-color: rgba(127, 127, 127, 0.3);
+    -barlevel-active-background-color: #77767b;
+    -barlevel-overdrive-color: transparent;
+    -barlevel-overdrive-separator-width: 0;
+}
+.zark-level-warning { -barlevel-active-background-color: #e5a50a; }
+.zark-level-critical { -barlevel-active-background-color: #c01c28; }
+.zark-level-progress { -barlevel-active-background-color: #E8592A; }
+

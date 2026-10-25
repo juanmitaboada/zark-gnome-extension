@@ -1,6 +1,12 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
-/* Panel icon: the symbolic icon takes its colour from here. */
+/*
+ * Dark style (and the fallback). stylesheet-light.css repeats every rule
+ * with colours for light menus; GNOME Shell loads one or the other. Text
+ * colours keep a contrast of at least 4.5:1 on the menu.
+ */
+
+/* Panel icon: the panel is dark in both styles. */
 .zark-state-overdue,
 .zark-state-edge { color: #f8e45c; }
 .zark-state-attention { color: #ff7b63; }
@@ -12,27 +18,28 @@
 .zark-name { font-weight: bold; }
 .zark-small { font-size: 0.9em; }
 .zark-mono { font-family: monospace; }
-.zark-dim { color: #9a9996; }
-.zark-note { color: #e5a50a; }
-.zark-waiting { color: #62a0ea; font-weight: bold; }
-.zark-connected { color: #2ec27e; }
+.zark-dim { color: #c0bfbc; }
+.zark-note { color: #f8e45c; }
+.zark-waiting { color: #99c1f1; font-weight: bold; }
+.zark-connected { color: #57e389; }
 
-/* Readable on the light and the dark menu. */
-.zark-text-warning { color: #e5a50a; }
-.zark-text-critical { color: #e01b24; }
+.zark-text-warning { color: #f8e45c; }
+.zark-text-critical { color: #ff938c; }
 .zark-headline.zark-state-overdue,
-.zark-headline.zark-state-edge { color: #e5a50a; }
-.zark-headline.zark-state-attention { color: #e01b24; }
-.zark-headline.zark-state-waiting { color: #62a0ea; }
+.zark-headline.zark-state-edge { color: #f8e45c; }
+.zark-headline.zark-state-attention { color: #ff938c; }
+.zark-headline.zark-state-waiting { color: #99c1f1; }
+.zark-headline.zark-state-none { color: #c0bfbc; }
 
 .zark-bar {
     height: 8px;
     -barlevel-height: 6px;
-    -barlevel-background-color: rgba(127, 127, 127, 0.25);
-    -barlevel-active-background-color: #9a9996;
+    -barlevel-background-color: rgba(127, 127, 127, 0.3);
+    -barlevel-active-background-color: #c0bfbc;
     -barlevel-overdrive-color: transparent;
     -barlevel-overdrive-separator-width: 0;
 }
-.zark-level-warning { -barlevel-active-background-color: #e5a50a; }
-.zark-level-critical { -barlevel-active-background-color: #e01b24; }
+.zark-level-warning { -barlevel-active-background-color: #f8e45c; }
+.zark-level-critical { -barlevel-active-background-color: #ff938c; }
 .zark-level-progress { -barlevel-active-background-color: #E8592A; }
+
