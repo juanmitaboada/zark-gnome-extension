@@ -135,6 +135,27 @@ export const tests = [
         assertEqual(rows['Last backup'].style, 'warning');
         assertTrue(rows['Last run'].value.startsWith('completed, '), rows['Last run'].value);
     }],
+    ['bpool: no legend entry for an empty part', () => {
+        const bpool = view('idle').details[1].usage;
+        const ids = bpool.legend.map(e => e.id);
+        assertTrue(!ids.includes('user-data') && !ids.includes('user-snapshots'), ids.join());
+        assertTrue(ids.includes('free'), 'free stays');
+    }],
+    ['drive tab: the run progress.json describes for that drive', () => {
+        const run = name => {
+            const black = view(name).details.find(t => t.id === 'drive:black');
+            return black.rows.find(r => r.label === 'Run') ?? null;
+        };
+        assertTrue(run('orphan').value.startsWith('Stopped answering at '), run('orphan').value);
+        assertEqual(run('orphan').style, 'warning');
+        assertTrue(run('stalled').value.startsWith('No update for 95 s: step 7 of 8'), run('stalled').value);
+        assertTrue(run('running').value.startsWith('Running: step '), run('running').value);
+        assertTrue(run('running').value.endsWith('% sent'), run('running').value);
+        assertEqual(run('waiting').style, 'waiting');
+        assertEqual(run('idle'), null);
+        const blue = view('running').details.find(t => t.id === 'drive:blue');
+        assertEqual(blue.rows.find(r => r.label === 'Run') ?? null, null);
+    }],
     ['no-status: no details', () => {
         assertEqual(view('no-status').details, []);
     }],
