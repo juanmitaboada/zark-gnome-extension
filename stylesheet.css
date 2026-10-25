@@ -9,7 +9,7 @@
 /* Panel icon: the panel is dark in both styles. */
 .zark-state-overdue,
 .zark-state-edge { color: #f8e45c; }
-.zark-state-attention { color: #ff7b63; }
+.zark-state-attention { color: #ed333b; }
 .zark-state-none { color: #9a9996; }
 
 .zark-item { spacing: 4px; min-width: 22em; }
@@ -24,10 +24,10 @@
 .zark-connected { color: #57e389; }
 
 .zark-text-warning { color: #f8e45c; }
-.zark-text-critical { color: #ff938c; }
+.zark-text-critical { color: #ff7b7b; }
 .zark-headline.zark-state-overdue,
 .zark-headline.zark-state-edge { color: #f8e45c; }
-.zark-headline.zark-state-attention { color: #ff938c; }
+.zark-headline.zark-state-attention { color: #ff7b7b; }
 .zark-headline.zark-state-waiting { color: #99c1f1; }
 .zark-headline.zark-state-none { color: #c0bfbc; }
 
@@ -40,7 +40,7 @@
     -barlevel-overdrive-separator-width: 0;
 }
 .zark-level-warning { -barlevel-active-background-color: #f8e45c; }
-.zark-level-critical { -barlevel-active-background-color: #ff938c; }
+.zark-level-critical { -barlevel-active-background-color: #ff7b7b; }
 .zark-level-progress { -barlevel-active-background-color: #E8592A; }
 
 /* Disk usage: the donut reads -zark-<segment>-color, the legend the swatches. */
