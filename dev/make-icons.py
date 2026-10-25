@@ -2,15 +2,17 @@
 """Build the panel icons from zark's panel mark.
 
 Reads docs/images/brand/zark-symbolic.svg from the zark repo (16 px, one
-path: the ring's 8 sectors and the z) and writes the 12 panel icons into
+path: the ring's 8 sectors and the z) and writes the 20 panel icons into
 icons/:
 
 - zark-symbolic.svg: the mark as it is; the shell recolours it from the
   stylesheet (ok, overdue, edge, attention, none).
 - zark-progress-0.svg to zark-progress-8.svg: 0 to 8 sectors orange,
-  clockwise from the top; the others white at 40 % opacity, so a backup
-  that has just started still looks different from the ok state; the z
-  white.
+  clockwise from the top; the others white at 40 % opacity; the z orange,
+  so a running backup shows from its first second.
+- zark-progress-0-next.svg to zark-progress-7-next.svg: the same with the
+  next sector to fill in opaque white; the extension alternates each
+  progress icon with its -next frame while data moves.
 - zark-waiting-on.svg and zark-waiting-off.svg: blue ring, the z blue or
   white; the extension alternates them while zark waits for an answer.
 
@@ -105,8 +107,17 @@ def main(argv: list[str]) -> int:
             elements.append(path_element(" ".join(sectors[:lit]), ORANGE))
         if lit < 8:
             elements.append(path_element(" ".join(sectors[lit:]), WHITE, UNLIT_OPACITY))
-        elements.append(path_element(z, WHITE))
+        elements.append(path_element(z, ORANGE))
         files[f"zark-progress-{lit}.svg"] = icon(elements)
+    for lit in range(8):
+        elements = []
+        if lit:
+            elements.append(path_element(" ".join(sectors[:lit]), ORANGE))
+        elements.append(path_element(sectors[lit], WHITE))
+        if lit < 7:
+            elements.append(path_element(" ".join(sectors[lit + 1:]), WHITE, UNLIT_OPACITY))
+        elements.append(path_element(z, ORANGE))
+        files[f"zark-progress-{lit}-next.svg"] = icon(elements)
 
     for name, text in sorted(files.items()):
         (out / name).write_text(text, encoding="ascii")

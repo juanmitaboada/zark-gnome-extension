@@ -66,6 +66,11 @@ export const tests = [
         assertEqual(v.run.transfers, 'Transfers: 9 of 21 done');
         assertEqual(v.run.stalled, null);
     }],
+    ['running: the next sector pulses while data moves, not when stalled', () => {
+        assertEqual(view('running').icon.pulse, true);
+        assertEqual(view('stalled').icon.pulse, false);
+        assertEqual(view('waiting').icon.pulse, false);
+    }],
     ['stalled: still a run, figures marked', () => {
         const v = view('stalled');
         assertEqual(v.indicator, Indicator.RUNNING);
@@ -87,7 +92,7 @@ export const tests = [
         assertTrue(typeof v.run.waitingFor === 'string' && v.run.waitingFor.length > 0, 'waiting_for');
     }],
     ['waiting-eject: full ring once the data was sent', () => {
-        assertEqual(panelIcon(Indicator.RUNNING, {transfer: null}, true), {kind: 'progress', sectors: 8});
+        assertEqual(panelIcon(Indicator.RUNNING, {transfer: null}, true), {kind: 'progress', sectors: 8, pulse: false});
         assertEqual(view('waiting-eject').icon.kind, 'waiting');
     }],
     ['idle: pools from the file, drives with their ages', () => {
