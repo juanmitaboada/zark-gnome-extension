@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 UUID := zark@juanmitaboada.com
-ZARK_BRAND ?= ../zark/docs/images/brand/svg/zark-icon-ringz.svg
+ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
 .PHONY: test lint icons fixtures
