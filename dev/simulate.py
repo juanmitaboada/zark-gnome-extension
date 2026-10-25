@@ -11,7 +11,14 @@ transfer with byte counters, the result in status.json, the eject prompt,
 then progress.json removed. Ctrl+C leaves progress.json behind, as a killed
 zark would: the extension then shows the orphan.
 
+Three one-shot actions instead of a run, for the notifications:
+
+- --plug NAME and --unplug NAME create or remove the drive's link in
+  <root>/dev/disk/by-id (point the extension's by-id-path there);
+- --overdue raises status.json's backup_age notice to a warning.
+
 Usage: dev/simulate.py <root> [--result completed|incomplete] [--speed N]
+       dev/simulate.py <root> --plug NAME | --unplug NAME | --overdue
 """
 
 from __future__ import annotations
@@ -197,13 +204,62 @@ class Run:
         self.progress_path.unlink()
 
 
+def current_status(root: Path) -> dict[str, Any]:
+    """The status.json under <root>, or the fixture when there is none yet."""
+    path = root / "var" / "lib" / "zark" / "status.json"
+    source = path if path.exists() else FIXTURE
+    data: dict[str, Any] = json.loads(source.read_text(encoding="utf-8"))
+    return data
+
+
+def plug(root: Path, name: str, plugged: bool) -> int:
+    """Create or remove a registered drive's by-id link (an empty file)."""
+    drives = {d["name"]: d["drive_id"] for d in current_status(root)["drives"]}
+    if name not in drives:
+        print(f"unknown drive {name!r}; registered: {', '.join(sorted(drives))}", file=sys.stderr)
+        return 2
+    by_id = root / "dev" / "disk" / "by-id"
+    by_id.mkdir(parents=True, exist_ok=True)
+    link = by_id / drives[name]
+    if plugged:
+        link.touch()
+    else:
+        link.unlink(missing_ok=True)
+    print(f"{'plugged' if plugged else 'unplugged'}: {link}")
+    return 0
+
+
+def raise_overdue(root: Path) -> int:
+    """Write status.json with its backup_age notice at warning level."""
+    lib_dir = root / "var" / "lib" / "zark"
+    lib_dir.mkdir(parents=True, exist_ok=True)
+    status = current_status(root)
+    for notice in status["notices"]:
+        if notice["code"] == "backup_age":
+            notice["level"] = "warning"
+    status["generated_at"] = now()
+    status["generated_by"] = "timer"
+    write_atomic(lib_dir / "status.json", status)
+    print(f"overdue: {lib_dir / 'status.json'}")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("root", type=Path)
     parser.add_argument("--result", choices=["completed", "incomplete"], default="completed")
     parser.add_argument("--speed", type=float, default=1.0, help="transfer speed multiplier")
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument("--plug", metavar="NAME", help="plug a registered drive in, then exit")
+    action.add_argument("--unplug", metavar="NAME", help="unplug a registered drive, then exit")
+    action.add_argument("--overdue", action="store_true", help="make the backup overdue, then exit")
     args = parser.parse_args(argv[1:])
-    run = Run(args.root.expanduser().resolve(), args.speed)
+    root = args.root.expanduser().resolve()
+    if args.plug or args.unplug:
+        return plug(root, args.plug or args.unplug, plugged=bool(args.plug))
+    if args.overdue:
+        return raise_overdue(root)
+    run = Run(root, args.speed)
     print(f"progress: {run.progress_path}\nstatus:   {run.status_path}")
     try:
         run.play(args.result)
