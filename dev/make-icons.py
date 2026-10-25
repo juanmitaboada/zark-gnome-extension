@@ -9,7 +9,8 @@ icons/:
   stylesheet (ok, overdue, edge, attention, none).
 - zark-progress-0.svg to zark-progress-8.svg: 0 to 8 sectors orange,
   clockwise from the top; the others white at 40 % opacity; the z orange,
-  so a running backup shows from its first second.
+  so a running backup shows from its first second, except at 8 of 8, whose
+  z is white so a full orange ring does not read as the red of attention.
 - zark-progress-0-next.svg to zark-progress-7-next.svg: the same with the
   next sector to fill in opaque white; the extension alternates each
   progress icon with its -next frame while data moves.
@@ -107,7 +108,8 @@ def main(argv: list[str]) -> int:
             elements.append(path_element(" ".join(sectors[:lit]), ORANGE))
         if lit < 8:
             elements.append(path_element(" ".join(sectors[lit:]), WHITE, UNLIT_OPACITY))
-        elements.append(path_element(z, ORANGE))
+        # A full orange ring with an orange z reads as attention's red (A1).
+        elements.append(path_element(z, WHITE if lit == 8 else ORANGE))
         files[f"zark-progress-{lit}.svg"] = icon(elements)
     for lit in range(8):
         elements = []
