@@ -682,7 +682,69 @@
         "snapshots": 322,
         "datasets_whole": 0,
         "reclaim_bytes": null
-      }
+      },
+      "reclaim_by_age": [
+        {
+          "before": "2025-12",
+          "points": 1,
+          "last_point": "zark_2025-11-30_21:24:14Z",
+          "reclaim_bytes": 35838556258
+        },
+        {
+          "before": "2026-01",
+          "points": 2,
+          "last_point": "zark_2025-12-31_21:17:24Z",
+          "reclaim_bytes": 69319706514
+        },
+        {
+          "before": "2026-02",
+          "points": 3,
+          "last_point": "zark_2026-01-31_21:18:18Z",
+          "reclaim_bytes": 114646455245
+        },
+        {
+          "before": "2026-03",
+          "points": 4,
+          "last_point": "zark_2026-02-28_21:06:37Z",
+          "reclaim_bytes": 161139428608
+        },
+        {
+          "before": "2026-04",
+          "points": 5,
+          "last_point": "zark_2026-03-30_21:05:34Z",
+          "reclaim_bytes": 226028191248
+        },
+        {
+          "before": "2026-05",
+          "points": 6,
+          "last_point": "zark_2026-04-30_21:31:12Z",
+          "reclaim_bytes": 290544856870
+        },
+        {
+          "before": "2026-06",
+          "points": 7,
+          "last_point": "zark_2026-05-31_21:34:10Z",
+          "reclaim_bytes": null
+        },
+        {
+          "before": "2026-07",
+          "points": 8,
+          "last_point": "zark_2026-06-30_21:01:13Z",
+          "reclaim_bytes": null
+        },
+        {
+          "before": "2026-08",
+          "points": 9,
+          "last_point": "zark_2026-07-31_21:58:04Z",
+          "reclaim_bytes": null
+        },
+        {
+          "before": "2026-09",
+          "points": 10,
+          "last_point": "zark_2026-08-31_21:46:37Z",
+          "reclaim_bytes": null
+        }
+      ]
     },
     {
       "name": "blue",

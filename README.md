@@ -37,7 +37,8 @@ tab per pool and per drive:
   notices with a button that copies `sudo zark prune`;
 - a drive: its space with the margin zark keeps free, its last backup and
   run, its retention policy, and, when zark measured them, its backup
-  points by month and what the next backup's retention removes.
+  points by month, what the next backup's retention removes, and what
+  removing the points older than each month would free.
 
 ## Notifications
 

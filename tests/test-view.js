@@ -182,6 +182,10 @@ export const tests = [
         assertTrue(c.summary.startsWith('40 points, oldest '), c.summary);
         assertEqual(c.months.find(m => m.month === '2026-08').fraction, 1, 'the largest month fills its bar');
         assertTrue(c.months[0].size.endsWith(' GiB'), c.months[0].size);
+        assertEqual(c.older, true);
+        assertEqual(c.months[0].older, '', 'the oldest month has no figure');
+        assertEqual(c.months.find(m => m.month === '2026-03').older, '150.1 GiB');
+        assertEqual(c.months.find(m => m.month === '2026-10').older, '', 'inside the window: none');
         assertTrue(c.next.startsWith('The next backup\'s retention removes 7 points ('), c.next);
         assertTrue(c.next.includes(', freeing about '), c.next);
         assertEqual(c.datasets.count, 29);
@@ -195,6 +199,7 @@ export const tests = [
         assertTrue(!black.contents.next.includes('freeing'), black.contents.next);
         assertEqual(black.contents.afterPolicy, null);
         assertEqual(black.contents.datasets, null);
+        assertEqual(black.contents.months.find(m => m.month === '2026-07').older, 'not measured');
         assertEqual(black.rows.find(r => r.label === 'After retention') ?? null, null);
     }],
     ['drive contents past the horizon: a floor', () => {

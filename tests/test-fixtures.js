@@ -115,6 +115,8 @@ export const tests = [
             assertEqual(drive.retention_next.reclaim_bytes, c.next_reclaim_bytes, `${name} ${driveName} reclaim`);
             assertEqual(got.afterPolicy, c.available_after_policy_bytes, `${name} ${driveName} after policy`);
             assertEqual(got.datasets === null ? null : got.datasets.count, c.datasets, `${name} ${driveName} datasets`);
+            const older = Object.fromEntries(got.months.filter(m => m.older !== '').map(m => [m.month, m.olderBytes]));
+            assertEqual(older, c.frees_if_older, `${name} ${driveName} frees if older`);
         }
     }]),
     ['running: bytes ring and ETA', () => {

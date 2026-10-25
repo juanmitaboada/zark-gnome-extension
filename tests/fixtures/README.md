@@ -25,8 +25,10 @@ November 2025 to its last backup, passed through zark's retention policy
 (`lib/retention.py`, `plan_prune`) with black's settings (30-day window):
 one point a month outside the window, every point inside it, one
 incomplete run. `retention_next` is the same policy with the clock moved
-7 days forward. The bytes are made up; `reclaim_bytes` is not a ZFS
-figure.
+7 days forward. `reclaim_by_age` lists the candidates zark's own rules
+give (`space_candidates`, `point_removals`): the 10 monthly points
+outside the window, November 2025 to August 2026. The bytes are made up;
+no `reclaim_bytes` is a ZFS figure.
 
 ## expected.json
 
@@ -38,7 +40,7 @@ figure.
 | `status` | `ok`, `stale`, `newer`, `unreadable` or `absent` |
 | `indicator` | the state of "Reading the files", Indicator state |
 | `what` | the case in one line |
-| `drives` | only in the drive contents cases: per drive, what its tab shows. `margin_bytes`, and `contents`: null when the drive carries none of the optional contents (the tab keeps its space bar and margin), else `points`, `months` (count per UTC month), `next_points`, `next_reclaim_bytes`, `available_after_policy_bytes` and `datasets`, each null when the field it comes from is absent |
+| `drives` | only in the drive contents cases: per drive, what its tab shows. `margin_bytes`, and `contents`: null when the drive carries none of the optional contents (the tab keeps its space bar and margin), else `points`, `months` (count per UTC month), `next_points`, `next_reclaim_bytes`, `available_after_policy_bytes`, `datasets` and `frees_if_older` (per `before` month, what removing older points frees), each null when the field it comes from is absent |
 
 ## Cases
 
@@ -62,8 +64,8 @@ figure.
 | `progress-unreadable` | truncated JSON | as `idle` | `edge` |
 | `overdue` | absent | newest backup 9 days old | `overdue` |
 | `no-status` | absent | absent | `none` |
-| `drive-contents` | absent | as `idle`, black with `datasets`, `points`, `non_point_snapshots` and `retention_next`; blue without them | `ok` |
-| `drive-contents-partial` | absent | as `idle`, black with `points` and `retention_next` (`reclaim_bytes` null), no `datasets` | `ok` |
+| `drive-contents` | absent | as `idle`, black with `datasets`, `points`, `non_point_snapshots`, `retention_next` and `reclaim_by_age`; blue without them | `ok` |
+| `drive-contents-partial` | absent | as `idle`, black with `points`, `retention_next` (`reclaim_bytes` null) and `reclaim_by_age` measured for its 6 oldest entries only, no `datasets` | `ok` |
 
 ## Liveness
 
