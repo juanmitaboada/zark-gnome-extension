@@ -2,6 +2,7 @@
     "uuid": "zark@juanmitaboada.com",
     "name": "zark backup status",
     "description": "Shows the state of zark backups in the top bar: the last backup to each drive, a running backup's progress, when zark waits for an answer in its terminal, and how full the system pools are. Notifies an overdue backup, a backup drive plugged in, a question waiting in the terminal and a run that stopped answering.\n\nRead-only: it reads the status files zark 2.1 or later writes, and never starts, stops or changes anything. Backups stay sudo zark backup in a terminal.\n\nClipboard: the Copy buttons of the menu, the notifications and the details dialog put sudo zark backup or sudo zark prune on the clipboard. Nothing is read from it.",
+    "version-name": "1.0",
     "shell-version": ["50"],
     "url": "https://github.com/juanmitaboada/zark-gnome-extension",
     "settings-schema": "org.gnome.shell.extensions.zark"

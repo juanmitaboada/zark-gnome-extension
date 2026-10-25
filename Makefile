@@ -4,7 +4,7 @@ UUID := zark@juanmitaboada.com
 ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
-.PHONY: test lint icons fixtures
+.PHONY: test lint icons fixtures pack
 
 ## test: run the pure-module tests under gjs
 test:
@@ -22,3 +22,7 @@ icons:
 fixtures:
 	rm -rf tests/fixtures
 	cp -r $(ZARK_FIXTURES) tests/fixtures
+
+## pack: the zip for extensions.gnome.org (dev/, tests/ and debian/ stay out)
+pack:
+	gnome-extensions pack --force --extra-source=lib --extra-source=icons .
