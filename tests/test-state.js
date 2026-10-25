@@ -2,7 +2,7 @@
 
 import {FileState} from '../lib/contract.js';
 import {
-    Indicator, Progress, classifyProgress, indicatorState, isStale, ringSectors,
+    Indicator, Progress, classifyProgress, indicatorState, isStale, parentPidFromStat, ringSectors,
     startTicksFromStat, transferEta, transferProgress,
 } from '../lib/state.js';
 import {assertClose, assertEqual} from './harness.js';
@@ -37,6 +37,13 @@ export const tests = [
             '2961734 30000000 4000';
         assertEqual(startTicksFromStat(line), 2961734);
         assertEqual(startTicksFromStat('garbage'), null);
+    }],
+    ['stat field 4, the parent', () => {
+        const line = '48213 (zark (a) b) S 1207 48213 48213 0 -1 4194560 2000 0 0 0 10 5 0 0 20 0 3 0 ' +
+            '2961734 30000000 4000';
+        assertEqual(parentPidFromStat(line), 1207);
+        assertEqual(parentPidFromStat('1 (systemd) S 0 1 1'), null, 'init has none');
+        assertEqual(parentPidFromStat('garbage'), null);
     }],
     ['progress: absent, unreadable, newer', () => {
         assertEqual(classifyProgress({state: FileState.ABSENT, data: null}, LIVE, NOW), Progress.IDLE);

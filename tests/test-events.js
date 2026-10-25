@@ -2,7 +2,7 @@
 //
 // Which notifications successive readings call for.
 
-import {Event, localDate, newEvents, snapshot} from '../lib/events.js';
+import {Event, WAITING_NOTIFY_MS, localDate, newEvents, snapshot} from '../lib/events.js';
 import {assertEqual, assertTrue} from './harness.js';
 import {fixtureInput} from './test-view.js';
 
@@ -11,7 +11,22 @@ const BLACK_ID = 'usb-JMicron_Generic_DISK00_0123456789ABCDEF-0:0';
 // The events from `before` to `after`, as the reader sees them.
 function events(before, after, overdueNotifiedOn = '') {
     const prev = before === null ? null : snapshot(before);
-    return newEvents(prev, snapshot(after), after, overdueNotifiedOn);
+    return newEvents(prev, snapshot(after, prev), after, overdueNotifiedOn);
+}
+
+// Readings in order, as the reader takes them: the events of each.
+function replay(inputs) {
+    let prev = null;
+    return inputs.map(input => {
+        const next = snapshot(input, prev);
+        const out = newEvents(prev, next, input, '');
+        prev = next;
+        return out.map(e => e.kind);
+    });
+}
+
+function at(input, nowMs) {
+    return {...input, nowMs};
 }
 
 // gjs has no structuredClone; the inputs hold only JSON data and a Set.
@@ -39,7 +54,6 @@ export const tests = [
         assertEqual(event.kind, Event.DRIVE);
         assertEqual(event.title, 'black connected');
         assertTrue(event.body.startsWith('Last backup '), event.body);
-        assertEqual(event.tab, 'drive:black');
         assertEqual(events(after, after), []);
         assertEqual(events(after, before), [], 'unplugging says nothing');
     }],
@@ -48,16 +62,50 @@ export const tests = [
         const after = fixtureInput('running', {connected: [BLACK_ID]});
         assertEqual(events(before, after), []);
     }],
-    ['a question in the terminal, once', () => {
-        const before = fixtureInput('running');
-        const after = fixtureInput('waiting');
-        const [event] = events(before, after);
-        assertEqual(event.kind, Event.WAITING);
-        assertTrue(event.body.length > 0, 'the prompt');
-        assertEqual(events(after, after), []);
-        const later = clone(after);
+    ['a question is notified only after 15 s unanswered, once', () => {
+        const running = fixtureInput('running');
+        const waiting = fixtureInput('waiting');
+        const t = waiting.nowMs;
+        const kinds = replay([
+            at(running, t - 5000),
+            at(waiting, t),
+            at(waiting, t + WAITING_NOTIFY_MS - 1),
+            at(waiting, t + WAITING_NOTIFY_MS),
+            at(waiting, t + WAITING_NOTIFY_MS + 5000),
+        ]);
+        assertEqual(kinds, [[], [], [], [Event.WAITING], []]);
+    }],
+    ['a question answered in time is not notified', () => {
+        const running = fixtureInput('running');
+        const waiting = fixtureInput('waiting');
+        const t = waiting.nowMs;
+        assertEqual(replay([at(running, t - 5000), at(waiting, t), at(running, t + 5000)]), [[], [], []]);
+    }],
+    ['an answer withdraws the question\'s notification', () => {
+        const running = fixtureInput('running');
+        const waiting = fixtureInput('waiting');
+        const t = waiting.nowMs;
+        const kinds = replay([at(running, t - 5000), at(waiting, t), at(waiting, t + WAITING_NOTIFY_MS),
+            at(running, t + WAITING_NOTIFY_MS + 5000)]);
+        assertEqual(kinds, [[], [], [Event.WAITING], [Event.ANSWERED]]);
+    }],
+    ['a heartbeat is not a new question', () => {
+        const waiting = fixtureInput('waiting');
+        const t = waiting.nowMs;
+        const later = clone(waiting);
         later.progressParsed.data.updated_at = '2030-01-01T00:00:00Z';
-        assertEqual(events(after, later), [], 'a heartbeat is not a new question');
+        const kinds = replay([at(waiting, t), at(later, t + WAITING_NOTIFY_MS),
+            at(waiting, t + 2 * WAITING_NOTIFY_MS)]);
+        assertEqual(kinds, [[], [Event.WAITING], []]);
+    }],
+    ['a question still open at start is notified 15 s later', () => {
+        const waiting = fixtureInput('waiting');
+        const t = waiting.nowMs;
+        assertEqual(replay([at(waiting, t), at(waiting, t + WAITING_NOTIFY_MS)]), [[], [Event.WAITING]]);
+    }],
+    ['events carry zark\'s pid, for its terminal', () => {
+        const [event] = events(fixtureInput('running'), fixtureInput('orphan'));
+        assertTrue(Number.isInteger(event.pid), 'pid');
     }],
     ['a run left behind, once', () => {
         const before = fixtureInput('running');

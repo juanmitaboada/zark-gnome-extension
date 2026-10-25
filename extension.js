@@ -14,7 +14,7 @@ export default class ZarkExtension extends Extension {
         this._settings = this.getSettings();
         this._indicator = new ZarkIndicator(this.path);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
-        this._notifier = new Notifier(this._settings, this.path, tab => this._indicator.openDetails(tab));
+        this._notifier = new Notifier(this._settings, this.path);
         this._reader = new StatusReader(this._settings,
             view => this._indicator.update(view),
             (events, nowMs) => this._notifier.show(events, nowMs));
