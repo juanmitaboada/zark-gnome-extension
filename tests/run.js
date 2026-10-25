@@ -11,6 +11,7 @@ const MODULES = [
     './test-usage.js',
     './test-fixtures.js',
     './test-view.js',
+    './test-events.js',
 ];
 
 let failed = 0;

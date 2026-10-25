@@ -20,8 +20,17 @@ function readText(path) {
     return decoder.decode(file.load_contents(null)[1]);
 }
 
-// Builds the view for a case, with the process alive when the case says so.
-function view(name, {connected = [], transferSeen = false} = {}) {
+/**
+ * buildView()'s input for a fixture case, with the process alive when the
+ * case says so.
+ *
+ * @param {string} name - the case
+ * @param {object} [options]
+ * @param {string[]} [options.connected] - drive_id values plugged in
+ * @param {boolean} [options.transferSeen]
+ * @returns {object}
+ */
+export function fixtureInput(name, {connected = [], transferSeen = false} = {}) {
     const dir = GLib.build_filenamev([ROOT, name]);
     const expected = JSON.parse(readText(`${dir}/expected.json`));
     const nowMs = parseTimestamp(expected.now);
@@ -31,7 +40,7 @@ function view(name, {connected = [], transferSeen = false} = {}) {
     const proc = expected.progress_process === 'alive'
         ? {bootId: data.boot_id, pidExists: true, startTicks: data.pid_start_ticks}
         : {bootId: '', pidExists: false, startTicks: null};
-    return buildView({
+    return {
         progressParsed,
         progressClass: classifyProgress(progressParsed, proc, nowMs),
         statusParsed,
@@ -39,7 +48,11 @@ function view(name, {connected = [], transferSeen = false} = {}) {
         connected: new Set(connected),
         transferSeen,
         nowMs,
-    });
+    };
+}
+
+function view(name, options) {
+    return buildView(fixtureInput(name, options));
 }
 
 const CASES = GLib.file_test(ROOT, GLib.FileTest.IS_DIR)

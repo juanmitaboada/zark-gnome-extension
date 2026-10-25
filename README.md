@@ -10,6 +10,11 @@ It is read-only. It reads the two status files zark 2.1 and later write
 zark's `docs/STATUS-FILES.md`), and never starts, stops or changes anything.
 Backups stay `sudo zark backup` in a terminal.
 
+It notifies what zark itself does not: an overdue backup (once a day), a
+registered backup drive plugged in, zark waiting for an answer in its
+terminal, and a run that stopped answering. zark already notifies a
+backup's start and result and a full pool.
+
 Requires GNOME Shell 50 and zark 2.1 or later.
 
 ## Install
