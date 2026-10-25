@@ -73,7 +73,7 @@
 .zark-seg-reserved { background-color: rgba(127, 127, 127, 0.6); }
 
 /* Details dialog: a tab per pool and per drive. */
-.zark-details-body { min-width: 30em; spacing: 10px; }
+.zark-details-body { min-width: 30em; spacing: 10px; padding-right: 12px; }
 .zark-details-summary { text-align: center; }
 .zark-tabs { spacing: 4px; padding-bottom: 12px; }
 .zark-tab-gap { width: 12px; }
