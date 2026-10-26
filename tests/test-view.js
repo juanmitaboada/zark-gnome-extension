@@ -182,7 +182,10 @@ export const tests = [
         assertEqual(c.months[0].label, 'Nov 2025');
         assertEqual(c.months.filter(m => m.next).map(m => m.month), ['2026-09']);
         assertTrue(c.summary.startsWith('40 points, oldest '), c.summary);
-        assertEqual(c.months.find(m => m.month === '2026-08').fraction, 1, 'the largest month fills its bar');
+        assertEqual(c.months.find(m => m.month === '2026-09').fraction, 1, 'the largest figure fills its bar');
+        assertEqual(c.months.find(m => m.month === '2026-03').fraction, 161139428608 / 557698958879);
+        assertEqual(c.months[0].fraction, null, 'the oldest month: no figure, no bar');
+        assertEqual(c.months.find(m => m.month === '2026-10').fraction, null, 'inside the window: no bar');
         assertTrue(c.months[0].size.endsWith(' GiB'), c.months[0].size);
         assertEqual(c.older, true);
         assertEqual(c.months[0].older, '', 'the oldest month has no figure');
@@ -202,7 +205,35 @@ export const tests = [
         assertEqual(black.contents.afterPolicy, null);
         assertEqual(black.contents.datasets, null);
         assertEqual(black.contents.months.find(m => m.month === '2026-07').older, 'not measured');
+        assertEqual(black.contents.months.find(m => m.month === '2026-07').fraction, null, 'not measured: no bar');
         assertEqual(black.rows.find(r => r.label === 'After retention') ?? null, null);
+    }],
+    ['frees if older removed: a month without an entry has no figure and no bar', () => {
+        const withAge = byAge => {
+            const input = fixtureInput('drive-contents');
+            const status = JSON.parse(JSON.stringify(input.statusShown));
+            const black = status.drives.find(d => d.name === 'black');
+            if (byAge === undefined)
+                delete black.reclaim_by_age;
+            else
+                black.reclaim_by_age = byAge(black.reclaim_by_age);
+            const tab = buildView({...input, statusShown: status}).details.find(t => t.id === 'drive:black');
+            return tab.contents;
+        };
+        const lacking = withAge(entries => entries.filter(e => e.before !== '2026-05'));
+        const may = lacking.months.find(m => m.month === '2026-05');
+        assertEqual([may.older, may.fraction], ['', null]);
+        assertEqual(lacking.months.find(m => m.month === '2026-06').fraction, 325645437642 / 557698958879);
+        // As zark writes it for a drive whose points are all inside the window.
+        const empty = withAge(() => []);
+        assertEqual(empty.older, true);
+        assertEqual(empty.months.filter(m => m.fraction !== null), [], 'no entry anywhere: no bar anywhere');
+        assertEqual(empty.months.find(m => m.month === '2026-09').next, true, 'the next removal still in yellow');
+        // Without the field: the bars are what each month holds alone.
+        const none = withAge(undefined);
+        assertEqual(none.older, false);
+        assertEqual(none.months.find(m => m.month === '2026-08').fraction, 1, 'the largest month fills its bar');
+        assertEqual(none.months[0].fraction > 0, true);
     }],
     ['drive contents past the horizon: a floor', () => {
         const input = fixtureInput('drive-contents');
