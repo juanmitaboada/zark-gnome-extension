@@ -87,7 +87,8 @@ Each can be turned off in the preferences.
 - From the zark PPA (`ppa:juanmitaboada/zark`), package
   `gnome-shell-extension-zark`, into
   `/usr/share/gnome-shell/extensions/zark@juanmitaboada.com/` for every user.
-  Turn it on in the Extensions app.
+  It installs zark 2.1 or later with it, from the same PPA. Turn it on in
+  the Extensions app.
 
 If both are installed, GNOME Shell loads the copy in your user's directory,
 the one from extensions.gnome.org, and ignores the system one.
@@ -129,7 +130,7 @@ An old status means the timer is not installed, or the zark it runs is gone
 ## Debian package
 
 `debian/` builds `gnome-shell-extension-zark` (Architecture `all`, `Depends:
-gnome-shell (>= 50)`, `Enhances: zark`) for `ppa:juanmitaboada/zark`. The
+gnome-shell (>= 50), zark (>= 2.1.0)`) for `ppa:juanmitaboada/zark`. The
 schema goes to `/usr/share/glib-2.0/schemas/`, compiled by glib's trigger.
 
 | Command | What it does |

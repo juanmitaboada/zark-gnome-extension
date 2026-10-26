@@ -12,8 +12,8 @@ Rules-Requires-Root: no
 Package: gnome-shell-extension-zark
 Architecture: all
 Depends: ${misc:Depends},
-         gnome-shell (>= 50)
-Enhances: zark
+         gnome-shell (>= 50),
+         zark (>= 2.1.0)
 Description: GNOME Shell extension showing the state of zark backups
  Shows the state of zark backups in the top bar: the last backup to each
  drive, a running backup's progress, when zark waits for an answer in its
