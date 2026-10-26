@@ -1,0 +1,4 @@
+# The PPA upload carries Launchpad's per-series suffix, ~ubuntu26.04.1
+# (make deb-ppa). lintian reads a Debian revision with three dot-separated
+# parts as an old-style binary NMU; this package never makes binary NMUs.
+gnome-shell-extension-zark source: binary-nmu-debian-revision-in-source

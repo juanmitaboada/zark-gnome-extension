@@ -1,0 +1,26 @@
+Source: gnome-shell-extension-zark
+Section: gnome
+Priority: optional
+Maintainer: Juanmi Taboada <juanmi@juanmitaboada.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Homepage: https://github.com/juanmitaboada/zark-gnome-extension
+Vcs-Git: https://github.com/juanmitaboada/zark-gnome-extension.git
+Vcs-Browser: https://github.com/juanmitaboada/zark-gnome-extension
+Rules-Requires-Root: no
+
+Package: gnome-shell-extension-zark
+Architecture: all
+Depends: ${misc:Depends},
+         gnome-shell (>= 50)
+Enhances: zark
+Description: GNOME Shell extension showing the state of zark backups
+ Shows the state of zark backups in the top bar: the last backup to each
+ drive, a running backup's progress, when zark waits for an answer in its
+ terminal, and how full the system pools are. A details dialog lists each
+ pool's datasets and each backup drive's points by month, for deciding a
+ prune. It notifies an overdue backup, a backup drive plugged in, a
+ question waiting in the terminal and a run that stopped answering.
+ .
+ It is read-only: it reads the status files zark 2.1 or later writes and
+ never starts, stops or changes anything. It uses no network.

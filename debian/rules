@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+#
+# gnome-shell-extension-zark - Debian build rules.
+#
+# The extension is JavaScript, CSS and SVG: nothing to build or compile.
+# The settings schema goes to /usr/share/glib-2.0/schemas/, where glib's
+# trigger compiles it; GNOME Shell reads it from there for a system
+# extension without a schemas/ directory of its own
+# (js/extensions/sharedInternals.js, getSettings).
+
+UUID := zark@juanmitaboada.com
+PKG := debian/gnome-shell-extension-zark
+EXT := $(PKG)/usr/share/gnome-shell/extensions/$(UUID)
+
+%:
+	dh $@
+
+# The upstream Makefile's default target runs the tests under gjs, which
+# a build does not need; the extension ships as it is.
+override_dh_auto_build:
+
+override_dh_auto_test:
+
+override_dh_auto_install:
+	install -d $(EXT)/lib $(EXT)/icons $(PKG)/usr/share/glib-2.0/schemas
+	install -m 0644 extension.js prefs.js metadata.json stylesheet.css stylesheet-light.css $(EXT)/
+	install -m 0644 lib/*.js $(EXT)/lib/
+	install -m 0644 icons/*.svg $(EXT)/icons/
+	install -m 0644 schemas/org.gnome.shell.extensions.zark.gschema.xml $(PKG)/usr/share/glib-2.0/schemas/

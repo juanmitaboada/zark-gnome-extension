@@ -1,0 +1,7 @@
+gnome-shell-extension-zark (1.0-1) stable; urgency=medium
+
+  * First release: the panel indicator and its menu, the details dialog
+    (pools, datasets, backup drives and their points by month),
+    notifications and preferences, read from the status files of zark 2.1.
+
+ -- Juanmi Taboada <juanmi@juanmitaboada.com>  Mon, 26 Oct 2026 01:05:00 +0100

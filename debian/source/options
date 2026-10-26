@@ -1,0 +1,11 @@
+# dpkg-source compares the working tree with the .orig tarball (tracked
+# files only, see make dist); untracked files a developer's tree holds are
+# listed here so they neither abort the build nor reach the package.
+tar-ignore = node_modules
+tar-ignore = build
+tar-ignore = "*.zip"
+tar-ignore = "schemas/gschemas.compiled"
+tar-ignore = __pycache__
+
+extend-diff-ignore = "^(node_modules|build|schemas/gschemas\.compiled)(/|$)"
+extend-diff-ignore = "(^|/)(__pycache__)(/|$)|\.zip$"
