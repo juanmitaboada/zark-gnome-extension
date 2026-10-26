@@ -99,6 +99,23 @@ An old status means the timer is not installed, or the zark it runs is gone
 | `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S] [--fixture CASE]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them, from the `idle` fixture or another case (`drive-contents` for a drive's contents); point the extension's paths there in its preferences |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
 
+## Debian package
+
+`debian/` builds `gnome-shell-extension-zark` (Architecture `all`, `Depends:
+gnome-shell (>= 50)`, `Enhances: zark`) for `ppa:juanmitaboada/zark`. The
+schema goes to `/usr/share/glib-2.0/schemas/`, compiled by glib's trigger.
+
+| Command | What it does |
+|---|---|
+| `make deb` | the unsigned `.deb` in the parent directory, built from the source package, with lintian on the binary and the source (needs `devscripts`, `debhelper`, `lintian`) |
+| `make deb-ppa` | from a signed tag `v<version-name>` only: a signed source package per series (`<version>-1~ubuntu26.04.1` for resolute), uploaded with `dput` |
+
+A release: the version in `metadata.json` (`version-name`) and the top
+entry of `debian/changelog` agree, the commit is tagged with `git tag -s
+v<version>` and pushed, and `make deb-ppa` runs on that tag; `make
+release-guard` refuses a dirty tree, an unsigned tag or a changelog of
+another version.
+
 `lib/contract.js`, `lib/state.js`, `lib/format.js`, `lib/usage.js`,
 `lib/view.js` and `lib/events.js` import nothing from GNOME Shell, so the
 tests run them without a shell. The fixture tests check every case of the
