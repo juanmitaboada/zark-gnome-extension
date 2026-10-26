@@ -116,8 +116,10 @@ export const tests = [
             'var/lib holds more snapshots than flatpak');
     }],
     ['dataset rows: the shared part of the name dimmed, sizes or a dash', () => {
-        const ds = (name, data, snaps) => ({name, usedbydataset_bytes: data, usedbysnapshots_bytes: snaps,
-            usedbyrefreservation_bytes: 0});
+        const ds = (name, data, snaps) => ({
+            name, usedbydataset_bytes: data, usedbysnapshots_bytes: snaps,
+            usedbyrefreservation_bytes: 0,
+        });
         assertEqual(datasetRow(ds('rpool/ROOT/ubuntu_x/var/lib', 2048, 0)),
             {prefix: 'ROOT/ubuntu_x/', name: 'var/lib', data: '2.0 KiB', snapshots: '-'});
         assertEqual(datasetRow(ds('rpool/USERDATA/home_x', 0, 1024)).prefix, 'USERDATA/');
