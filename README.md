@@ -12,6 +12,33 @@ Backups stay `sudo zark backup` in a terminal.
 
 Requires GNOME Shell 50 and zark 2.1 or later.
 
+## Screenshots
+
+The menu, idle and while a backup runs, and waiting for an answer in the
+terminal:
+
+![The menu with the last backups, the system pools and the backup drives](docs/screenshots/dark-menu-idle.png)
+![The menu while a backup runs: its step, dataset, progress and figures](docs/screenshots/dark-menu-running.png)
+![The menu while zark waits for the keystore passphrase in its terminal](docs/screenshots/dark-menu-waiting.png)
+
+The details dialog, a pool's tab and a backup drive's tab:
+
+![A pool's tab: what fills it, its datasets and zark's cleanup notices](docs/screenshots/dark-details-pool.png)
+![A drive's tab: its space and margin, last backup, retention and points by month](docs/screenshots/dark-details-drive.png)
+
+A backup drive plugged in:
+
+![The notification of a registered backup drive plugged in](docs/screenshots/dark-notification-drive.png)
+
+In the light style:
+
+![The menu in the light style](docs/screenshots/light-menu-idle.png)
+![A drive's tab in the light style](docs/screenshots/light-details-drive.png)
+
+The images come from `dev/screenshots.py`, which plays the contract's
+fixtures in a headless GNOME Shell of its own; the drives, pools and
+datasets in them are the fixtures' examples.
+
 ## What it shows
 
 The panel icon is zark's ring and z:
