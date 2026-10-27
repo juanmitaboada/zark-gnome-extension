@@ -140,7 +140,7 @@ An old status means the timer is not installed, or the zark it runs is gone
 | Command | What it does |
 |---|---|
 | `make test` | runs the tests under gjs |
-| `npm install && make lint` | ESLint with GNOME's rules |
+| `npm ci && make lint` | ESLint with GNOME's rules |
 | `make pack` | builds `zark@juanmitaboada.com.shell-extension.zip` for extensions.gnome.org from the last commit, every entry dated at it (needs `gnome-extensions`) |
 | `make fixtures ZARK_FIXTURES=<zark>/tests/fixtures/status` | copies the status files contract's fixtures into `tests/fixtures/` |
 | `make icons ZARK_BRAND=<zark>/docs/images/brand/zark-symbolic.svg` | rebuilds the panel icons from zark's panel mark |

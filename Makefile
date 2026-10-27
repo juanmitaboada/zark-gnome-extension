@@ -10,7 +10,7 @@ ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 test:
 	TZ=UTC gjs -m tests/run.js
 
-## lint: ESLint with GNOME's rules (needs `npm install` once)
+## lint: ESLint with GNOME's rules (needs `npm ci` once: the versions in package-lock.json)
 lint:
 	npx eslint .
 
