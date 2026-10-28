@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/header-dark.svg">
+    <img alt="zark backup status - the state of zark backups in the GNOME top bar" src="docs/header-light.svg" width="880">
+  </picture>
+</p>
+
 # zark backup status
 
 A GNOME Shell extension that shows the state of
