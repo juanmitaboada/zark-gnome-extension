@@ -1,0 +1,177 @@
+# zark backup status - Continuous Integration.
+#
+# Runs on every push and pull request, and by hand (workflow_dispatch):
+#
+#   test  - the gjs tests (make test) under GNOME Shell 50's gjs.
+#   lint  - ESLint with GNOME's rules: npm ci installs package-lock.json's
+#           versions exactly, then make lint.
+#   pack  - the zip for extensions.gnome.org (make pack), its entries
+#           checked (make check-pack: the extension's files and nothing
+#           else), and packed again from a second clone to check that the
+#           same commit gives the same bytes; the zip is kept as an
+#           artefact, with its sha256 in the log.
+#   deb   - the .deb from the source package (make deb), with lintian on
+#           the binary and the .dsc.
+#
+# On a tag v*, after those four:
+#
+#   release - the tag must be v + metadata.json's version-name, with
+#             debian/changelog's top entry of that version; then make
+#             pack's zip and its SHA256SUMS are attached to the tag's
+#             GitHub release. It writes no notes (they are edited by hand)
+#             and never signs, nor uploads to the PPA or to
+#             extensions.gnome.org: those run on the maintainer's machine
+#             (make deb-ppa, the EGO upload form).
+#
+# Every job runs on ubuntu-26.04: its gjs is GNOME Shell 50's, the only
+# shell-version metadata.json declares, and a named image does not change
+# series by itself as ubuntu-latest does.
+
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# Cancel an older run on the same ref when a new commit lands. The event is
+# part of the group, so a manual run does not cancel a push's.
+concurrency:
+  group: ci-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Only the release job writes, and it asks for that itself.
+permissions:
+  contents: read
+
+jobs:
+
+  test:
+    name: test (gjs)
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install gjs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gjs
+          gjs --version
+
+      - name: Run the tests
+        run: make test
+
+  lint:
+    name: lint (eslint)
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Node 22
+        # carmen's major, where the lockfile was made.
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install the lockfile's versions
+        # eslint-config-gnome comes from gitlab.gnome.org by git over HTTPS,
+        # at the commit package.json names; the rest from registry.npmjs.org.
+        run: npm ci --no-audit --no-fund
+
+      - name: Run ESLint
+        run: make lint
+
+  pack:
+    name: pack (zip)
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: first
+
+      - uses: actions/checkout@v6
+        with:
+          path: second
+
+      - name: Install gnome-extensions
+        # /usr/bin/gnome-extensions comes with the gnome-shell package.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gnome-shell
+
+      - name: Pack and check the entries
+        working-directory: first
+        run: |
+          make pack
+          make check-pack
+          sha256sum zark@juanmitaboada.com.shell-extension.zip
+
+      - name: Pack again from the second clone, the same bytes
+        working-directory: second
+        run: |
+          make pack
+          cmp zark@juanmitaboada.com.shell-extension.zip ../first/zark@juanmitaboada.com.shell-extension.zip
+          echo "the two clones packed the same bytes"
+
+      - name: Keep the zip as an artefact
+        uses: actions/upload-artifact@v6
+        with:
+          name: zark-extension-zip
+          path: first/zark@juanmitaboada.com.shell-extension.zip
+
+  deb:
+    name: deb (lintian)
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install the build tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+              build-essential debhelper devscripts fakeroot lintian
+
+      - name: Build the .deb with lintian
+        # make deb builds from the source package, as Launchpad gets it,
+        # and runs lintian on the binary and the .dsc; an error fails it.
+        run: make deb
+
+  release:
+    name: release (zip to the tag's release)
+    runs-on: ubuntu-26.04
+    needs: [test, lint, pack, deb]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write   # to attach the assets to the release
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: The tag is metadata.json's version
+        run: |
+          version=$(python3 -I -c "import json; print(json.load(open('metadata.json'))['version-name'])")
+          test "${GITHUB_REF_NAME}" = "v${version}" \
+              || { echo "tag ${GITHUB_REF_NAME} is not v${version}"; exit 1; }
+          top=$(head -1 debian/changelog | sed -nE 's/^[^ ]+ \(([^)]+)\).*/\1/p')
+          test "${top%-*}" = "${version}" \
+              || { echo "debian/changelog's top entry is ${top}, not ${version}-<revision>"; exit 1; }
+          echo "tag ${GITHUB_REF_NAME}, metadata.json ${version}, debian/changelog ${top}"
+
+      - name: Install gnome-extensions
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gnome-shell
+
+      - name: Pack, check, checksum
+        run: |
+          make pack
+          make check-pack
+          sha256sum zark@juanmitaboada.com.shell-extension.zip > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Attach the zip and SHA256SUMS to the release
+        # Files only: no body and no generated notes.
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            zark@juanmitaboada.com.shell-extension.zip
+            SHA256SUMS
