@@ -7,6 +7,8 @@
 
 # zark backup status
 
+[![CI](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml) [![Latest release](https://img.shields.io/github/v/release/juanmitaboada/zark-gnome-extension?sort=semver&display_name=tag&label=release&color=blue)](https://github.com/juanmitaboada/zark-gnome-extension/releases/latest) [![PPA](https://img.shields.io/badge/Ubuntu-PPA-orange?logo=ubuntu)](https://launchpad.net/~juanmitaboada/+archive/ubuntu/zark) [![GNOME Shell 50](https://img.shields.io/badge/GNOME%20Shell-50-4a86cf?logo=gnome)](metadata.json) [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-yellow)](COPYING)
+
 A GNOME Shell extension that shows the state of
 [zark](https://github.com/juanmitaboada/zark) backups in the top bar: the
 last backup to each drive, a running backup's progress, when zark waits for
