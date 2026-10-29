@@ -4,7 +4,7 @@ UUID := zark@juanmitaboada.com
 ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
-.PHONY: test lint icons fixtures pack
+.PHONY: test lint icons fixtures pack check-pack
 
 ## test: run the pure-module tests under gjs
 test:
@@ -24,8 +24,9 @@ fixtures:
 	cp -r $(ZARK_FIXTURES) tests/fixtures
 
 ## pack: the zip for extensions.gnome.org (dev/, tests/ and debian/ stay out)
-# Packs the committed tree, not the working copy, with every entry dated at
-# the commit, so the same commit always gives the same zip.
+# Packs the committed tree, not the working copy; dev/zip-dates.py sorts the
+# entries, dates them at the commit in UTC and sets their modes, so the same
+# commit gives the same bytes whatever the machine's umask or time zone.
 PACK_DIR := build/pack
 pack:
 	rm -rf $(PACK_DIR)
@@ -34,6 +35,10 @@ pack:
 	gnome-extensions pack --force --extra-source=lib --extra-source=icons --out-dir=$(CURDIR) $(PACK_DIR)
 	python3 -I dev/zip-dates.py $(UUID).shell-extension.zip $$(git log -1 --format=%ct)
 	rm -rf build
+
+## check-pack: the zip holds the extension's files and nothing else (after pack)
+check-pack:
+	python3 -I dev/check-pack.py $(UUID).shell-extension.zip
 
 # Debian package (PPA)
 # Modelled on zark's: the .orig is the tracked tree without debian/, the
