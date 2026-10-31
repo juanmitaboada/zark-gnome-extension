@@ -55,6 +55,18 @@ export const tests = [
         assertEqual(classifyProgress(ok(progress()), {...LIVE, pidExists: false}, NOW), Progress.ORPHAN);
         assertEqual(classifyProgress(ok(progress()), {...LIVE, startTicks: 1}, NOW), Progress.ORPHAN);
     }],
+    ['progress: /proc hiding root skips rule 4, the heartbeat decides', () => {
+        const hidden = {...LIVE, pidExists: false, startTicks: null, rootHidden: true};
+        assertEqual(classifyProgress(ok(progress()), hidden, NOW), Progress.RUNNING);
+        assertEqual(classifyProgress(ok(progress({updated_at: '2026-10-24T09:18:00Z'})), hidden, NOW),
+            Progress.STALLED, 'no heartbeat for 120 s');
+        assertEqual(classifyProgress(ok(progress()), {...hidden, bootId: 'other'}, NOW), Progress.ORPHAN,
+            'rule 3 still applies');
+        assertEqual(classifyProgress(ok(progress()), {...hidden, rootHidden: false}, NOW), Progress.ORPHAN,
+            'root visible: rule 4 applies');
+        assertEqual(classifyProgress(ok(progress()), {...LIVE, startTicks: 1, rootHidden: true}, NOW),
+            Progress.ORPHAN, 'a visible pid with other ticks: rule 5');
+    }],
     ['progress: unreadable stat skips the reuse check', () => {
         assertEqual(classifyProgress(ok(progress()), {...LIVE, startTicks: null}, NOW), Progress.RUNNING);
     }],

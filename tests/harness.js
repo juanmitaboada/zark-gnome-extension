@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //
 // A small test harness for gjs: test files export `tests`, a list of
-// [name, function] pairs; run.js runs them and exits non-zero on a failure.
+// [name, function] pairs, a function possibly async; run.js runs them in
+// turn and exits non-zero on a failure.
 
 export class AssertionError extends Error {}
 

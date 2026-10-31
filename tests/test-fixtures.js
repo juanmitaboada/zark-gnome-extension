@@ -3,15 +3,17 @@
 // The contract's fixtures (zark's tests/fixtures/status/, copied into
 // tests/fixtures/ by `make fixtures`), each checked against its
 // expected.json. Liveness: `alive` cases take the file's own boot id, pid
-// and start ticks; `dead` cases run the real checks against /proc.
+// and start ticks; `dead` cases run the real checks (lib/procinfo.js)
+// against /proc; `proc` cases run them against the case's own proc tree.
 
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 
 import {PROGRESS_KIND, STATUS_KIND, parseFile, parseTimestamp} from '../lib/contract.js';
 import {formatBytes} from '../lib/format.js';
+import {PROC, readBootId, readProcess} from '../lib/procinfo.js';
 import {
-    classifyProgress, classifyStatus, indicatorState, startTicksFromStat, transferEta, transferProgress,
+    classifyProgress, classifyStatus, indicatorState, transferEta, transferProgress,
 } from '../lib/state.js';
 import {Segment, ownBytes, poolUsage} from '../lib/usage.js';
 import {driveContents, marginBytes} from '../lib/view.js';
@@ -31,12 +33,12 @@ function readText(path) {
     }
 }
 
-function realProc(pid) {
-    const stat = readText(`/proc/${pid}/stat`);
+// What the reader finds for a pid, through lib/procinfo.js, with `proc` as
+// the proc root.
+async function realProc(pid, proc = PROC) {
     return {
-        bootId: readText('/proc/sys/kernel/random/boot_id').trim(),
-        pidExists: GLib.file_test(`/proc/${pid}`, GLib.FileTest.EXISTS),
-        startTicks: stat === null ? null : startTicksFromStat(stat),
+        bootId: await readBootId(null, `${proc}/sys/kernel/random/boot_id`),
+        ...await readProcess(pid, null, proc),
     };
 }
 
@@ -52,7 +54,7 @@ function caseNames() {
     return names.sort();
 }
 
-function checkCase(name) {
+async function checkCase(name) {
     const dir = GLib.build_filenamev([ROOT, name]);
     const expected = JSON.parse(readText(`${dir}/expected.json`));
     const now = parseTimestamp(expected.now);
@@ -65,7 +67,9 @@ function checkCase(name) {
         const data = progress.data;
         proc = {bootId: data.boot_id, pidExists: true, startTicks: data.pid_start_ticks};
     } else if (expected.progress_process === 'dead') {
-        proc = realProc(progress.data.pid);
+        proc = await realProc(progress.data.pid);
+    } else if (expected.progress_process === 'proc') {
+        proc = await realProc(progress.data.pid, `${dir}/proc`);
     }
 
     const progressClass = classifyProgress(progress, proc, now);
@@ -81,8 +85,8 @@ function load(name, file, kind) {
 const names = GLib.file_test(ROOT, GLib.FileTest.IS_DIR) ? caseNames() : [];
 
 export const tests = [
-    ['the contract has 20 cases', () => {
-        assertTrue(names.length === 20, `found ${names.length} cases in ${ROOT}; run make fixtures`);
+    ['the contract has 25 cases', () => {
+        assertTrue(names.length === 25, `found ${names.length} cases in ${ROOT}; run make fixtures`);
     }],
     ...names.map(name => [name, () => checkCase(name)]),
     ['idle: own shares fall short of rpool used by the pool metadata, snapshots as on carmen', () => {

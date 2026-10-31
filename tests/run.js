@@ -22,7 +22,9 @@ for (const path of MODULES) {
     const {tests} = await import(path);
     for (const [name, fn] of tests) {
         try {
-            fn();
+            // A test may be async (the /proc reads of the fixtures' liveness).
+            // eslint-disable-next-line no-await-in-loop
+            await fn();
             passed++;
         } catch (e) {
             failed++;
