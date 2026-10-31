@@ -116,8 +116,10 @@ The package `gnome-shell-extension-zark` installs into
 2.1.0 or later from the same PPA. Turn it on in the Extensions app.
 
 From [extensions.gnome.org](https://extensions.gnome.org/extension/11491/zark-backup-status/),
-into your user's extensions directory. It does not install zark: install
-zark from the PPA, or run it from its portable tarball (see zark's README).
+into your user's extensions directory, once it is approved there (it is
+awaiting review; until then, use the PPA). It does not install zark:
+install zark from the PPA, or run it from its portable tarball (see zark's
+README).
 
 If both are installed, GNOME Shell loads the copy in your user's directory,
 the one from extensions.gnome.org, and ignores the system one.
