@@ -1,3 +1,14 @@
+gnome-shell-extension-zark (1.1-1) stable; urgency=medium
+
+  * GNOME Shell 51 (Ubuntu 26.10) as well as 50 (Ubuntu 26.04): the menu
+    closes without animating before the details dialog opens, as on 50.
+  * With /proc mounted hidepid, where root's processes cannot be seen, a
+    run's missing pid no longer makes it orphaned: its heartbeat says
+    running or stalled (orphan rule 4 of the status contract, as zark
+    2.2 amends it; rules 3 and 5 unchanged).
+
+ -- Juanmi Taboada <juanmi@juanmitaboada.com>  Mon, 02 Nov 2026 12:58:00 +0100
+
 gnome-shell-extension-zark (1.0-1) stable; urgency=medium
 
   * First release: the panel indicator and its menu, the details dialog

@@ -23,9 +23,10 @@
 #             extensions.gnome.org: those run on the maintainer's machine
 #             (make deb-ppa, the EGO upload form).
 #
-# Every job runs on ubuntu-26.04: its gjs is GNOME Shell 50's, the only
-# shell-version metadata.json declares, and a named image does not change
-# series by itself as ubuntu-latest does.
+# Every job runs on ubuntu-26.04: its gjs is GNOME Shell 50's, the first
+# shell-version metadata.json declares (51, Ubuntu 26.10's, is tried on a
+# real session; the tests use no shell API), and a named image does not
+# change series by itself as ubuntu-latest does.
 
 name: CI
 

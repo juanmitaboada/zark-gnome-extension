@@ -50,8 +50,9 @@ VERSION := $(shell python3 -I -c "import json; print(json.load(open('metadata.js
 # Rebuilt by every deb and deb-ppa: the same commit gives the same bytes
 # (git archive's times are the commit's, gzip -n stores none).
 ORIG_TARBALL := ../$(PKG)_$(VERSION).orig.tar.gz
-# Series and Ubuntu release, while shell-version is ["50"].
-PPA_TABLE := resolute:26.04
+# Series and Ubuntu release: resolute has GNOME Shell 50, stonking 51
+# (shell-version ["50", "51"]).
+PPA_TABLE := resolute:26.04 stonking:26.10
 PPA_DPUT_TGT := zark-ppa
 # Every series entry is a rebuild of the tree's own entry for its series.
 LINTIAN_SUPPRESS_TAGS := bad-distribution-in-changes-file
