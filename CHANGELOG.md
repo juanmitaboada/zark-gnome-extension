@@ -20,6 +20,10 @@ For zark 2.2.0. It still reads the status files of zark 2.1.0 and later.
   boot) and 5 (another process with that pid) are unchanged.
 - The PPA builds the package for Ubuntu 26.04 (resolute) and 26.10
   (stonking) from the same source.
+- The details dialog's donut draws no arc shorter than half a pixel along
+  the ring: a stretch of a few MiB in a pool of hundreds of GiB (pool
+  metadata, other datasets) was stroked as a grey wedge slanted across the
+  ring. Its share still takes its place, and the legend still lists it.
 
 ## 1.0
 

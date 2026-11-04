@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-import {Segment, datasetGroup, ownBytes, poolUsage, reservedBytes} from '../lib/usage.js';
-import {assertEqual} from './harness.js';
+import {DONUT_GAP, Segment, datasetGroup, donutArcs, ownBytes, poolUsage, reservedBytes} from '../lib/usage.js';
+import {assertEqual, assertTrue} from './harness.js';
 
 const ds = (name, data, snapshots, children = 0, refreservation = 0) => ({
     name, type: refreservation ? 'volume' : 'filesystem',
@@ -30,7 +30,42 @@ const POOL = {
     ],
 };
 
+// rpool on eli's 26.10 as the details dialog drew it (M15X.1), in bytes.
+const MIB = 1024 ** 2;
+const GIB = 1024 ** 3;
+const ELI = [
+    {id: Segment.USER_DATA, bytes: 73.2 * MIB},
+    {id: Segment.USER_SNAPSHOTS, bytes: 22.9 * MIB},
+    {id: Segment.SYSTEM_DATA, bytes: 6.5 * GIB},
+    {id: Segment.SYSTEM_SNAPSHOTS, bytes: 455.9 * MIB},
+    {id: Segment.OTHER, bytes: 17.7 * MIB},
+    {id: Segment.METADATA, bytes: 7.2 * MIB},
+    {id: Segment.FREE, bytes: 446.5 * GIB},
+    {id: Segment.RESERVED, bytes: 14.5 * GIB},
+];
+
 export const tests = [
+    ['the donut draws no arc shorter than half a pixel', () => {
+        // The ring's radius of the stylesheet's donut: 140 px wide, 20 px thick.
+        const arcs = donutArcs(ELI, 60);
+        assertEqual(arcs.map(a => a.id), [Segment.SYSTEM_DATA, Segment.FREE, Segment.RESERVED]);
+        // A dropped segment still takes its angle: free starts after every
+        // segment before it, its gap's half later.
+        const total = ELI.reduce((sum, s) => sum + s.bytes, 0);
+        const before = ELI.slice(0, 6).reduce((sum, s) => sum + s.bytes, 0);
+        const freeStart = -Math.PI / 2 + 2 * Math.PI * before / total + DONUT_GAP / 2;
+        assertTrue(Math.abs(arcs[1].start - freeStart) < 1e-12, 'free starts in its place');
+        // The last arc ends where the ring began, less its gap's half.
+        const reservedEnd = 3 * Math.PI / 2 - DONUT_GAP / 2;
+        assertTrue(Math.abs(arcs[2].end - reservedEnd) < 1e-12, 'reserved ends at the top');
+    }],
+    ['the donut keeps every segment of a pool used at large', () => {
+        const segments = [{id: 'a', bytes: 1}, {id: 'b', bytes: 3}];
+        const arcs = donutArcs(segments, 60);
+        assertEqual(arcs.map(a => a.id), ['a', 'b']);
+        assertEqual(donutArcs([{id: 'a', bytes: 0}], 60), []);
+        assertEqual(donutArcs(segments, 0), []);
+    }],
     ['groups follow the installer layout', () => {
         assertEqual(datasetGroup('rpool/USERDATA/home_x'), 'user');
         assertEqual(datasetGroup('rpool/ROOT/ubuntu_x/var/lib'), 'system');
