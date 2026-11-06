@@ -12,6 +12,12 @@
 #           artefact, with its sha256 in the log.
 #   deb   - the .deb from the source package (make deb), with lintian on
 #           the binary and the .dsc.
+#   analysis - SonarQube Cloud: the test job also runs make coverage (the
+#           same tests under gjs's own coverage) and hands the lcov to
+#           the scan (sonar-project.properties). It does not wait for the
+#           quality gate, so a red gate fails nothing; with no SONAR_TOKEN
+#           (a fork's pull request) it skips the scan. Not on tags: a
+#           tag's commit was analysed on its branch.
 #
 # On a tag v*, after those four:
 #
@@ -62,6 +68,16 @@ jobs:
       - name: Run the tests
         run: make test
 
+      - name: Coverage for SonarQube Cloud
+        run: make coverage
+
+      - name: Keep the lcov for the analysis job
+        uses: actions/upload-artifact@v6
+        with:
+          name: zark-extension-coverage
+          path: build/coverage/coverage.lcov
+          if-no-files-found: error
+
   lint:
     name: lint (eslint)
     runs-on: ubuntu-26.04
@@ -81,6 +97,43 @@ jobs:
 
       - name: Run ESLint
         run: make lint
+
+  analysis:
+    name: analysis (SonarQube Cloud)
+    runs-on: ubuntu-26.04
+    needs: [test]
+    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # The whole history: new code and blame come from git.
+          fetch-depth: 0
+
+      - name: Fetch the lcov from the test job
+        uses: actions/download-artifact@v8
+        with:
+          name: zark-extension-coverage
+          path: build/coverage
+
+      - name: Is SONAR_TOKEN available?
+        # A fork's pull request gets no secrets: skip the scan, do not fail.
+        id: token
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -n "$SONAR_TOKEN" ]; then
+              echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+              echo "::notice::SONAR_TOKEN is not available to this run: no analysis"
+              echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: SonarQube Cloud scan
+        if: steps.token.outputs.present == 'true'
+        # Pinned by commit: a third-party action that is handed a secret.
+        uses: SonarSource/sonarqube-scan-action@e805d875275f728fac1885b413934be6d7c63f65 # v8.4.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   pack:
     name: pack (zip)

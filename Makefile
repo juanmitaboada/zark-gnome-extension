@@ -4,11 +4,33 @@ UUID := zark@juanmitaboada.com
 ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
-.PHONY: test lint icons fixtures pack check-pack
+.PHONY: test coverage lint icons fixtures pack check-pack
 
 ## test: run the pure-module tests under gjs
 test:
 	TZ=UTC gjs -m tests/run.js
+
+## coverage: the same tests under gjs's own coverage, an lcov of lib/ for SonarQube Cloud
+# gjs copies each source into its output directory and names the copy:
+# the directory plus the source's path below the nearest ancestor of that
+# directory which holds the source (gjs/coverage.cpp,
+# find_diverging_child_components). A temporary directory under build/
+# makes that ancestor the tree's root, so every name is <dir>/lib/x.js and
+# the lcov kept says lib/x.js; a name that is not a tracked file stops it.
+# Both paths come from $(CURDIR), the physical one: with a relative module
+# path gjs would start from $PWD (GLib's g_get_current_dir), a symlink's
+# path when the checkout is reached through one.
+COVERAGE_LCOV := build/coverage/coverage.lcov
+coverage:
+	@set -e; mkdir -p $(dir $(COVERAGE_LCOV)); \
+	tmp=$$(mktemp -d $(CURDIR)/build/gjs-coverage.XXXXXX); trap 'rm -rf "$$tmp"' EXIT INT TERM; \
+	TZ=UTC gjs --coverage-prefix=file://$(CURDIR)/lib --coverage-output="$$tmp" -m $(CURDIR)/tests/run.js; \
+	sed "s|^SF:$$tmp/|SF:|" "$$tmp/coverage.lcov" > $(COVERAGE_LCOV); \
+	files=$$(sed -n 's/^SF://p' $(COVERAGE_LCOV)); \
+	test -n "$$files" || { echo "  $(COVERAGE_LCOV) names no file"; exit 1; }; \
+	for f in $$files; do git ls-files --error-unmatch -- "$$f" >/dev/null 2>&1 \
+	    || { echo "  $(COVERAGE_LCOV) names $$f, not a tracked file"; exit 1; }; done; \
+	echo "  $(COVERAGE_LCOV): $$(echo "$$files" | wc -l) files"
 
 ## lint: ESLint with GNOME's rules (needs `npm ci` once: the versions in package-lock.json)
 lint:
