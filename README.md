@@ -7,7 +7,7 @@
 
 # zark backup status
 
-[![CI](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml) [![Latest release](https://img.shields.io/github/v/release/juanmitaboada/zark-gnome-extension?sort=semver&display_name=tag&label=release&color=blue)](https://github.com/juanmitaboada/zark-gnome-extension/releases/latest) [![PPA](https://img.shields.io/badge/Ubuntu-PPA-orange?logo=ubuntu)](https://launchpad.net/~juanmitaboada/+archive/ubuntu/zark) [![GNOME Shell 50](https://img.shields.io/badge/GNOME%20Shell-50-4a86cf?logo=gnome)](metadata.json) [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-yellow)](COPYING)
+[![CI](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/juanmitaboada/zark-gnome-extension/actions/workflows/ci.yml) [![Latest release](https://img.shields.io/github/v/release/juanmitaboada/zark-gnome-extension?sort=semver&display_name=tag&label=release&color=blue)](https://github.com/juanmitaboada/zark-gnome-extension/releases/latest) [![PPA](https://img.shields.io/badge/Ubuntu-PPA-orange?logo=ubuntu)](https://launchpad.net/~juanmitaboada/+archive/ubuntu/zark) [![GNOME Shell 50 | 51](https://img.shields.io/badge/GNOME%20Shell-50%20%7C%2051-4a86cf?logo=gnome)](metadata.json) [![License: GPL-2.0-or-later](https://img.shields.io/badge/license-GPL--2.0--or--later-yellow)](COPYING)
 
 A GNOME Shell extension that shows the state of
 [zark](https://github.com/juanmitaboada/zark) backups in the top bar: the
@@ -23,13 +23,14 @@ It is read-only. It reads the two status files zark 2.1.0 and later write
 (`/run/zark/progress.json` and `/var/lib/zark/status.json`, described in
 zark's [`docs/STATUS-FILES.md`](https://github.com/juanmitaboada/zark/blob/main/docs/STATUS-FILES.md)),
 and never starts, stops or changes anything. Backups stay `sudo zark backup`
-in a terminal.
+in a terminal. What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
-- Ubuntu 26.04 LTS, with GNOME Shell 50.
-- zark 2.1.0 or later. zark supports Ubuntu 24.04 and 26.04 LTS as their
-  installers lay out encrypted ZFS; 24.04 ships GNOME Shell 46, so there
+- Ubuntu 26.04 LTS with GNOME Shell 50, or Ubuntu 26.10 with GNOME Shell 51.
+- zark 2.1.0 or later (2.2.0 or later on Ubuntu 26.10). zark supports
+  Ubuntu 24.04 and 26.04 LTS as their installers lay out encrypted ZFS, and
+  Ubuntu 26.10 with `/boot` on ext4; 24.04 ships GNOME Shell 46, so there
   zark runs without this extension, and `zark monitor` shows the backups'
   state in a terminal.
 
@@ -167,7 +168,7 @@ schema goes to `/usr/share/glib-2.0/schemas/`, compiled by glib's trigger.
 | Command | What it does |
 |---|---|
 | `make deb` | the unsigned `.deb` in the parent directory, built from the source package, with lintian on the binary and the source (needs `devscripts`, `debhelper`, `lintian`) |
-| `make deb-ppa` | from a signed tag `v<version-name>` only: a signed source package per series (`<version>-1~ubuntu26.04.1` for resolute), uploaded with `dput` |
+| `make deb-ppa` | from a signed tag `v<version-name>` only: a signed source package per series (`<version>-1~ubuntu26.04.1` for resolute, `<version>-1~ubuntu26.10.1` for stonking), uploaded with `dput` |
 
 A release: the version in `metadata.json` (`version-name`) and the top
 entry of `debian/changelog` agree, the commit is tagged with `git tag -s
