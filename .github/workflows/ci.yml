@@ -93,7 +93,8 @@ jobs:
       - name: Install the lockfile's versions
         # eslint-config-gnome comes from gitlab.gnome.org by git over HTTPS,
         # at the commit package.json names; the rest from registry.npmjs.org.
-        run: npm ci --no-audit --no-fund
+        # No lifecycle script runs; the lockfile marks no install script.
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Run ESLint
         run: make lint
@@ -224,7 +225,8 @@ jobs:
 
       - name: Attach the zip and SHA256SUMS to the release
         # Files only: no body and no generated notes.
-        uses: softprops/action-gh-release@v3
+        # Pinned by commit: a third-party action run with contents: write.
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
           files: |
             zark@juanmitaboada.com.shell-extension.zip
