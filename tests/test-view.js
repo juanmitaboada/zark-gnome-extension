@@ -92,7 +92,7 @@ export const tests = [
     }],
     ['idle: details have a tab per pool, then per drive', () => {
         const tabs = view('idle').details;
-        assertEqual(tabs.map(t => t.id), ['pool:rpool', 'pool:bpool', 'drive:black', 'drive:blue']);
+        assertEqual(tabs.map(t => t.id), ['pool:rpool', 'pool:bpool', 'drive:black', 'drive:blue', 'about']);
         assertEqual(view('idle').pools.map(p => p.tab), ['pool:rpool', 'pool:bpool']);
         assertEqual(view('idle').drives.map(d => d.tab), ['drive:black', 'drive:blue']);
     }],
@@ -241,8 +241,14 @@ export const tests = [
         const black = buildView(late).details.find(t => t.id === 'drive:black');
         assertTrue(black.contents.next.includes('removes at least 7 points'), black.contents.next);
     }],
-    ['no-status: no details', () => {
-        assertEqual(view('no-status').details, []);
+    ['no-status: the About tab alone', () => {
+        assertEqual(view('no-status').details, [{id: 'about', title: 'About', kind: 'about', status: null}]);
+    }],
+    ['idle: the About tab carries what status.json says of its writer', () => {
+        const about = view('idle').details.at(-1);
+        assertEqual(about.kind, 'about');
+        assertEqual(Object.keys(about.status), ['version', 'generatedAt', 'generatedBy']);
+        assertTrue(about.status.version.length > 0, about.status.version);
     }],
     ['stalled: still a run, figures marked', () => {
         const v = view('stalled');

@@ -4,6 +4,19 @@ The extension's versions, as `version-name` in `metadata.json`. The
 Debian package adds a revision (`1.1-1`), and the PPA one per Ubuntu
 series (`1.1-1~ubuntu26.04.1`, `1.1-1~ubuntu26.10.1`).
 
+## Unreleased
+
+- The details dialog has an About tab, last, also when zark has never
+  written a status file: zark's mark, the installed zark's version (the
+  package's, from dpkg's database, read without privileges when the tab
+  opens; else the status file's writer, for a portable zark), the status
+  file's writer when it differs, the extension's and GNOME Shell's
+  versions, and Copy buttons for `sudo zark status`, `sudo zark selftest`,
+  `sudo zark backup` and `zark monitor` (`./zark` for a portable zark).
+- A settings key, `dpkg-status-path`, for tests with an example file.
+  The preferences' Development page says what each path is and that it is
+  there only for tests and screenshots.
+
 ## 1.1
 
 For zark 2.2.0. It still reads the status files of zark 2.1.0 and later.

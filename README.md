@@ -79,7 +79,7 @@ pools with what fills them, each backup drive with its last backup, zark's
 warnings, "Show details..." and a button that copies `sudo zark backup`.
 
 "Show details..." (or a click on a pool or a drive) opens a dialog with a
-tab per pool and per drive:
+tab per pool and per drive, and an About tab:
 
 - a pool: a donut of user data, snapshots, system and the rest, its
   datasets as a table sorted by size or by snapshots, and zark's cleanup
@@ -87,7 +87,12 @@ tab per pool and per drive:
 - a drive: its space with the margin zark keeps free, its last backup and
   run, its retention policy, and, when zark measured them, its backup
   points by month, what the next backup's retention removes, and what
-  removing the points older than each month would free.
+  removing the points older than each month would free;
+- About: zark's mark, the installed zark's version (from dpkg's database,
+  or from the status file for a zark that is not a package), the
+  extension's and GNOME Shell's versions, and buttons that copy
+  `sudo zark status`, `sudo zark selftest`, `sudo zark backup` and
+  `zark monitor` (`./zark` for a portable zark, run in its directory).
 
 ## Notifications
 
@@ -138,7 +143,9 @@ In the Extensions app:
 ## Privacy
 
 It reads zark's two status files, `/proc` (to tell a live zark run from one
-that stopped) and `/dev/disk/by-id` (to tell which drives are plugged in).
+that stopped), `/dev/disk/by-id` (to tell which drives are plugged in) and,
+when the About tab opens, dpkg's database `/var/lib/dpkg/status` (for the
+zark package's version).
 It uses no network and runs no program. It writes to the clipboard only
 when a Copy button is pressed, and reads nothing from it.
 
@@ -157,6 +164,7 @@ An old status means the timer is not installed, or the zark it runs is gone
 | `make pack` | builds `zark@juanmitaboada.com.shell-extension.zip` for extensions.gnome.org from the last commit, every entry dated at it (needs `gnome-extensions`) |
 | `make fixtures ZARK_FIXTURES=<zark>/tests/fixtures/status` | copies the status files contract's fixtures into `tests/fixtures/` |
 | `make icons ZARK_BRAND=<zark>/docs/images/brand/zark-symbolic.svg` | rebuilds the panel icons from zark's panel mark |
+| `make logo ZARK_BRAND_DIR=<zark>/docs/images/brand/svg` | copies zark's mark, light and dark, for the About tab |
 | `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S] [--fixture CASE]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them, from the `idle` fixture or another case (`drive-contents` for a drive's contents); point the extension's paths there in its preferences |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
 

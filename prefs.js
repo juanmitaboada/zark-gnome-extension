@@ -57,8 +57,8 @@ export default class ZarkPreferences extends ExtensionPreferences {
 
         const about = new Adw.PreferencesGroup({
             title: 'About',
-            description: 'Read-only: it reads the status files zark writes, never starts or changes anything, ' +
-                'uses no network, and writes to the clipboard only when a Copy button is pressed.',
+            description: "Read-only: it reads the status files zark writes and dpkg's database, never starts or " +
+                'changes anything, uses no network, and writes to the clipboard only when a Copy button is pressed.',
         });
         about.add(new Adw.ActionRow({title: 'Version', subtitle: this.metadata['version-name'] ?? ''}));
         const source = new Adw.ActionRow({title: 'Source code', subtitle: this.metadata.url, activatable: true});

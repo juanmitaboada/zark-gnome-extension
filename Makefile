@@ -2,9 +2,10 @@
 
 UUID := zark@juanmitaboada.com
 ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
+ZARK_BRAND_DIR ?= ../zark/docs/images/brand/svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
-.PHONY: test coverage lint icons fixtures pack check-pack
+.PHONY: test coverage lint icons logo fixtures pack check-pack
 
 ## test: run the pure-module tests under gjs
 test:
@@ -39,6 +40,15 @@ lint:
 ## icons: rebuild the panel icons from zark's brand mark
 icons:
 	python3 -I dev/make-icons.py $(ZARK_BRAND) icons
+
+## logo: the About tab's mark, light and dark, from zark's brand
+# The same SVGs at a natural size of 64 px: St draws a CSS background image
+# at its natural size times the scale factor, so it renders at the size shown.
+logo:
+	@set -e; for v in "" -dark; do \
+	    sed 's/ width="512" height="512"/ width="64" height="64"/' $(ZARK_BRAND_DIR)/zark-icon$$v.svg > icons/zark-logo$$v.svg; \
+	    grep -q ' width="64" height="64"' icons/zark-logo$$v.svg || { echo "  icons/zark-logo$$v.svg: size not set"; exit 1; }; \
+	    echo "  icons/zark-logo$$v.svg"; done
 
 ## fixtures: copy the contract's fixtures from a zark checkout
 fixtures:

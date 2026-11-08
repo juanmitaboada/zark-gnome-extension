@@ -103,3 +103,10 @@
 .zark-month-next { background-color: #e5a50a; }
 .zark-fact { spacing: 14px; }
 .zark-fact-label { min-width: 7em; }
+
+/* About tab: zark's mark, the versions, the commands to copy. */
+.zark-about-head { spacing: 4px; padding-bottom: 6px; }
+.zark-about-logo { width: 64px; height: 64px; background-image: url("icons/zark-logo.svg"); background-size: contain; }
+.zark-about-title { font-weight: bold; font-size: 1.3em; }
+.zark-command { spacing: 12px; }
+.zark-command-text { spacing: 1px; }

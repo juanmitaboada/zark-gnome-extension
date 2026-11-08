@@ -12,7 +12,10 @@ import {StatusReader} from './lib/reader.js';
 export default class ZarkExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
-        this._indicator = new ZarkIndicator(this.path);
+        this._indicator = new ZarkIndicator(this.path, {
+            settings: this._settings,
+            extensionVersion: this.metadata['version-name'] ?? '',
+        });
         Main.panel.addToStatusArea(this.uuid, this._indicator);
         this._notifier = new Notifier(this._settings, this.path);
         this._reader = new StatusReader(this._settings,
