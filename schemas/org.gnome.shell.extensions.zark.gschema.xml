@@ -16,6 +16,11 @@
       <summary>Drive links directory</summary>
       <description>Where a backup drive's drive_id link appears when it is plugged in. Changed only to test with example files.</description>
     </key>
+    <key name="dpkg-status-path" type="s">
+      <default>'/var/lib/dpkg/status'</default>
+      <summary>dpkg's database</summary>
+      <description>Where the About tab reads the installed zark package's version. Changed only to test with example files.</description>
+    </key>
     <key name="notify-overdue" type="b">
       <default>true</default>
       <summary>Notify when a backup is overdue</summary>

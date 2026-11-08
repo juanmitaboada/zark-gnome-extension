@@ -130,9 +130,10 @@ the one from extensions.gnome.org, and ignores the system one.
 In the Extensions app:
 
 - General: the four notifications, and what the extension is.
-- Development: the status file, the progress file and the drive links
-  directory. Change them only to test with example files; zark writes the
-  defaults. "Restore defaults" puts them back.
+- Development: the status file, the progress file, the drive links
+  directory and dpkg's database, each with a line on what it is. Change
+  them only to test with example files or take screenshots; zark, udev and
+  dpkg write the defaults. "Restore defaults" puts them back.
 
 ## Privacy
 
