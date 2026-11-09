@@ -23,7 +23,7 @@ override_dh_auto_test:
 
 override_dh_auto_install:
 	install -d $(EXT)/lib $(EXT)/icons $(PKG)/usr/share/glib-2.0/schemas
-	install -m 0644 extension.js prefs.js metadata.json stylesheet.css stylesheet-light.css $(EXT)/
+	install -m 0644 extension.js prefs.js metadata.json stylesheet-dark.css stylesheet-light.css $(EXT)/
 	install -m 0644 lib/*.js $(EXT)/lib/
 	install -m 0644 icons/*.svg $(EXT)/icons/
 	install -m 0644 schemas/org.gnome.shell.extensions.zark.gschema.xml $(PKG)/usr/share/glib-2.0/schemas/

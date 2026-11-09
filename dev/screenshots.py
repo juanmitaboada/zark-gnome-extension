@@ -48,7 +48,7 @@ UUID = "zark@juanmitaboada.com"
 SCHEMA = "org.gnome.shell.extensions.zark"
 FIXTURE = "drive-contents"
 WIDTH, HEIGHT = 1920, 1440
-EXTENSION_FILES = ["extension.js", "prefs.js", "metadata.json", "stylesheet.css", "stylesheet-light.css"]
+EXTENSION_FILES = ["extension.js", "prefs.js", "metadata.json", "stylesheet-dark.css", "stylesheet-light.css"]
 EXTENSION_DIRS = ["lib", "icons"]
 SCHEMES: dict[str, tuple[str, str]] = {
     # color-scheme value, solid background behind the shots

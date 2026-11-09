@@ -19,7 +19,7 @@ import subprocess
 import sys
 import zipfile
 
-TOP = ["extension.js", "prefs.js", "metadata.json", "stylesheet.css", "stylesheet-light.css"]
+TOP = ["extension.js", "prefs.js", "metadata.json", "stylesheet-dark.css", "stylesheet-light.css"]
 PATTERNS = ["schemas/*.gschema.xml", "lib/*.js", "icons/*.svg"]
 DIRS = ["schemas/", "lib/", "icons/"]
 

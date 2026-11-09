@@ -16,6 +16,12 @@ series (`1.1-1~ubuntu26.04.1`, `1.1-1~ubuntu26.10.1`).
 - A settings key, `dpkg-status-path`, for tests with an example file.
   The preferences' Development page says what each path is and that it is
   there only for tests and screenshots.
+- A change from the dark style to the light one now takes effect at once,
+  as the other way did: the dark stylesheet is `stylesheet-dark.css`, no
+  longer `stylesheet.css`, since GNOME Shell reloads an extension's
+  stylesheet on a change of colour scheme only when its name carries the
+  variant. Until now the menu and the dialog kept their dark colours (and
+  the About tab its white-sectored mark) until the next login.
 
 ## 1.1
 

@@ -1,9 +1,11 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
 /*
- * Dark style (and the fallback). stylesheet-light.css repeats every rule
- * with colours for light menus; GNOME Shell loads one or the other. Text
- * colours keep a contrast of at least 4.5:1 on the menu.
+ * Dark style. stylesheet-light.css repeats every rule with colours for
+ * light menus; GNOME Shell loads one or the other. Both names carry the
+ * variant: the shell reloads an extension's stylesheet on a change of
+ * colour scheme only when the loaded file's name ends in -dark.css or
+ * -light.css. Text colours keep a contrast of at least 4.5:1 on the menu.
  */
 
 /* Panel icon: the panel is dark in both styles. */
