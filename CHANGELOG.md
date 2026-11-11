@@ -1,10 +1,12 @@
 # Changelog
 
 The extension's versions, as `version-name` in `metadata.json`. The
-Debian package adds a revision (`1.1-1`), and the PPA one per Ubuntu
-series (`1.1-1~ubuntu26.04.1`, `1.1-1~ubuntu26.10.1`).
+Debian package adds a revision (`1.2-1`), and the PPA one per Ubuntu
+series (`1.2-1~ubuntu26.04.1`, `1.2-1~ubuntu26.10.1`).
 
-## Unreleased
+## 1.2
+
+For zark 2.3.0. It still reads the status files of zark 2.1.0 and later.
 
 - The details dialog has an About tab, last, also when zark has never
   written a status file: zark's mark, the installed zark's version (the

@@ -1,3 +1,18 @@
+gnome-shell-extension-zark (1.2-1) stable; urgency=medium
+
+  * For zark 2.3.0; still reads the status files of zark 2.1.0 and later.
+  * The details dialog has an About tab: zark's mark, the installed zark's
+    version (from dpkg's database, read without privileges), the
+    extension's and GNOME Shell's versions, and Copy buttons for
+    sudo zark status, sudo zark selftest, sudo zark backup and
+    zark monitor (./zark for a zark not installed as a package).
+  * A settings key, dpkg-status-path, for tests with an example file; the
+    preferences' Development page says what each path is for.
+  * The dark stylesheet is stylesheet-dark.css, so a change from the dark
+    style to the light one takes effect at once.
+
+ -- Juanmi Taboada <juanmi@juanmitaboada.com>  Wed, 11 Nov 2026 20:06:28 +0100
+
 gnome-shell-extension-zark (1.1-1) stable; urgency=medium
 
   * GNOME Shell 51 (Ubuntu 26.10) as well as 50 (Ubuntu 26.04): the menu
