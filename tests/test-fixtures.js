@@ -85,8 +85,8 @@ function load(name, file, kind) {
 const names = GLib.file_test(ROOT, GLib.FileTest.IS_DIR) ? caseNames() : [];
 
 export const tests = [
-    ['the contract has 25 cases', () => {
-        assertTrue(names.length === 25, `found ${names.length} cases in ${ROOT}; run make fixtures`);
+    ['the contract has 30 cases', () => {
+        assertTrue(names.length === 30, `found ${names.length} cases in ${ROOT}; run make fixtures`);
     }],
     ...names.map(name => [name, () => checkCase(name)]),
     ['idle: own shares fall short of rpool used by the pool metadata, snapshots as on carmen', () => {
