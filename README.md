@@ -172,6 +172,7 @@ An old status means the timer is not installed, or the zark it runs is gone
 | `make icons ZARK_BRAND=<zark>/docs/images/brand/zark-symbolic.svg` | rebuilds the panel icons from zark's panel mark |
 | `make logo ZARK_BRAND_DIR=<zark>/docs/images/brand/svg` | copies zark's mark, light and dark, for the About tab |
 | `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S] [--fixture CASE]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them, from the `idle` fixture or another case (`drive-contents` for a drive's contents); point the extension's paths there in its preferences |
+| `dev/simulate.py <dir> --drive-gone S [--speed N]` | as above, and black goes away S seconds into the transfer (zark 2.3.1's `drive_gone`, with zark's hint), to try the alert; the run then waits until Ctrl+C |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
 
 ## Debian package

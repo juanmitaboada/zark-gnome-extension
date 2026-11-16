@@ -22,8 +22,14 @@ Three one-shot actions instead of a run, for the notifications:
 starts from that fixture case's status.json instead of idle's
 (drive-contents: black with the drive contents fields).
 
+--drive-gone S takes black away S seconds into the transfer, as zark 2.3.1
+writes it: progress.json gains drive_gone, with zark's hint for black, and
+the transfer stops where it was, the heartbeat going on, as a backup whose
+pool suspended waits. The run then never ends by itself: Ctrl+C ends it
+and leaves progress.json behind, as a killed zark would.
+
 Usage: dev/simulate.py <root> [--result completed|incomplete] [--speed N] [--answer-after S]
-                             [--fixture CASE]
+                             [--fixture CASE] [--drive-gone S]
        dev/simulate.py <root> --plug NAME | --unplug NAME | --overdue
 """
 
@@ -45,6 +51,9 @@ FIXTURES = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
 def fixture(name: str) -> Path:
     """The status.json of a contract fixture case."""
     return FIXTURES / name / "var" / "lib" / "zark" / "status.json"
+
+# zark 2.3.1's forced reboot (lib/pool_state.py, REBOOT_FORCED).
+REBOOT_FORCED = "sudo systemctl reboot --force --force"
 
 GIB = 1024**3
 TRANSFERS = [
@@ -76,7 +85,14 @@ def start_ticks() -> int:
 
 
 class Run:
-    def __init__(self, root: Path, speed: float, answer_after: float | None = None, base: str = "idle") -> None:
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        root: Path,
+        speed: float,
+        answer_after: float | None = None,
+        base: str = "idle",
+        drive_gone_after: float | None = None,
+    ) -> None:
         self.run_dir = root / "run" / "zark"
         self.lib_dir = root / "var" / "lib" / "zark"
         # The contract asks for 0755 whatever the umask.
@@ -87,6 +103,7 @@ class Run:
         self.status_path = self.lib_dir / "status.json"
         self.speed = speed
         self.answer_after = answer_after
+        self.drive_gone_after = drive_gone_after
 
         self.status: dict[str, Any] = json.loads(fixture(base).read_text(encoding="utf-8"))
         self.status["generated_at"] = now()
@@ -134,15 +151,36 @@ class Run:
         self.wait(seconds if self.answer_after is None else self.answer_after)
         self.emit(waiting_for_input=False, waiting_for=None)
 
+    def drive_gone(self) -> None:
+        """black taken away: drive_gone as zark 2.3.1's drive watch writes
+        it (lib/drive_watch.py), then the heartbeat alone, until Ctrl+C."""
+        pool = self.drive["name"]
+        reboot = f"sudo zpool sync rpool bpool; {REBOOT_FORCED}"
+        self.emit(drive_gone={
+            "since": now(),
+            "pool": pool,
+            "suspended": True,
+            "back": False,
+            "resumed_at": None,
+            "hint": f"{pool}'s drive went away. Safer: unplug it, then: {reboot} (a plain reboot can hang). "
+            + f"Or plug it back in and run: sudo zpool clear {pool} (can crash OpenZFS 2.4: man zark)",
+        })
+        print(f"drive_gone: {pool} taken away; Ctrl+C ends the run")
+        while True:
+            self.wait(60)
+
     def transfer(self, failures: int) -> None:
         total = sum(size for _, _, size in TRANSFERS) * GIB
         sent = 0.0
         rate = 110 * 1024**2 * self.speed
         done = 0
+        started = time.monotonic()
         for name, state, size in TRANSFERS:
             self.emit(transfer=self._transfer(done, 0, name, state, total, sent, None if sent == 0 else rate))
             left = size * GIB
             while left > 0:
+                if self.drive_gone_after is not None and time.monotonic() - started >= self.drive_gone_after:
+                    self.drive_gone()
                 time.sleep(1)
                 chunk = min(left, rate)
                 left -= chunk
@@ -264,6 +302,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--answer-after", type=float, metavar="S", help="seconds before each answer")
     parser.add_argument("--fixture", default="idle", metavar="CASE",
                         help="the fixture case whose status.json the run starts from (drive-contents: black with R9)")
+    parser.add_argument("--drive-gone", type=float, metavar="S",
+                        help="take black away S seconds into the transfer (zark 2.3.1's drive_gone)")
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--plug", metavar="NAME", help="plug a registered drive in, then exit")
     action.add_argument("--unplug", metavar="NAME", help="unplug a registered drive, then exit")
@@ -277,7 +317,7 @@ def main(argv: list[str]) -> int:
     if not fixture(args.fixture).exists():
         print(f"no status.json in fixture case {args.fixture!r}", file=sys.stderr)
         return 2
-    run = Run(root, args.speed, args.answer_after, args.fixture)
+    run = Run(root, args.speed, args.answer_after, args.fixture, args.drive_gone)
     print(f"progress: {run.progress_path}\nstatus:   {run.status_path}")
     try:
         run.play(args.result)
