@@ -23,7 +23,10 @@ It is read-only. It reads the two status files zark 2.1.0 and later write
 (`/run/zark/progress.json` and `/var/lib/zark/status.json`, described in
 zark's [`docs/STATUS-FILES.md`](https://github.com/juanmitaboada/zark/blob/main/docs/STATUS-FILES.md)),
 and never starts, stops or changes anything. Backups stay `sudo zark backup`
-in a terminal. What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
+in a terminal, or go through
+[zark for GNOME](https://github.com/juanmitaboada/zark-gnome-app), a separate
+app that shows the same in a window and runs zark's operations. What changed
+in each version is in [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
@@ -31,8 +34,9 @@ in a terminal. What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 - zark 2.1.0 or later (2.2.0 or later on Ubuntu 26.10). zark supports
   Ubuntu 24.04 and 26.04 LTS as their installers lay out encrypted ZFS, and
   Ubuntu 26.10 with `/boot` on ext4; 24.04 ships GNOME Shell 46, so there
-  zark runs without this extension, and `zark monitor` shows the backups'
-  state in a terminal.
+  zark runs without this extension: `zark monitor` shows the backups' state
+  in a terminal, and
+  [zark for GNOME](https://github.com/juanmitaboada/zark-gnome-app) in a window.
 
 ## Screenshots
 
