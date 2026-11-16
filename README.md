@@ -74,7 +74,8 @@ The panel icon is zark's ring and z:
 | yellow | a backup is overdue, the status is old or unreadable, or a run stopped answering |
 | grey | no status from zark yet |
 
-The menu has the running backup's step, dataset and figures, the system
+The menu has the running backup's step, dataset and figures (and when its
+drive went away, if it did), the system
 pools with what fills them, each backup drive with its last backup, zark's
 warnings, "Show details..." and a button that copies `sudo zark backup`.
 
@@ -97,13 +98,18 @@ tab per pool and per drive, and an About tab:
 ## Notifications
 
 It notifies what zark itself does not; zark already notifies a backup's
-start and result and a full pool.
+start and result and a full pool. A backup's drive gone away, which zark
+notifies too, it tells with a dialog, since a banner is easy to miss.
 
 - A backup overdue, once a day.
 - A registered backup drive plugged in, with its last backup.
 - A question zark has waited 15 s for; clicking it brings zark's terminal
   forward, and it goes away once answered.
 - A zark run that stopped answering.
+- A running backup's drive gone away: a dialog to close with OK, with the
+  drive's name, when it went away and zark's advice as zark writes it;
+  once per run and drive. Closed any other way (the screen locks, the
+  extension is turned off), it comes back.
 
 Each can be turned off in the preferences.
 
@@ -134,7 +140,7 @@ the one from extensions.gnome.org, and ignores the system one.
 
 In the Extensions app:
 
-- General: the four notifications, and what the extension is.
+- General: the five notifications, and what the extension is.
 - Development: the status file, the progress file, the drive links
   directory and dpkg's database, each with a line on what it is. Change
   them only to test with example files or take screenshots; zark, udev and

@@ -319,4 +319,13 @@ export const tests = [
         assertEqual(v.drives, []);
         assertEqual(v.footer, null);
     }],
+    ['a drive gone away: a line in the run and in the drive tab', () => {
+        const v = view('drive-gone');
+        assertEqual(v.run.driveGone, "Drive went away today 09:18; see zark's terminal");
+        assertEqual(view('running').run.driveGone, null);
+        const black = v.details.find(t => t.title === 'black');
+        assertTrue(black !== undefined, 'black tab');
+        const runRow = JSON.stringify(black).includes("Drive went away today 09:18; see zark's terminal");
+        assertTrue(runRow, 'the drive tab says it');
+    }],
 ];

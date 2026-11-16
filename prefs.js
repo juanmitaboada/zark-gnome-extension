@@ -14,6 +14,7 @@ const NOTIFICATIONS = [
     ['notify-drive', 'Backup drive plugged in', 'When a drive zark knows appears, with its last backup'],
     ['notify-waiting', 'Question waiting', 'When zark has waited 15 s for an answer in its terminal'],
     ['notify-orphan', 'Run stopped answering', 'When a zark command ends without cleaning up its progress file'],
+    ['notify-drive-gone', 'Backup drive went away', 'A dialog to close, when the drive of a running backup goes away'],
 ];
 
 const FOR_TESTS = 'It is here so that tests and screenshots can point at example files; leave it as it is otherwise.';
@@ -46,7 +47,8 @@ export default class ZarkPreferences extends ExtensionPreferences {
 
         const notifications = new Adw.PreferencesGroup({
             title: 'Notifications',
-            description: 'zark itself notifies when a backup starts and ends and when a pool fills up.',
+            description: 'zark itself notifies when a backup starts and ends, when its drive goes away, ' +
+                'and when a pool fills up.',
         });
         for (const [key, title, subtitle] of NOTIFICATIONS) {
             const row = new Adw.SwitchRow({title, subtitle});

@@ -4,6 +4,21 @@ The extension's versions, as `version-name` in `metadata.json`. The
 Debian package adds a revision (`1.2-1`), and the PPA one per Ubuntu
 series (`1.2-1~ubuntu26.04.1`, `1.2-1~ubuntu26.10.1`).
 
+## Unreleased
+
+- A dialog to close with OK when a running backup's drive goes away (zark
+  2.3.1's `drive_gone` in `progress.json`): the drive's name, when it went
+  away and zark's hint as zark writes it. zark notifies it too, but its
+  banner is easy to miss among others. Once per run and drive: OK stores
+  the alert's key (`pid:started_at:pool`) in the settings
+  (`drive-gone-acknowledged`), so a screen lock or a restart of the shell
+  does not repeat it; a dialog closed any other way comes back at the next
+  enable. A switch in the preferences, on by default
+  (`notify-drive-gone`).
+- While the drive is away, the menu's running backup and the drive's tab
+  say when it went away.
+- The contract's fixtures from zark 2.3.1 (30 cases).
+
 ## 1.2
 
 For zark 2.3.0. It still reads the status files of zark 2.1.0 and later.

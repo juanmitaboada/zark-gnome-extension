@@ -38,10 +38,20 @@
       <default>true</default>
       <summary>Notify when a zark run stops answering</summary>
     </key>
+    <key name="notify-drive-gone" type="b">
+      <default>true</default>
+      <summary>Alert when a running backup's drive goes away</summary>
+      <description>A dialog to close, with the drive's name, when it went away and zark's advice.</description>
+    </key>
     <key name="overdue-notified-on" type="s">
       <default>''</default>
       <summary>Local date of the last overdue notification</summary>
       <description>Kept so the overdue notification comes once a day, also across restarts of the shell.</description>
+    </key>
+    <key name="drive-gone-acknowledged" type="s">
+      <default>''</default>
+      <summary>The last drive-gone alert closed with OK</summary>
+      <description>Its run and drive, "pid:started_at:pool", so the alert comes once per run and drive, also across a screen lock or a restart of the shell.</description>
     </key>
   </schema>
 </schemalist>
