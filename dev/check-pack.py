@@ -4,10 +4,12 @@
 The list is the committed tree's: the top-level files GNOME Shell loads
 (extension.js, prefs.js, metadata.json, the two stylesheets), the schema
 XML, lib/*.js and icons/*.svg, with the schemas/, lib/ and icons/
-directory entries gnome-extensions pack writes. Any other entry (debian/,
-dev/, tests/, docs/, .github/, package.json, package-lock.json,
-node_modules, a compiled schema) fails the check, and so does a missing
-one.
+directory entries gnome-extensions pack writes, and for each tracked
+po/<lang>.po the catalogue it compiles, locale/<lang>/LC_MESSAGES/<domain>.mo,
+with its directory entries. Any other entry (debian/, dev/, tests/, docs/,
+po/, .github/, package.json, package-lock.json, node_modules, a compiled
+schema) fails the check, and so does a missing one. An empty locale/ is
+allowed: gnome-extensions pack writes it for a po/ with no catalogue yet.
 
 Usage: dev/check-pack.py <zip>   (run from the repository's root)
 """
@@ -15,6 +17,7 @@ Usage: dev/check-pack.py <zip>   (run from the repository's root)
 from __future__ import annotations
 
 import fnmatch
+import json
 import subprocess
 import sys
 import zipfile
@@ -22,6 +25,8 @@ import zipfile
 TOP = ["extension.js", "prefs.js", "metadata.json", "stylesheet-dark.css", "stylesheet-light.css"]
 PATTERNS = ["schemas/*.gschema.xml", "lib/*.js", "icons/*.svg"]
 DIRS = ["schemas/", "lib/", "icons/"]
+# Written by gnome-extensions pack whenever po/ exists, catalogues or not.
+OPTIONAL = {"locale/"}
 
 
 def expected() -> set[str]:
@@ -31,7 +36,15 @@ def expected() -> set[str]:
     # fnmatch's * crosses "/"; the directories here have no subdirectories,
     # so a name with a second "/" is left out on purpose.
     wanted |= {n for n in names if n.count("/") == 1 and any(fnmatch.fnmatch(n, p) for p in PATTERNS)}
-    return wanted | set(DIRS)
+    wanted |= set(DIRS)
+    with open("metadata.json", encoding="utf-8") as f:
+        metadata = json.load(f)
+    domain = metadata.get("gettext-domain", metadata["uuid"])
+    languages = [n[3:-3] for n in names if n.count("/") == 1 and fnmatch.fnmatch(n, "po/*.po")]
+    for lang in languages:
+        wanted |= {"locale/", f"locale/{lang}/", f"locale/{lang}/LC_MESSAGES/",
+                   f"locale/{lang}/LC_MESSAGES/{domain}.mo"}
+    return wanted
 
 
 def main(argv: list[str]) -> int:
@@ -42,7 +55,7 @@ def main(argv: list[str]) -> int:
         entries = [i.filename for i in z.infolist()]
     want = expected()
     have = set(entries)
-    extra = sorted(have - want)
+    extra = sorted(have - want - OPTIONAL)
     missing = sorted(want - have)
     duplicated = sorted({n for n in entries if entries.count(n) > 1})
     for name in extra:

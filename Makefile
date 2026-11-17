@@ -5,7 +5,7 @@ ZARK_BRAND ?= ../zark/docs/images/brand/zark-symbolic.svg
 ZARK_BRAND_DIR ?= ../zark/docs/images/brand/svg
 ZARK_FIXTURES ?= ../zark/tests/fixtures/status
 
-.PHONY: test coverage lint icons logo fixtures pack check-pack
+.PHONY: test coverage lint icons logo fixtures pack check-pack pot pot-check po-check po-risk test-i18n
 
 ## test: run the pure-module tests under gjs
 test:
@@ -32,6 +32,59 @@ coverage:
 	for f in $$files; do git ls-files --error-unmatch -- "$$f" >/dev/null 2>&1 \
 	    || { echo "  $(COVERAGE_LCOV) names $$f, not a tracked file"; exit 1; }; done; \
 	echo "  $(COVERAGE_LCOV): $$(echo "$$files" | wc -l) files"
+
+# Translations
+# The template is committed (po/$(UUID).pot) and pot-check keeps it current.
+# Every keyword is flagged no-javascript-format: the texts carry {name}
+# placeholders, and a "%" before a word ("{percent}% of") would otherwise be
+# taken for a printf directive that a translation must keep. po-check checks
+# the placeholders instead.
+POT := po/$(UUID).pot
+XGETTEXT := xgettext --language=JavaScript --from-code=UTF-8 --add-comments=Translators \
+	--package-name=gnome-shell-extension-zark \
+	--msgid-bugs-address=https://github.com/juanmitaboada/zark-gnome-extension/issues \
+	-k_ -kN_ -kngettext:1,2 -kpgettext:1c,2 \
+	--flag=_:1:no-javascript-format --flag=N_:1:no-javascript-format \
+	--flag=ngettext:1:no-javascript-format --flag=ngettext:2:no-javascript-format \
+	--flag=pgettext:2:no-javascript-format \
+	-f po/POTFILES
+PO_FILES := $(wildcard po/*.po)
+# gettext ignores LANGUAGE under the C locale, and C.UTF-8 does not do.
+I18N_LOCALE ?= en_US.UTF-8
+
+## pot: the translation template from the sources in po/POTFILES
+pot:
+	$(XGETTEXT) -o $(POT)
+	@echo "  $(POT): $$(grep -c '^msgid ' $(POT)) entries, the header included"
+
+## pot-check: the committed template is current (POT-Creation-Date aside), and holds no command
+pot-check:
+	@set -e; tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT INT TERM; \
+	$(XGETTEXT) -o "$$tmp/new.pot"; \
+	diff -u -I '^"POT-Creation-Date: ' $(POT) "$$tmp/new.pot" || { echo "  $(POT) is not current: make pot"; exit 1; }; \
+	echo "  $(POT) is current"
+	python3 -I dev/po-tools.py commands $(POT)
+
+## po-check: every po/*.po compiles with msgfmt -c and keeps its placeholders
+po-check:
+	@set -e; for po in $(PO_FILES); do msgfmt -c --check-format -o /dev/null "$$po"; done; \
+	test -z "$(PO_FILES)" || python3 -I dev/po-tools.py check $(PO_FILES); \
+	echo "  $(words $(PO_FILES)) catalogues checked"
+
+## po-risk: the template's texts with a stem of po/RISK-WORDS, for review (does not fail)
+po-risk:
+	python3 -I dev/po-tools.py risk $(POT) po/RISK-WORDS
+
+## test-i18n: the translated-view tests with real gettext and a pseudo catalogue (needs $(I18N_LOCALE))
+# The pseudo catalogue "xx" is built in a temporary directory, never in po/:
+# gnome-extensions pack compiles every po/*.po into the zip.
+test-i18n:
+	@set -e; tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT INT TERM; \
+	python3 -I dev/po-tools.py pseudo $(POT) "$$tmp/xx.po"; \
+	mkdir -p "$$tmp/locale/xx/LC_MESSAGES"; \
+	msgfmt -c --check-format -o "$$tmp/locale/xx/LC_MESSAGES/$(UUID).mo" "$$tmp/xx.po"; \
+	python3 -I dev/po-tools.py check "$$tmp/xx.po"; \
+	ZARK_LOCALEDIR="$$tmp/locale" LANGUAGE=xx LC_ALL=$(I18N_LOCALE) TZ=UTC gjs -m tests/i18n-run.js
 
 ## lint: ESLint with GNOME's rules (needs `npm ci` once: the versions in package-lock.json)
 lint:

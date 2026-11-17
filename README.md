@@ -178,6 +178,21 @@ An old status means the timer is not installed, or the zark it runs is gone
 | `dev/simulate.py <dir> [--speed N] [--result incomplete] [--answer-after S] [--fixture CASE]` | plays a backup into `<dir>/run/zark` and `<dir>/var/lib/zark`, as zark writes them, from the `idle` fixture or another case (`drive-contents` for a drive's contents); point the extension's paths there in its preferences |
 | `dev/simulate.py <dir> --drive-gone S [--speed N]` | as above, and black goes away S seconds into the transfer (zark 2.3.1's `drive_gone`, with zark's hint), to try the alert; the run then waits until Ctrl+C |
 | `dev/simulate.py <dir> --plug NAME`, `--unplug NAME`, `--overdue` | plugs a registered drive in or out under `<dir>/dev/disk/by-id`, or makes the backup overdue, to try the notifications |
+| `make pot` | rebuilds the translation template `po/zark@juanmitaboada.com.pot` from the sources listed in `po/POTFILES` (needs `gettext`) |
+| `make pot-check` | fails when the committed template is not current, or when a translatable text holds a command |
+| `make po-check` | every `po/<lang>.po` compiles with `msgfmt -c` and keeps each `{placeholder}` of its English text |
+| `make po-risk` | lists the template's texts with a stem of `po/RISK-WORDS`, for review before they reach a translator |
+| `make test-i18n` | the view's tests again with real gettext and a pseudo catalogue built from the template (needs a UTF-8 locale other than C, `en_US.UTF-8` by default: `I18N_LOCALE=...`) |
+
+### Translations
+
+The extension's texts are translated with gettext in the domain
+`zark@juanmitaboada.com`. A catalogue goes in `po/<lang>.po`, made from the
+template, and its language in `po/LINGUAS`; `make pack` compiles it into
+the zip's `locale/`, and the Debian package into `/usr/share/locale/`.
+Sentences carry named placeholders (`{drive}`, `{n}`) that a translation
+keeps and may reorder. Commands, and the text zark itself writes (its
+hints, its questions, its notices), stay as they are, in English.
 
 ## Debian package
 

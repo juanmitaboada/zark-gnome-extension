@@ -7,10 +7,17 @@
 # trigger compiles it; GNOME Shell reads it from there for a system
 # extension without a schemas/ directory of its own
 # (js/extensions/sharedInternals.js, getSettings).
+#
+# Each po/<lang>.po is compiled to /usr/share/locale/<lang>/LC_MESSAGES/,
+# under the gettext-domain of metadata.json (the uuid). The extension has
+# no locale/ directory of its own here, so GNOME Shell binds the domain
+# there (sharedInternals.js, initTranslations).
 
 UUID := zark@juanmitaboada.com
 PKG := debian/gnome-shell-extension-zark
 EXT := $(PKG)/usr/share/gnome-shell/extensions/$(UUID)
+LOCALE := $(PKG)/usr/share/locale
+PO_FILES := $(wildcard po/*.po)
 
 %:
 	dh $@
@@ -27,3 +34,8 @@ override_dh_auto_install:
 	install -m 0644 lib/*.js $(EXT)/lib/
 	install -m 0644 icons/*.svg $(EXT)/icons/
 	install -m 0644 schemas/org.gnome.shell.extensions.zark.gschema.xml $(PKG)/usr/share/glib-2.0/schemas/
+	set -e; for po in $(PO_FILES); do \
+	    lang=$$(basename $$po .po); \
+	    install -d $(LOCALE)/$$lang/LC_MESSAGES; \
+	    msgfmt -c -o $(LOCALE)/$$lang/LC_MESSAGES/$(UUID).mo $$po; \
+	done

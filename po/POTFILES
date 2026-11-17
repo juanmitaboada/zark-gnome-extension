@@ -1,0 +1,9 @@
+prefs.js
+lib/about.js
+lib/alert.js
+lib/details.js
+lib/events.js
+lib/format.js
+lib/indicator.js
+lib/notifier.js
+lib/view.js

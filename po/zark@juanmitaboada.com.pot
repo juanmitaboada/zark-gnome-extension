@@ -1,0 +1,1145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-shell-extension-zark package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-shell-extension-zark\n"
+"Report-Msgid-Bugs-To: https://github.com/juanmitaboada/zark-gnome-extension/"
+"issues\n"
+"POT-Creation-Date: 2026-11-17 23:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: prefs.js:15 lib/events.js:146
+#, no-javascript-format
+msgid "Backup overdue"
+msgstr ""
+
+#: prefs.js:15
+#, no-javascript-format
+msgid "Once a day while zark says the newest backup is too old"
+msgstr ""
+
+#: prefs.js:16
+#, no-javascript-format
+msgid "Backup drive plugged in"
+msgstr ""
+
+#: prefs.js:16
+#, no-javascript-format
+msgid "When a drive zark knows appears, with its last backup"
+msgstr ""
+
+#: prefs.js:17
+#, no-javascript-format
+msgid "Question waiting"
+msgstr ""
+
+#: prefs.js:17
+#, no-javascript-format
+msgid "When zark has waited 15 s for an answer in its terminal"
+msgstr ""
+
+#: prefs.js:18
+#, no-javascript-format
+msgid "Run stopped answering"
+msgstr ""
+
+#: prefs.js:19
+#, no-javascript-format
+msgid "When a zark command ends without cleaning up its progress file"
+msgstr ""
+
+#: prefs.js:20
+#, no-javascript-format
+msgid "Backup drive went away"
+msgstr ""
+
+#: prefs.js:21
+#, no-javascript-format
+msgid "A dialog to close, when the drive of a running backup goes away"
+msgstr ""
+
+#: prefs.js:24
+#, no-javascript-format
+msgid ""
+"It is here so that tests and screenshots can point at example files; leave "
+"it as it is otherwise."
+msgstr ""
+
+#: prefs.js:28 lib/about.js:137
+#, no-javascript-format
+msgid "Status file"
+msgstr ""
+
+#: prefs.js:29
+#, no-javascript-format
+msgid ""
+"The status.json zark writes at the end of each command and from its hourly "
+"timer: the pools, the backup drives and their last backups, which the menu "
+"shows."
+msgstr ""
+
+#: prefs.js:31
+#, no-javascript-format
+msgid "Progress file"
+msgstr ""
+
+#: prefs.js:32
+#, no-javascript-format
+msgid ""
+"The progress.json zark writes while a command runs: the running backup's "
+"step and figures."
+msgstr ""
+
+#: prefs.js:33
+#, no-javascript-format
+msgid "Drive links directory"
+msgstr ""
+
+#: prefs.js:34
+#, no-javascript-format
+msgid ""
+"Where a backup drive's link appears when it is plugged in; the extension "
+"looks there for each drive zark registered."
+msgstr ""
+
+#: prefs.js:36
+#, no-javascript-format
+msgid "dpkg's database"
+msgstr ""
+
+#: prefs.js:37
+#, no-javascript-format
+msgid ""
+"dpkg's list of installed packages, read without privileges when the About "
+"tab opens, for the version of the zark package."
+msgstr ""
+
+#: prefs.js:52
+#, no-javascript-format
+msgid "General"
+msgstr ""
+
+#: prefs.js:55
+#, no-javascript-format
+msgid "Notifications"
+msgstr ""
+
+#: prefs.js:56
+#, no-javascript-format
+msgid ""
+"zark itself notifies when a backup starts and ends, when its drive goes "
+"away, and when a pool fills up."
+msgstr ""
+
+#: prefs.js:67 lib/view.js:803
+#, no-javascript-format
+msgid "About"
+msgstr ""
+
+#: prefs.js:68
+#, no-javascript-format
+msgid ""
+"Read-only: it reads the status files zark writes and dpkg's database, never "
+"starts or changes anything, uses no network, and writes to the clipboard "
+"only when a Copy button is pressed."
+msgstr ""
+
+#: prefs.js:71
+#, no-javascript-format
+msgid "Version"
+msgstr ""
+
+#: prefs.js:72
+#, no-javascript-format
+msgid "Source code"
+msgstr ""
+
+#: prefs.js:76
+#, no-javascript-format
+msgid "License"
+msgstr ""
+
+#: prefs.js:83
+#, no-javascript-format
+msgid "Development"
+msgstr ""
+
+#: prefs.js:85
+#, no-javascript-format
+msgid ""
+"Where the extension reads from. Only for tests and screenshots with example "
+"files: zark, udev and dpkg write the defaults."
+msgstr ""
+
+#: prefs.js:104
+#, no-javascript-format
+msgid "Restore defaults"
+msgstr ""
+
+#: lib/about.js:14
+#, no-javascript-format
+msgid ""
+"Read-only: it reads zark's status files and dpkg's database, never starts or "
+"changes anything, uses no network, and writes to the clipboard only when a "
+"Copy button is pressed."
+msgstr ""
+
+#: lib/about.js:91
+#, no-javascript-format
+msgid "{version} (package)"
+msgstr ""
+
+#: lib/about.js:91
+#, no-javascript-format
+msgid "(package)"
+msgstr ""
+
+#: lib/about.js:93
+#, no-javascript-format
+msgid "{version} (package state unknown)"
+msgstr ""
+
+#: lib/about.js:93
+#, no-javascript-format
+msgid "(package state unknown)"
+msgstr ""
+
+#: lib/about.js:94
+#, no-javascript-format
+msgid "{version} (package {state})"
+msgstr ""
+
+#: lib/about.js:94
+#, no-javascript-format
+msgid "(package {state})"
+msgstr ""
+
+#: lib/about.js:115
+#, no-javascript-format
+msgid "Reading dpkg's database"
+msgstr ""
+
+#: lib/about.js:122
+#, no-javascript-format
+msgid "{version} (not installed as a package; from the status file)"
+msgstr ""
+
+#: lib/about.js:126
+#, no-javascript-format
+msgid "Not found on this system"
+msgstr ""
+
+#: lib/about.js:134
+#, no-javascript-format
+msgid "written by zark {version}, {when}"
+msgstr ""
+
+#: lib/about.js:136
+#, no-javascript-format
+msgid "written by zark {version}"
+msgstr ""
+
+#: lib/about.js:139
+#, no-javascript-format
+msgid "Extension"
+msgstr ""
+
+#: lib/about.js:147
+#, no-javascript-format
+msgid "Run them in the directory that holds zark."
+msgstr ""
+
+#: lib/about.js:149
+#, no-javascript-format
+msgid "Once zark is installed:"
+msgstr ""
+
+#: lib/alert.js:25
+#, no-javascript-format
+msgid "OK"
+msgstr ""
+
+#: lib/details.js:25
+#, no-javascript-format
+msgid "Data"
+msgstr ""
+
+#: lib/details.js:25
+#, no-javascript-format
+msgid "Snapshots"
+msgstr ""
+
+#: lib/details.js:74
+#, no-javascript-format
+msgid "Close"
+msgstr ""
+
+#: lib/details.js:195
+#, no-javascript-format
+msgid "Bare-metal backup and recovery for ZFS on Ubuntu"
+msgstr ""
+
+#: lib/details.js:212
+#, no-javascript-format
+msgid "Commands"
+msgstr ""
+
+#: lib/details.js:222
+#, no-javascript-format
+msgid "Copy"
+msgstr ""
+
+#: lib/details.js:225 lib/details.js:315 lib/indicator.js:134
+#: lib/notifier.js:157
+#, no-javascript-format
+msgid "Copy \"{command}\""
+msgstr ""
+
+#: lib/details.js:277
+#, no-javascript-format
+msgid "Dataset"
+msgstr ""
+
+#: lib/details.js:311
+#, no-javascript-format
+msgid "Cleanup"
+msgstr ""
+
+#: lib/details.js:383
+#, no-javascript-format
+msgid "By month"
+msgstr ""
+
+#: lib/details.js:383
+#, no-javascript-format
+msgid "By dataset"
+msgstr ""
+
+#: lib/details.js:422
+#, no-javascript-format
+msgid "Month"
+msgstr ""
+
+#: lib/details.js:422
+#, no-javascript-format
+msgid "Points"
+msgstr ""
+
+#: lib/details.js:422
+#, no-javascript-format
+msgid "Held alone"
+msgstr ""
+
+#: lib/details.js:424
+#, no-javascript-format
+msgid "Frees if older removed"
+msgstr ""
+
+#: lib/events.js:72
+#, no-javascript-format
+msgid "Seen gone, while zark backup was writing to it."
+msgstr ""
+
+#: lib/events.js:73
+#, no-javascript-format
+msgid "Seen gone {when}, while zark backup was writing to it."
+msgstr ""
+
+#: lib/events.js:75
+#, no-javascript-format
+msgid "{drive}: the backup drive went away"
+msgstr ""
+
+#: lib/events.js:147
+#, no-javascript-format
+msgid "Last backup {age} on {drive}. Run: {command}"
+msgstr ""
+
+#: lib/events.js:149
+#, no-javascript-format
+msgid "No backup yet. Run: {command}"
+msgstr ""
+
+#: lib/events.js:153
+#, no-javascript-format
+msgid "zark is waiting for your answer"
+msgstr ""
+
+#: lib/events.js:154
+#, no-javascript-format
+msgid "In the terminal where it runs"
+msgstr ""
+
+#: lib/events.js:170
+#, no-javascript-format
+msgid "{drive} connected"
+msgstr ""
+
+#: lib/events.js:171 lib/view.js:377
+#, no-javascript-format
+msgid "Never backed up"
+msgstr ""
+
+#: lib/events.js:171 lib/view.js:377
+#, no-javascript-format
+msgid "Last backup {age}"
+msgstr ""
+
+#: lib/events.js:174
+#, no-javascript-format
+msgid "zark stopped answering"
+msgstr ""
+
+#: lib/format.js:41
+#, no-javascript-format
+msgid "just now"
+msgstr ""
+
+#: lib/format.js:43
+#, no-javascript-format
+msgid "{n} min ago"
+msgstr ""
+
+#: lib/format.js:46
+#, no-javascript-format
+msgid "{n} hour ago"
+msgid_plural "{n} hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/format.js:48
+#, no-javascript-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/format.js:57
+#, no-javascript-format
+msgid "under a minute"
+msgstr ""
+
+#: lib/format.js:60
+#, no-javascript-format
+msgid "{n} min"
+msgstr ""
+
+#: lib/format.js:61
+#, no-javascript-format
+msgid "{hours} h {minutes} min"
+msgstr ""
+
+#: lib/format.js:72
+#, no-javascript-format
+msgctxt "month"
+msgid "Jan"
+msgstr ""
+
+#: lib/format.js:72
+#, no-javascript-format
+msgctxt "month"
+msgid "Feb"
+msgstr ""
+
+#: lib/format.js:72
+#, no-javascript-format
+msgctxt "month"
+msgid "Mar"
+msgstr ""
+
+#: lib/format.js:73
+#, no-javascript-format
+msgctxt "month"
+msgid "Apr"
+msgstr ""
+
+#: lib/format.js:73
+#, no-javascript-format
+msgctxt "month"
+msgid "May"
+msgstr ""
+
+#: lib/format.js:73
+#, no-javascript-format
+msgctxt "month"
+msgid "Jun"
+msgstr ""
+
+#: lib/format.js:74
+#, no-javascript-format
+msgctxt "month"
+msgid "Jul"
+msgstr ""
+
+#: lib/format.js:74
+#, no-javascript-format
+msgctxt "month"
+msgid "Aug"
+msgstr ""
+
+#: lib/format.js:74
+#, no-javascript-format
+msgctxt "month"
+msgid "Sep"
+msgstr ""
+
+#: lib/format.js:75
+#, no-javascript-format
+msgctxt "month"
+msgid "Oct"
+msgstr ""
+
+#: lib/format.js:75
+#, no-javascript-format
+msgctxt "month"
+msgid "Nov"
+msgstr ""
+
+#: lib/format.js:75
+#, no-javascript-format
+msgctxt "month"
+msgid "Dec"
+msgstr ""
+
+#: lib/format.js:99
+#, no-javascript-format
+msgid "today {time}"
+msgstr ""
+
+#: lib/format.js:101
+#, no-javascript-format
+msgid "yesterday {time}"
+msgstr ""
+
+#: lib/format.js:102
+#, no-javascript-format
+msgid "{day} {month} {time}"
+msgstr ""
+
+#: lib/format.js:111
+#, no-javascript-format
+msgid "{day} {month}"
+msgstr ""
+
+#: lib/format.js:119
+#, no-javascript-format
+msgid "{percent}%"
+msgstr ""
+
+#: lib/indicator.js:105
+#, no-javascript-format
+msgid "zark backup status"
+msgstr ""
+
+#: lib/indicator.js:126
+#, no-javascript-format
+msgid "Show details..."
+msgstr ""
+
+#: lib/indicator.js:254
+#, no-javascript-format
+msgid "Waiting for: {question}"
+msgstr ""
+
+#: lib/indicator.js:274
+#, no-javascript-format
+msgid "This computer"
+msgstr ""
+
+#: lib/indicator.js:285
+#, no-javascript-format
+msgid "Backup drives"
+msgstr ""
+
+#: lib/indicator.js:288 lib/view.js:765
+#, no-javascript-format
+msgid "Connected"
+msgstr ""
+
+#: lib/indicator.js:288 lib/view.js:765
+#, no-javascript-format
+msgid "Not connected"
+msgstr ""
+
+#: lib/view.js:18
+#, no-javascript-format
+msgid ""
+"zark wrote its status in a newer format. This shows the last state it could "
+"read; update the extension."
+msgstr ""
+
+#: lib/view.js:22
+#, no-javascript-format
+msgid "Last run incomplete"
+msgstr ""
+
+#: lib/view.js:23
+#, no-javascript-format
+msgid "Last run not verified"
+msgstr ""
+
+#: lib/view.js:24
+#, no-javascript-format
+msgid "Last run interrupted"
+msgstr ""
+
+#: lib/view.js:25
+#, no-javascript-format
+msgid "Last run aborted"
+msgstr ""
+
+#: lib/view.js:29
+#, no-javascript-format
+msgid "User data"
+msgstr ""
+
+#: lib/view.js:30
+#, no-javascript-format
+msgid "User snapshots"
+msgstr ""
+
+#: lib/view.js:31
+#, no-javascript-format
+msgid "System"
+msgstr ""
+
+#: lib/view.js:32
+#, no-javascript-format
+msgid "System snapshots"
+msgstr ""
+
+#: lib/view.js:33
+#, no-javascript-format
+msgid "Other datasets"
+msgstr ""
+
+#: lib/view.js:34
+#, no-javascript-format
+msgid "Pool metadata"
+msgstr ""
+
+#: lib/view.js:35
+#, no-javascript-format
+msgid "Free"
+msgstr ""
+
+#: lib/view.js:36
+#, no-javascript-format
+msgid "Reserved by ZFS"
+msgstr ""
+
+#: lib/view.js:104
+#, no-javascript-format
+msgid "Snapshots hold {size}, {percent}% of the space in use"
+msgstr ""
+
+#: lib/view.js:110
+#, no-javascript-format
+msgid ""
+"Snapshots: what removing all of a dataset's snapshots would free. {shown} of "
+"{n} dataset; measured {when} by zark."
+msgid_plural ""
+"Snapshots: what removing all of a dataset's snapshots would free. {shown} of "
+"{n} datasets; measured {when} by zark."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:166
+#, no-javascript-format
+msgid "Waiting for your answer in the terminal"
+msgstr ""
+
+#: lib/view.js:169
+#, no-javascript-format
+msgid "zark {command} is running"
+msgstr ""
+
+#: lib/view.js:170
+#, no-javascript-format
+msgid "Backing up to {drive}"
+msgstr ""
+
+#: lib/view.js:170
+#, no-javascript-format
+msgid "Backup starting"
+msgstr ""
+
+#: lib/view.js:175
+#, no-javascript-format
+msgid "Last backup to {drive} needs attention"
+msgstr ""
+
+#: lib/view.js:181
+#, no-javascript-format
+msgid "Status written by a newer zark"
+msgstr ""
+
+#: lib/view.js:183
+#, no-javascript-format
+msgid "The status file cannot be read"
+msgstr ""
+
+#: lib/view.js:185
+#, no-javascript-format
+msgid "Status not refreshed since {when}"
+msgstr ""
+
+#: lib/view.js:189
+#, no-javascript-format
+msgid "The last zark run ended abnormally"
+msgstr ""
+
+#: lib/view.js:190
+#, no-javascript-format
+msgid "zark is running; its progress cannot be read"
+msgstr ""
+
+#: lib/view.js:192
+#, no-javascript-format
+msgid "No status from zark yet"
+msgstr ""
+
+#: lib/view.js:196
+#, no-javascript-format
+msgid "No backup yet"
+msgstr ""
+
+#: lib/view.js:199
+#, no-javascript-format
+msgid "Backup overdue, last one {age} on {drive}"
+msgstr ""
+
+#: lib/view.js:200
+#, no-javascript-format
+msgid "Backups up to date, last one {age} on {drive}"
+msgstr ""
+
+#: lib/view.js:211
+#, no-javascript-format
+msgid ""
+"The status file exists but does not parse. This shows the last state it "
+"could read."
+msgstr ""
+
+#: lib/view.js:213
+#, no-javascript-format
+msgid ""
+"zark 2.1 or later writes its status at the end of every run and from its "
+"hourly timer."
+msgstr ""
+
+#: lib/view.js:215
+#, no-javascript-format
+msgid ""
+"Is the zark alerts timer installed? The figures below are as old as their "
+"dates say."
+msgstr ""
+
+#: lib/view.js:219
+#, no-javascript-format
+msgid "The progress file does not parse or comes from a newer zark."
+msgstr ""
+
+#: lib/view.js:225
+#, no-javascript-format
+msgid "zark {command}"
+msgstr ""
+
+#: lib/view.js:226
+#, no-javascript-format
+msgid "Backup to {drive}"
+msgstr ""
+
+#: lib/view.js:226
+#, no-javascript-format
+msgid "Backup"
+msgstr ""
+
+#: lib/view.js:244
+#, no-javascript-format
+msgid ""
+"zark {command} to {drive} stopped answering at {when}. The next zark command "
+"records it."
+msgstr ""
+
+#: lib/view.js:245
+#, no-javascript-format
+msgid ""
+"zark {command} stopped answering at {when}. The next zark command records it."
+msgstr ""
+
+#: lib/view.js:267
+#, no-javascript-format
+msgid "Drive went away; see zark's terminal"
+msgstr ""
+
+#: lib/view.js:268
+#, no-javascript-format
+msgid "Drive went away {when}; see zark's terminal"
+msgstr ""
+
+#: lib/view.js:276
+#, no-javascript-format
+msgid "running for {duration}"
+msgstr ""
+
+#: lib/view.js:279
+#, no-javascript-format
+msgid "Step {index} of {total}: {label}"
+msgstr ""
+
+#: lib/view.js:285
+#, no-javascript-format
+msgid ""
+"No update for {seconds} s. zark is still running; the figures below are not "
+"current."
+msgstr ""
+
+#: lib/view.js:300
+#, no-javascript-format
+msgid "Between datasets"
+msgstr ""
+
+#: lib/view.js:309
+#, no-javascript-format
+msgid "{done} of at least {total}"
+msgstr ""
+
+#: lib/view.js:311
+#, no-javascript-format
+msgid "{done} of {total}"
+msgstr ""
+
+#: lib/view.js:317
+#, no-javascript-format
+msgid "about {duration} left"
+msgstr ""
+
+#: lib/view.js:319
+#, no-javascript-format
+msgid "under a minute left"
+msgstr ""
+
+#: lib/view.js:319
+#, no-javascript-format
+msgid "finishing"
+msgstr ""
+
+#: lib/view.js:324
+#, no-javascript-format
+msgid "Transfers: {done} of {total} done, {failed} failed"
+msgid_plural "Transfers: {done} of {total} done, {failed} failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:326
+#, no-javascript-format
+msgid "Transfers: {done} of {total} done"
+msgstr ""
+
+#: lib/view.js:342 lib/view.js:425
+#, no-javascript-format
+msgid "Could not be read"
+msgstr ""
+
+#: lib/view.js:348
+#, no-javascript-format
+msgid "{percent}% used, {size} free"
+msgstr ""
+
+#: lib/view.js:380
+#, no-javascript-format
+msgid "{percent}%, {size} free"
+msgstr ""
+
+#: lib/view.js:382
+#, no-javascript-format
+msgid "Not measured yet"
+msgstr ""
+
+#: lib/view.js:393
+#, no-javascript-format
+msgid "completed"
+msgstr ""
+
+#: lib/view.js:394
+#, no-javascript-format
+msgid "incomplete"
+msgstr ""
+
+#: lib/view.js:395
+#, no-javascript-format
+msgid "not verified"
+msgstr ""
+
+#: lib/view.js:396
+#, no-javascript-format
+msgid "aborted"
+msgstr ""
+
+#: lib/view.js:397
+#, no-javascript-format
+msgid "interrupted"
+msgstr ""
+
+#: lib/view.js:405
+#, no-javascript-format
+msgid "Last run: {result}"
+msgstr ""
+
+#: lib/view.js:428
+#, no-javascript-format
+msgid "{percent}% used of {size}"
+msgstr ""
+
+#: lib/view.js:435
+#, no-javascript-format
+msgid "{n}-day window"
+msgid_plural "{n}-day window"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:438
+#, no-javascript-format
+msgid "nothing older than {n} day"
+msgid_plural "nothing older than {n} days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:441
+#, no-javascript-format
+msgid "{percent}% margin"
+msgstr ""
+
+#: lib/view.js:454
+#, no-javascript-format
+msgid "step {index} of {total}, {label}"
+msgstr ""
+
+#: lib/view.js:456
+#, no-javascript-format
+msgid "starting"
+msgstr ""
+
+#: lib/view.js:459
+#, no-javascript-format
+msgid "{step}, {percent}% sent"
+msgstr ""
+
+#: lib/view.js:461
+#, no-javascript-format
+msgid "Run"
+msgstr ""
+
+#: lib/view.js:469
+#, no-javascript-format
+msgid ""
+"Stopped answering at {when}; the next zark command records it as interrupted"
+msgstr ""
+
+#: lib/view.js:476
+#, no-javascript-format
+msgid "No update for {seconds} s: {where}"
+msgstr ""
+
+#: lib/view.js:484
+#, no-javascript-format
+msgid "Waiting for your answer: {question}"
+msgstr ""
+
+#: lib/view.js:488
+#, no-javascript-format
+msgid "Running: {where}"
+msgstr ""
+
+#: lib/view.js:517
+#, no-javascript-format
+msgid "{month} {year}"
+msgstr ""
+
+#: lib/view.js:542
+#, no-javascript-format
+msgid "not measured"
+msgstr ""
+
+#: lib/view.js:608
+#, no-javascript-format
+msgid ""
+"Frees if older removed, and its bar: what removing every older point zark "
+"would remove frees, as measured {when}. Held alone: what a month's points "
+"hold that no other snapshot shares; those figures do not add up."
+msgstr ""
+
+#: lib/view.js:611
+#, no-javascript-format
+msgid ""
+"Held alone: what a month's points hold that no other snapshot shares. "
+"Removing several months frees more than their sum."
+msgstr ""
+
+#: lib/view.js:614
+#, no-javascript-format
+msgid "{n} point, oldest {date} {year}"
+msgid_plural "{n} points, oldest {date} {year}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:622
+#, no-javascript-format
+msgid "The next backup's retention removes no point"
+msgstr ""
+
+#: lib/view.js:629
+#, no-javascript-format
+msgid "The next backup's retention removes at least {n} point"
+msgid_plural "The next backup's retention removes at least {n} points"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:631
+#, no-javascript-format
+msgid "The next backup's retention removes {n} point"
+msgid_plural "The next backup's retention removes {n} points"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:634
+#, no-javascript-format
+msgid " ({first} to {last})"
+msgstr ""
+
+#: lib/view.js:640
+#, no-javascript-format
+msgid ", freeing about {size}"
+msgstr ""
+
+#: lib/view.js:656
+#, no-javascript-format
+msgid "{shown} of {n} dataset on the drive; measured {when} by zark."
+msgid_plural "{shown} of {n} datasets on the drive; measured {when} by zark."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/view.js:664
+#, no-javascript-format
+msgid ""
+"Also {intermediate} intermediate snapshots ({intermediateSize}), removed "
+"with their points, and {other} other snapshots ({otherSize}), which it never "
+"removes"
+msgstr ""
+
+#: lib/view.js:687
+#, no-javascript-format
+msgid "Last backup"
+msgstr ""
+
+#: lib/view.js:689
+#, no-javascript-format
+msgid "Never"
+msgstr ""
+
+#: lib/view.js:690
+#, no-javascript-format
+msgid "{age}, {when}"
+msgstr ""
+
+#: lib/view.js:694
+#, no-javascript-format
+msgid "Backup point"
+msgstr ""
+
+#: lib/view.js:702
+#, no-javascript-format
+msgid "Last run"
+msgstr ""
+
+#: lib/view.js:703
+#, no-javascript-format
+msgid "{result}, {when}, took {duration}"
+msgstr ""
+
+#: lib/view.js:710
+#, no-javascript-format
+msgid "Retention"
+msgstr ""
+
+#: lib/view.js:715
+#, no-javascript-format
+msgid "Margin"
+msgstr ""
+
+#: lib/view.js:717
+#, no-javascript-format
+msgid "{free} free, above the {margin} zark keeps free before a backup"
+msgstr ""
+
+#: lib/view.js:718
+#, no-javascript-format
+msgid "{free} free, below the {margin} zark keeps free before a backup"
+msgstr ""
+
+#: lib/view.js:727
+#, no-javascript-format
+msgid "After retention"
+msgstr ""
+
+#: lib/view.js:728
+#, no-javascript-format
+msgid "about {free} free once the next backup's retention has run"
+msgstr ""
+
+#: lib/view.js:733
+#, no-javascript-format
+msgid "Ejects itself"
+msgstr ""
+
+#: lib/view.js:733
+#, no-javascript-format
+msgid "yes"
+msgstr ""
+
+#: lib/view.js:733
+#, no-javascript-format
+msgid "no"
+msgstr ""
+
+#: lib/view.js:735
+#, no-javascript-format
+msgid "Fill not measured yet"
+msgstr ""
+
+#: lib/view.js:743
+#, no-javascript-format
+msgid "{percent}% used of {size}; live"
+msgstr ""
+
+#: lib/view.js:744
+#, no-javascript-format
+msgid "{percent}% used of {size}; measured {when}"
+msgstr ""
+
+#: lib/view.js:747
+#, no-javascript-format
+msgid "Used"
+msgstr ""
+
+#: lib/view.js:772
+#, no-javascript-format
+msgid "Margin: the last {size} zark keeps free"
+msgstr ""
+
+#: lib/view.js:848
+#, no-javascript-format
+msgid "Status written {when} by {who}, zark {version}"
+msgstr ""

@@ -59,14 +59,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install gjs
+      - name: Install gjs and gettext
+        # en_US.UTF-8 for make test-i18n: gettext ignores LANGUAGE under C.
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gjs
+          sudo apt-get install -y --no-install-recommends gjs gettext locales
+          sudo locale-gen en_US.UTF-8
           gjs --version
+          xgettext --version | head -1
 
       - name: Run the tests
         run: make test
+
+      - name: Check the translation template and catalogues
+        run: |
+          make pot-check
+          make po-check
+          make test-i18n
+          make po-risk
 
       - name: Coverage for SonarQube Cloud
         run: make coverage
@@ -148,11 +158,12 @@ jobs:
         with:
           path: second
 
-      - name: Install gnome-extensions
-        # /usr/bin/gnome-extensions comes with the gnome-shell package.
+      - name: Install gnome-extensions and gettext
+        # /usr/bin/gnome-extensions comes with the gnome-shell package; it
+        # compiles po/*.po with gettext's msgfmt.
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gnome-shell
+          sudo apt-get install -y --no-install-recommends gnome-shell gettext
 
       - name: Pack and check the entries
         working-directory: first
@@ -184,7 +195,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-              build-essential debhelper devscripts fakeroot lintian
+              build-essential debhelper devscripts fakeroot gettext lintian
 
       - name: Build the .deb with lintian
         # make deb builds from the source package, as Launchpad gets it,

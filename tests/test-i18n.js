@@ -4,6 +4,10 @@
 // wraps every translated text as "[[...]]", so a text the view shows without
 // passing through _() stands out, and so do a placeholder left unfilled and a
 // command or a text of zark's that went through _() by mistake.
+//
+// make test-i18n runs the TRANSLATED tests again with real gettext and a
+// pseudo catalogue built from the template, which wraps texts the same way
+// (tests/i18n-run.js).
 
 import GLib from 'gi://GLib';
 

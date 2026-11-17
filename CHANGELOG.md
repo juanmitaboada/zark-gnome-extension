@@ -4,6 +4,21 @@ The extension's versions, as `version-name` in `metadata.json`. The
 Debian package adds a revision (`1.3-1`), and the PPA one per Ubuntu
 series (`1.3-1~ubuntu26.04.1`, `1.3-1~ubuntu26.10.1`).
 
+## Unreleased
+
+- Ready for translations: the texts the extension shows go through gettext
+  in the domain `zark@juanmitaboada.com` (`gettext-domain` in
+  `metadata.json`), with named placeholders and plural forms; with no
+  catalogue they stay English, as before. Commands, and zark's own text
+  (its hints, questions and notices), stay as they are.
+- `po/`: the template `zark@juanmitaboada.com.pot`, `POTFILES`, `LINGUAS`
+  (empty for now) and `RISK-WORDS`, the same list as zark's app. `make pot`,
+  `pot-check`, `po-check`, `po-risk` and `test-i18n`; CI checks that the
+  template is current and that it holds no command.
+- A catalogue `po/<lang>.po` goes into the zip as `locale/<lang>/` and into
+  the Debian package under `/usr/share/locale/`; the package build-depends
+  on gettext.
+
 ## 1.3
 
 For zark 2.3.1. It still reads the status files of zark 2.1.0 and later.
