@@ -1,0 +1,30 @@
+# Risk words reviewed (make po-risk): every msgid of the template that
+# matches po/RISK-WORDS, with its score, one per line as <score> "<msgid>".
+#   label    the label or title of an action: translated with the glossary's
+#            fixed term (glossary 5b)
+#   caption  a translated risk caption under English lines (BC22-44): it may
+#            only add caution
+#   1        a text whose translation cannot change what runs: translated
+# Score 2 (could mislead about what runs or which disk) is never here: those
+# texts are left unmarked and never reach the template. A new match fails
+# make pot-check until it is added here.
+
+1        "Run stopped answering"
+1        "When a zark command ends without cleaning up its progress file"
+1        "Bare-metal backup and recovery for ZFS on Ubuntu"
+1        "Cleanup"
+1        "Frees if older removed"
+1        "zark stopped answering"
+1        "zark wrote its status in a newer format. This shows the last state it could read; update the extension."
+1        "Reserved by ZFS"
+1        "Snapshots: what removing all of a dataset's snapshots would free. {shown} of {n} dataset; measured {when} by zark."
+1        "zark {command} to {drive} stopped answering at {when}. The next zark command records it."
+1        "zark {command} stopped answering at {when}. The next zark command records it."
+1        "Stopped answering at {when}; the next zark command records it as interrupted"
+1        "Frees if older removed, and its bar: what removing every older point zark would remove frees, as measured {when}. Held alone: what a month's points hold that no other snapshot shares; those figures do not add up."
+1        "Held alone: what a month's points hold that no other snapshot shares. Removing several months frees more than their sum."
+1        "The next backup's retention removes no point"
+1        "The next backup's retention removes at least {n} point"
+1        "The next backup's retention removes {n} point"
+1        "Also {intermediate} intermediate snapshots ({intermediateSize}), removed with their points, and {other} other snapshots ({otherSize}), which it never removes"
+1        "Ejects itself"

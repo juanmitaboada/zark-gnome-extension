@@ -25,9 +25,9 @@ const domain = Gettext.domain(DOMAIN);
 
 // Without this the tests below would fail on every text, for a reason they do not name.
 setTranslator(domain);
-const probe = _('Free');
+const probe = _('Used');
 setTranslator(null);
-if (probe !== '[[Free]]') {
+if (probe !== '[[Used]]') {
     print(`the pseudo catalogue is not used ("${probe}"): LANGUAGE=${GLib.getenv('LANGUAGE')}, ` +
         `LC_ALL=${GLib.getenv('LC_ALL')}; it needs a UTF-8 locale other than C`);
     System.exit(1);

@@ -11,10 +11,13 @@ series (`1.3-1~ubuntu26.04.1`, `1.3-1~ubuntu26.10.1`).
   `metadata.json`), with named placeholders and plural forms; with no
   catalogue they stay English, as before. Commands, and zark's own text
   (its hints, questions and notices), stay as they are.
-- `po/`: the template `zark@juanmitaboada.com.pot`, `POTFILES`, `LINGUAS`
-  (empty for now) and `RISK-WORDS`, the same list as zark's app. `make pot`,
+- `po/`: the template `zark@juanmitaboada.com.pot`, with comments for the
+  translators, `POTFILES`, `LINGUAS` (empty for now), `RISK-WORDS`, the
+  same file as zark's app, and `RISK-REVIEWED`, the score of each template
+  text that has a risk stem. `make pot`,
   `pot-check`, `po-check`, `po-risk` and `test-i18n`; CI checks that the
-  template is current and that it holds no command.
+  template is current, misses no text of the sources, holds no command and
+  has a score for each risk text, and that each catalogue matches it.
 - A catalogue `po/<lang>.po` goes into the zip as `locale/<lang>/` and into
   the Debian package under `/usr/share/locale/`; the package build-depends
   on gettext.

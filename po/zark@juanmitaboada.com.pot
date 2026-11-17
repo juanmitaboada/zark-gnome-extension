@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-shell-extension-zark\n"
 "Report-Msgid-Bugs-To: https://github.com/juanmitaboada/zark-gnome-extension/"
 "issues\n"
-"POT-Creation-Date: 2026-11-17 23:13+0100\n"
+"POT-Creation-Date: 2026-11-17 23:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: prefs.js:15 lib/events.js:146
+#: prefs.js:15 lib/events.js:149
 #, no-javascript-format
 msgid "Backup overdue"
 msgstr ""
@@ -76,7 +76,7 @@ msgid ""
 "it as it is otherwise."
 msgstr ""
 
-#: prefs.js:28 lib/about.js:137
+#: prefs.js:28 lib/about.js:141
 #, no-javascript-format
 msgid "Status file"
 msgstr ""
@@ -142,12 +142,12 @@ msgid ""
 "away, and when a pool fills up."
 msgstr ""
 
-#: prefs.js:67 lib/view.js:803
+#: prefs.js:68 lib/view.js:871
 #, no-javascript-format
 msgid "About"
 msgstr ""
 
-#: prefs.js:68
+#: prefs.js:69
 #, no-javascript-format
 msgid ""
 "Read-only: it reads the status files zark writes and dpkg's database, never "
@@ -155,34 +155,34 @@ msgid ""
 "only when a Copy button is pressed."
 msgstr ""
 
-#: prefs.js:71
+#: prefs.js:73
 #, no-javascript-format
 msgid "Version"
 msgstr ""
 
-#: prefs.js:72
+#: prefs.js:78
 #, no-javascript-format
 msgid "Source code"
 msgstr ""
 
-#: prefs.js:76
+#: prefs.js:86
 #, no-javascript-format
 msgid "License"
 msgstr ""
 
-#: prefs.js:83
+#: prefs.js:93
 #, no-javascript-format
 msgid "Development"
 msgstr ""
 
-#: prefs.js:85
+#: prefs.js:95
 #, no-javascript-format
 msgid ""
 "Where the extension reads from. Only for tests and screenshots with example "
 "files: zark, udev and dpkg write the defaults."
 msgstr ""
 
-#: prefs.js:104
+#: prefs.js:119
 #, no-javascript-format
 msgid "Restore defaults"
 msgstr ""
@@ -215,52 +215,54 @@ msgstr ""
 msgid "(package state unknown)"
 msgstr ""
 
-#: lib/about.js:94
+#. Translators: {state} is dpkg's own state word, in English (half-configured, ...)
+#: lib/about.js:96
 #, no-javascript-format
 msgid "{version} (package {state})"
 msgstr ""
 
-#: lib/about.js:94
+#. Translators: {state} is dpkg's own state word, in English (half-configured, ...)
+#: lib/about.js:98
 #, no-javascript-format
 msgid "(package {state})"
 msgstr ""
 
-#: lib/about.js:115
+#: lib/about.js:119
 #, no-javascript-format
 msgid "Reading dpkg's database"
 msgstr ""
 
-#: lib/about.js:122
+#: lib/about.js:126
 #, no-javascript-format
 msgid "{version} (not installed as a package; from the status file)"
 msgstr ""
 
-#: lib/about.js:126
+#: lib/about.js:130
 #, no-javascript-format
 msgid "Not found on this system"
 msgstr ""
 
-#: lib/about.js:134
+#: lib/about.js:138
 #, no-javascript-format
 msgid "written by zark {version}, {when}"
 msgstr ""
 
-#: lib/about.js:136
+#: lib/about.js:140
 #, no-javascript-format
 msgid "written by zark {version}"
 msgstr ""
 
-#: lib/about.js:139
+#: lib/about.js:143
 #, no-javascript-format
 msgid "Extension"
 msgstr ""
 
-#: lib/about.js:147
+#: lib/about.js:151
 #, no-javascript-format
 msgid "Run them in the directory that holds zark."
 msgstr ""
 
-#: lib/about.js:149
+#: lib/about.js:153
 #, no-javascript-format
 msgid "Once zark is installed:"
 msgstr ""
@@ -270,304 +272,332 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: lib/details.js:25
+#. Translators: a column title: the space a dataset's own data takes
+#: lib/details.js:28
 #, no-javascript-format
 msgid "Data"
 msgstr ""
 
-#: lib/details.js:25
+#. Translators: a column title: the space a dataset's snapshots take
+#: lib/details.js:30
 #, no-javascript-format
 msgid "Snapshots"
 msgstr ""
 
-#: lib/details.js:74
+#: lib/details.js:80
 #, no-javascript-format
 msgid "Close"
 msgstr ""
 
-#: lib/details.js:195
+#: lib/details.js:201
 #, no-javascript-format
 msgid "Bare-metal backup and recovery for ZFS on Ubuntu"
 msgstr ""
 
-#: lib/details.js:212
+#: lib/details.js:218
 #, no-javascript-format
 msgid "Commands"
 msgstr ""
 
-#: lib/details.js:222
+#: lib/details.js:228
 #, no-javascript-format
 msgid "Copy"
 msgstr ""
 
-#: lib/details.js:225 lib/details.js:315 lib/indicator.js:134
+#: lib/details.js:231 lib/details.js:322 lib/indicator.js:135
 #: lib/notifier.js:157
 #, no-javascript-format
 msgid "Copy \"{command}\""
 msgstr ""
 
-#: lib/details.js:277
+#: lib/details.js:283
 #, no-javascript-format
 msgid "Dataset"
 msgstr ""
 
-#: lib/details.js:311
+#. Translators: a heading over zark's notices about space to free
+#: lib/details.js:318
 #, no-javascript-format
 msgid "Cleanup"
 msgstr ""
 
-#: lib/details.js:383
+#: lib/details.js:386
+#, no-javascript-format
+msgid "Backup points on the drive"
+msgstr ""
+
+#: lib/details.js:390
 #, no-javascript-format
 msgid "By month"
 msgstr ""
 
-#: lib/details.js:383
+#: lib/details.js:390
 #, no-javascript-format
 msgid "By dataset"
 msgstr ""
 
-#: lib/details.js:422
+#. Translators: a column title of the drive's backup points by month
+#: lib/details.js:431
 #, no-javascript-format
 msgid "Month"
 msgstr ""
 
-#: lib/details.js:422
+#. Translators: a column title: how many backup points the month has
+#: lib/details.js:433
 #, no-javascript-format
 msgid "Points"
 msgstr ""
 
-#: lib/details.js:422
+#. Translators: a column title: the space only that month's points hold
+#: lib/details.js:435
 #, no-javascript-format
 msgid "Held alone"
 msgstr ""
 
-#: lib/details.js:424
+#. Translators: a column title: the space removing every older point would free
+#: lib/details.js:439
 #, no-javascript-format
 msgid "Frees if older removed"
 msgstr ""
 
-#: lib/events.js:72
+#. Translators: "zark backup" is the program's name and stays as it is
+#: lib/events.js:73
 #, no-javascript-format
 msgid "Seen gone, while zark backup was writing to it."
 msgstr ""
 
-#: lib/events.js:73
+#. Translators: "zark backup" is the program's name and stays as it is;
+#. {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
+#: lib/events.js:76
 #, no-javascript-format
 msgid "Seen gone {when}, while zark backup was writing to it."
 msgstr ""
 
-#: lib/events.js:75
+#: lib/events.js:78
 #, no-javascript-format
 msgid "{drive}: the backup drive went away"
 msgstr ""
 
-#: lib/events.js:147
+#. Translators: {age} is "3 hours ago"; {command} is a command as typed and stays as it is
+#: lib/events.js:151
 #, no-javascript-format
 msgid "Last backup {age} on {drive}. Run: {command}"
 msgstr ""
 
-#: lib/events.js:149
+#: lib/events.js:153
 #, no-javascript-format
 msgid "No backup yet. Run: {command}"
 msgstr ""
 
-#: lib/events.js:153
+#: lib/events.js:157
 #, no-javascript-format
 msgid "zark is waiting for your answer"
 msgstr ""
 
-#: lib/events.js:154
+#: lib/events.js:158
 #, no-javascript-format
 msgid "In the terminal where it runs"
 msgstr ""
 
-#: lib/events.js:170
+#. Translators: a notification's title: a backup drive was plugged in
+#: lib/events.js:175
 #, no-javascript-format
 msgid "{drive} connected"
 msgstr ""
 
-#: lib/events.js:171 lib/view.js:377
+#: lib/events.js:177 lib/view.js:402
 #, no-javascript-format
 msgid "Never backed up"
 msgstr ""
 
-#: lib/events.js:171 lib/view.js:377
+#: lib/events.js:177 lib/view.js:402
 #, no-javascript-format
 msgid "Last backup {age}"
 msgstr ""
 
-#: lib/events.js:174
+#: lib/events.js:180
 #, no-javascript-format
 msgid "zark stopped answering"
 msgstr ""
 
-#: lib/format.js:41
+#. Translators: an age, as "3 hours ago"; it fills {age} in other texts
+#: lib/format.js:42
 #, no-javascript-format
 msgid "just now"
 msgstr ""
 
-#: lib/format.js:43
+#. Translators: an age; "min" is a unit and stays as it is
+#: lib/format.js:45
 #, no-javascript-format
 msgid "{n} min ago"
 msgstr ""
 
-#: lib/format.js:46
+#: lib/format.js:48
 #, no-javascript-format
 msgid "{n} hour ago"
 msgid_plural "{n} hours ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/format.js:48
+#: lib/format.js:50
 #, no-javascript-format
 msgid "{n} day ago"
 msgid_plural "{n} days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/format.js:57
+#. Translators: a duration; it fills {duration} in other texts
+#: lib/format.js:60
 #, no-javascript-format
 msgid "under a minute"
 msgstr ""
 
-#: lib/format.js:60
+#. Translators: a duration; "min" is a unit and stays as it is
+#: lib/format.js:64
 #, no-javascript-format
 msgid "{n} min"
 msgstr ""
 
-#: lib/format.js:61
+#. Translators: a duration; "h" and "min" are units and stay as they are
+#: lib/format.js:66
 #, no-javascript-format
 msgid "{hours} h {minutes} min"
 msgstr ""
 
-#: lib/format.js:72
+#. Translators: a month's short name, as in "19 Oct"
+#: lib/format.js:78
 #, no-javascript-format
 msgctxt "month"
 msgid "Jan"
 msgstr ""
 
-#: lib/format.js:72
+#: lib/format.js:78
 #, no-javascript-format
 msgctxt "month"
 msgid "Feb"
 msgstr ""
 
-#: lib/format.js:72
+#: lib/format.js:78
 #, no-javascript-format
 msgctxt "month"
 msgid "Mar"
 msgstr ""
 
-#: lib/format.js:73
+#: lib/format.js:79
 #, no-javascript-format
 msgctxt "month"
 msgid "Apr"
 msgstr ""
 
-#: lib/format.js:73
+#: lib/format.js:79
 #, no-javascript-format
 msgctxt "month"
 msgid "May"
 msgstr ""
 
-#: lib/format.js:73
+#: lib/format.js:79
 #, no-javascript-format
 msgctxt "month"
 msgid "Jun"
 msgstr ""
 
-#: lib/format.js:74
+#: lib/format.js:80
 #, no-javascript-format
 msgctxt "month"
 msgid "Jul"
 msgstr ""
 
-#: lib/format.js:74
+#: lib/format.js:80
 #, no-javascript-format
 msgctxt "month"
 msgid "Aug"
 msgstr ""
 
-#: lib/format.js:74
+#: lib/format.js:80
 #, no-javascript-format
 msgctxt "month"
 msgid "Sep"
 msgstr ""
 
-#: lib/format.js:75
+#: lib/format.js:81
 #, no-javascript-format
 msgctxt "month"
 msgid "Oct"
 msgstr ""
 
-#: lib/format.js:75
+#: lib/format.js:81
 #, no-javascript-format
 msgctxt "month"
 msgid "Nov"
 msgstr ""
 
-#: lib/format.js:75
+#: lib/format.js:81
 #, no-javascript-format
 msgctxt "month"
 msgid "Dec"
 msgstr ""
 
-#: lib/format.js:99
+#. Translators: a moment; {time} is "09:18"; it fills {when} in other texts
+#: lib/format.js:106
 #, no-javascript-format
 msgid "today {time}"
 msgstr ""
 
-#: lib/format.js:101
+#. Translators: a moment; {time} is "09:18"; it fills {when} in other texts
+#: lib/format.js:109
 #, no-javascript-format
 msgid "yesterday {time}"
 msgstr ""
 
-#: lib/format.js:102
+#: lib/format.js:110
 #, no-javascript-format
 msgid "{day} {month} {time}"
 msgstr ""
 
-#: lib/format.js:111
+#: lib/format.js:119
 #, no-javascript-format
 msgid "{day} {month}"
 msgstr ""
 
-#: lib/format.js:119
+#: lib/format.js:127
 #, no-javascript-format
 msgid "{percent}%"
 msgstr ""
 
-#: lib/indicator.js:105
+#. Translators: the panel button's name for screen readers; "zark backup" is the program's name
+#: lib/indicator.js:106
 #, no-javascript-format
 msgid "zark backup status"
 msgstr ""
 
-#: lib/indicator.js:126
+#: lib/indicator.js:127
 #, no-javascript-format
 msgid "Show details..."
 msgstr ""
 
-#: lib/indicator.js:254
+#: lib/indicator.js:255
 #, no-javascript-format
 msgid "Waiting for: {question}"
 msgstr ""
 
-#: lib/indicator.js:274
+#: lib/indicator.js:275
 #, no-javascript-format
 msgid "This computer"
 msgstr ""
 
-#: lib/indicator.js:285
+#: lib/indicator.js:286
 #, no-javascript-format
 msgid "Backup drives"
 msgstr ""
 
-#: lib/indicator.js:288 lib/view.js:765
+#. Translators: said of a backup drive
+#: lib/indicator.js:291 lib/view.js:831
 #, no-javascript-format
 msgid "Connected"
 msgstr ""
 
-#: lib/indicator.js:288 lib/view.js:765
+#. Translators: said of a backup drive
+#: lib/indicator.js:293 lib/view.js:833
 #, no-javascript-format
 msgid "Not connected"
 msgstr ""
@@ -599,52 +629,56 @@ msgstr ""
 msgid "Last run aborted"
 msgstr ""
 
-#: lib/view.js:29
+#: lib/view.js:30
 #, no-javascript-format
 msgid "User data"
 msgstr ""
 
-#: lib/view.js:30
+#: lib/view.js:31
 #, no-javascript-format
 msgid "User snapshots"
 msgstr ""
 
-#: lib/view.js:31
+#. Translators: the system's data (the root and boot datasets), a part of a pool's usage bar
+#: lib/view.js:33
 #, no-javascript-format
 msgid "System"
 msgstr ""
 
-#: lib/view.js:32
+#: lib/view.js:34
 #, no-javascript-format
 msgid "System snapshots"
 msgstr ""
 
-#: lib/view.js:33
+#: lib/view.js:35
 #, no-javascript-format
 msgid "Other datasets"
 msgstr ""
 
-#: lib/view.js:34
+#: lib/view.js:36
 #, no-javascript-format
 msgid "Pool metadata"
 msgstr ""
 
-#: lib/view.js:35
+#. Translators: free space, a part of a usage bar
+#: lib/view.js:38
 #, no-javascript-format
+msgctxt "free space"
 msgid "Free"
 msgstr ""
 
-#: lib/view.js:36
+#. Translators: ZFS is a name; space the file system keeps for itself
+#: lib/view.js:40
 #, no-javascript-format
 msgid "Reserved by ZFS"
 msgstr ""
 
-#: lib/view.js:104
+#: lib/view.js:108
 #, no-javascript-format
 msgid "Snapshots hold {size}, {percent}% of the space in use"
 msgstr ""
 
-#: lib/view.js:110
+#: lib/view.js:114
 #, no-javascript-format
 msgid ""
 "Snapshots: what removing all of a dataset's snapshots would free. {shown} of "
@@ -655,325 +689,350 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:166
+#: lib/view.js:170
 #, no-javascript-format
 msgid "Waiting for your answer in the terminal"
 msgstr ""
 
-#: lib/view.js:169
+#. Translators: {command} is zark's subcommand as typed, such as prune
+#: lib/view.js:174
 #, no-javascript-format
 msgid "zark {command} is running"
 msgstr ""
 
-#: lib/view.js:170
+#: lib/view.js:175
 #, no-javascript-format
 msgid "Backing up to {drive}"
 msgstr ""
 
-#: lib/view.js:170
+#: lib/view.js:175
 #, no-javascript-format
 msgid "Backup starting"
 msgstr ""
 
-#: lib/view.js:175
+#: lib/view.js:180
 #, no-javascript-format
 msgid "Last backup to {drive} needs attention"
 msgstr ""
 
-#: lib/view.js:181
+#: lib/view.js:186
 #, no-javascript-format
 msgid "Status written by a newer zark"
 msgstr ""
 
-#: lib/view.js:183
+#: lib/view.js:188
 #, no-javascript-format
 msgid "The status file cannot be read"
 msgstr ""
 
-#: lib/view.js:185
+#. Translators: {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
+#: lib/view.js:191
 #, no-javascript-format
 msgid "Status not refreshed since {when}"
 msgstr ""
 
-#: lib/view.js:189
+#: lib/view.js:195
 #, no-javascript-format
 msgid "The last zark run ended abnormally"
 msgstr ""
 
-#: lib/view.js:190
+#: lib/view.js:196
 #, no-javascript-format
 msgid "zark is running; its progress cannot be read"
 msgstr ""
 
-#: lib/view.js:192
+#: lib/view.js:198
 #, no-javascript-format
 msgid "No status from zark yet"
 msgstr ""
 
-#: lib/view.js:196
+#: lib/view.js:202
 #, no-javascript-format
 msgid "No backup yet"
 msgstr ""
 
-#: lib/view.js:199
+#: lib/view.js:205
 #, no-javascript-format
 msgid "Backup overdue, last one {age} on {drive}"
 msgstr ""
 
-#: lib/view.js:200
+#: lib/view.js:206
 #, no-javascript-format
 msgid "Backups up to date, last one {age} on {drive}"
 msgstr ""
 
-#: lib/view.js:211
+#: lib/view.js:217
 #, no-javascript-format
 msgid ""
 "The status file exists but does not parse. This shows the last state it "
 "could read."
 msgstr ""
 
-#: lib/view.js:213
+#: lib/view.js:219
 #, no-javascript-format
 msgid ""
 "zark 2.1 or later writes its status at the end of every run and from its "
 "hourly timer."
 msgstr ""
 
-#: lib/view.js:215
+#: lib/view.js:221
 #, no-javascript-format
 msgid ""
 "Is the zark alerts timer installed? The figures below are as old as their "
 "dates say."
 msgstr ""
 
-#: lib/view.js:219
+#: lib/view.js:225
 #, no-javascript-format
 msgid "The progress file does not parse or comes from a newer zark."
 msgstr ""
 
-#: lib/view.js:225
+#: lib/view.js:231
 #, no-javascript-format
 msgid "zark {command}"
 msgstr ""
 
-#: lib/view.js:226
+#: lib/view.js:233
 #, no-javascript-format
 msgid "Backup to {drive}"
 msgstr ""
 
-#: lib/view.js:226
+#. Translators: a noun, the title of a running backup whose drive is not known yet
+#: lib/view.js:235
 #, no-javascript-format
+msgctxt "run title"
 msgid "Backup"
 msgstr ""
 
-#: lib/view.js:244
+#: lib/view.js:253
 #, no-javascript-format
 msgid ""
 "zark {command} to {drive} stopped answering at {when}. The next zark command "
 "records it."
 msgstr ""
 
-#: lib/view.js:245
+#: lib/view.js:254
 #, no-javascript-format
 msgid ""
 "zark {command} stopped answering at {when}. The next zark command records it."
 msgstr ""
 
-#: lib/view.js:267
+#: lib/view.js:276
 #, no-javascript-format
 msgid "Drive went away; see zark's terminal"
 msgstr ""
 
-#: lib/view.js:268
+#: lib/view.js:277
 #, no-javascript-format
 msgid "Drive went away {when}; see zark's terminal"
 msgstr ""
 
-#: lib/view.js:276
+#. Translators: {duration} is "5 min", "1 h 12 min" or "under a minute"
+#: lib/view.js:286
 #, no-javascript-format
 msgid "running for {duration}"
 msgstr ""
 
-#: lib/view.js:279
+#. Translators: {label} is zark's own English text for the step
+#: lib/view.js:290
 #, no-javascript-format
 msgid "Step {index} of {total}: {label}"
 msgstr ""
 
-#: lib/view.js:285
+#: lib/view.js:296
 #, no-javascript-format
 msgid ""
 "No update for {seconds} s. zark is still running; the figures below are not "
 "current."
 msgstr ""
 
-#: lib/view.js:300
+#: lib/view.js:311
 #, no-javascript-format
 msgid "Between datasets"
 msgstr ""
 
-#: lib/view.js:309
+#: lib/view.js:320
 #, no-javascript-format
 msgid "{done} of at least {total}"
 msgstr ""
 
-#: lib/view.js:311
+#: lib/view.js:322
 #, no-javascript-format
 msgid "{done} of {total}"
 msgstr ""
 
-#: lib/view.js:317
+#. Translators: one part of a comma-separated line: "7.0 GiB of 17.0 GiB, 107.0 MiB/s, about 5 min left"
+#: lib/view.js:329
 #, no-javascript-format
 msgid "about {duration} left"
 msgstr ""
 
-#: lib/view.js:319
+#: lib/view.js:331
 #, no-javascript-format
 msgid "under a minute left"
 msgstr ""
 
-#: lib/view.js:319
+#. Translators: the transfer is ending; one part of a comma-separated line
+#: lib/view.js:334
 #, no-javascript-format
 msgid "finishing"
 msgstr ""
 
-#: lib/view.js:324
+#. Translators: {failed} picks the plural form; {done} and {total} count datasets
+#: lib/view.js:340
 #, no-javascript-format
 msgid "Transfers: {done} of {total} done, {failed} failed"
 msgid_plural "Transfers: {done} of {total} done, {failed} failed"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:326
+#: lib/view.js:342
 #, no-javascript-format
 msgid "Transfers: {done} of {total} done"
 msgstr ""
 
-#: lib/view.js:342 lib/view.js:425
+#. Translators: said of a pool whose figures zark could not read
+#: lib/view.js:362 lib/view.js:458
 #, no-javascript-format
 msgid "Could not be read"
 msgstr ""
 
-#: lib/view.js:348
+#: lib/view.js:373
 #, no-javascript-format
 msgid "{percent}% used, {size} free"
 msgstr ""
 
-#: lib/view.js:380
+#: lib/view.js:405
 #, no-javascript-format
 msgid "{percent}%, {size} free"
 msgstr ""
 
-#: lib/view.js:382
+#: lib/view.js:407
 #, no-javascript-format
 msgid "Not measured yet"
 msgstr ""
 
-#: lib/view.js:393
+#. Translators: the result of a backup run, placed in "{result}, {when}, took {duration}"
+#: lib/view.js:419
 #, no-javascript-format
 msgid "completed"
 msgstr ""
 
-#: lib/view.js:394
+#. Translators: the result of a backup run, placed in "{result}, {when}, took {duration}"
+#: lib/view.js:421
 #, no-javascript-format
 msgid "incomplete"
 msgstr ""
 
-#: lib/view.js:395
+#. Translators: the result of a backup run, placed in "{result}, {when}, took {duration}"
+#: lib/view.js:423
 #, no-javascript-format
 msgid "not verified"
 msgstr ""
 
-#: lib/view.js:396
+#. Translators: the result of a backup run, placed in "{result}, {when}, took {duration}"
+#: lib/view.js:425
 #, no-javascript-format
 msgid "aborted"
 msgstr ""
 
-#: lib/view.js:397
+#. Translators: the result of a backup run, placed in "{result}, {when}, took {duration}"
+#: lib/view.js:427
 #, no-javascript-format
 msgid "interrupted"
 msgstr ""
 
-#: lib/view.js:405
+#. Translators: {result} is a result name zark wrote that this version does not know, in English
+#: lib/view.js:438
 #, no-javascript-format
 msgid "Last run: {result}"
 msgstr ""
 
-#: lib/view.js:428
+#: lib/view.js:461
 #, no-javascript-format
 msgid "{percent}% used of {size}"
 msgstr ""
 
-#: lib/view.js:435
+#: lib/view.js:468
 #, no-javascript-format
 msgid "{n}-day window"
 msgid_plural "{n}-day window"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:438
+#: lib/view.js:471
 #, no-javascript-format
 msgid "nothing older than {n} day"
 msgid_plural "nothing older than {n} days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:441
+#: lib/view.js:474
 #, no-javascript-format
 msgid "{percent}% margin"
 msgstr ""
 
-#: lib/view.js:454
+#. Translators: {label} is zark's English text for the step; the whole fills {step} and {where} below
+#: lib/view.js:488
 #, no-javascript-format
 msgid "step {index} of {total}, {label}"
 msgstr ""
 
-#: lib/view.js:456
+#. Translators: the run has not reached its first step; fills {step} and {where} below
+#: lib/view.js:491
 #, no-javascript-format
 msgid "starting"
 msgstr ""
 
-#: lib/view.js:459
+#. Translators: {step} is "step 7 of 9, <zark's label>" or "starting"; fills {where} below
+#: lib/view.js:495
 #, no-javascript-format
 msgid "{step}, {percent}% sent"
 msgstr ""
 
-#: lib/view.js:461
+#. Translators: a noun, the title of the row for the command running on this drive
+#: lib/view.js:498
 #, no-javascript-format
+msgctxt "running command"
 msgid "Run"
 msgstr ""
 
-#: lib/view.js:469
+#: lib/view.js:506
 #, no-javascript-format
 msgid ""
 "Stopped answering at {when}; the next zark command records it as interrupted"
 msgstr ""
 
-#: lib/view.js:476
+#. Translators: {where} is "step 7 of 9, <zark's label>, 40% sent" or "starting"
+#: lib/view.js:514
 #, no-javascript-format
 msgid "No update for {seconds} s: {where}"
 msgstr ""
 
-#: lib/view.js:484
+#. Translators: {question} is zark's own English question, or the step
+#: lib/view.js:523
 #, no-javascript-format
 msgid "Waiting for your answer: {question}"
 msgstr ""
 
-#: lib/view.js:488
+#. Translators: {where} is "step 7 of 9, <zark's label>, 40% sent" or "starting"
+#: lib/view.js:528
 #, no-javascript-format
 msgid "Running: {where}"
 msgstr ""
 
-#: lib/view.js:517
+#: lib/view.js:557
 #, no-javascript-format
 msgid "{month} {year}"
 msgstr ""
 
-#: lib/view.js:542
+#. Translators: a table cell: zark did not measure this figure
+#: lib/view.js:584
 #, no-javascript-format
 msgid "not measured"
 msgstr ""
 
-#: lib/view.js:608
+#: lib/view.js:651
 #, no-javascript-format
 msgid ""
 "Frees if older removed, and its bar: what removing every older point zark "
@@ -981,57 +1040,61 @@ msgid ""
 "hold that no other snapshot shares; those figures do not add up."
 msgstr ""
 
-#: lib/view.js:611
+#: lib/view.js:654
 #, no-javascript-format
 msgid ""
 "Held alone: what a month's points hold that no other snapshot shares. "
 "Removing several months frees more than their sum."
 msgstr ""
 
-#: lib/view.js:614
+#. Translators: backup points on the drive; {date} is "{day} {month}", as "19 Oct"
+#: lib/view.js:658
 #, no-javascript-format
 msgid "{n} point, oldest {date} {year}"
 msgid_plural "{n} points, oldest {date} {year}"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:622
+#: lib/view.js:666
 #, no-javascript-format
 msgid "The next backup's retention removes no point"
 msgstr ""
 
-#: lib/view.js:629
+#: lib/view.js:673
 #, no-javascript-format
 msgid "The next backup's retention removes at least {n} point"
 msgid_plural "The next backup's retention removes at least {n} points"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:631
+#: lib/view.js:675
 #, no-javascript-format
 msgid "The next backup's retention removes {n} point"
 msgid_plural "The next backup's retention removes {n} points"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:634
+#. Translators: {sentence} is "The next backup's retention removes 3 points";
+#. {first} and {last} are dates as "19 Oct"
+#: lib/view.js:680
 #, no-javascript-format
-msgid " ({first} to {last})"
+msgid "{sentence} ({first} to {last})"
 msgstr ""
 
-#: lib/view.js:640
+#. Translators: {sentence} is "The next backup's retention removes 3 points (19 Oct to 24 Oct)"
+#: lib/view.js:688
 #, no-javascript-format
-msgid ", freeing about {size}"
+msgid "{sentence}, freeing about {size}"
 msgstr ""
 
-#: lib/view.js:656
+#: lib/view.js:706
 #, no-javascript-format
 msgid "{shown} of {n} dataset on the drive; measured {when} by zark."
 msgid_plural "{shown} of {n} datasets on the drive; measured {when} by zark."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/view.js:664
+#: lib/view.js:714
 #, no-javascript-format
 msgid ""
 "Also {intermediate} intermediate snapshots ({intermediateSize}), removed "
@@ -1039,107 +1102,118 @@ msgid ""
 "removes"
 msgstr ""
 
-#: lib/view.js:687
+#: lib/view.js:737
 #, no-javascript-format
 msgid "Last backup"
 msgstr ""
 
-#: lib/view.js:689
+#. Translators: the drive's last backup: there was none
+#: lib/view.js:740
 #, no-javascript-format
 msgid "Never"
 msgstr ""
 
-#: lib/view.js:690
+#. Translators: {age} is "3 hours ago"; {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
+#: lib/view.js:742
 #, no-javascript-format
 msgid "{age}, {when}"
 msgstr ""
 
-#: lib/view.js:694
+#: lib/view.js:746
 #, no-javascript-format
 msgid "Backup point"
 msgstr ""
 
-#: lib/view.js:702
+#: lib/view.js:754
 #, no-javascript-format
 msgid "Last run"
 msgstr ""
 
-#: lib/view.js:703
+#. Translators: {result} is "completed", "not verified" and the like, said of the run
+#: lib/view.js:756
 #, no-javascript-format
 msgid "{result}, {when}, took {duration}"
 msgstr ""
 
-#: lib/view.js:710
+#: lib/view.js:763
 #, no-javascript-format
 msgid "Retention"
 msgstr ""
 
-#: lib/view.js:715
+#. Translators: the free space zark keeps on the drive before a backup
+#: lib/view.js:769
 #, no-javascript-format
 msgid "Margin"
 msgstr ""
 
-#: lib/view.js:717
+#: lib/view.js:771
 #, no-javascript-format
 msgid "{free} free, above the {margin} zark keeps free before a backup"
 msgstr ""
 
-#: lib/view.js:718
+#: lib/view.js:772
 #, no-javascript-format
 msgid "{free} free, below the {margin} zark keeps free before a backup"
 msgstr ""
 
-#: lib/view.js:727
+#: lib/view.js:781
 #, no-javascript-format
 msgid "After retention"
 msgstr ""
 
-#: lib/view.js:728
+#: lib/view.js:782
 #, no-javascript-format
 msgid "about {free} free once the next backup's retention has run"
 msgstr ""
 
-#: lib/view.js:733
+#. Translators: whether zark powers the drive down at the end of a backup; the value is yes or no
+#: lib/view.js:789
 #, no-javascript-format
 msgid "Ejects itself"
 msgstr ""
 
-#: lib/view.js:733
+#. Translators: the value of "Ejects itself"
+#: lib/view.js:792
 #, no-javascript-format
+msgctxt "ejects itself"
 msgid "yes"
 msgstr ""
 
-#: lib/view.js:733
+#. Translators: the value of "Ejects itself"
+#: lib/view.js:794
 #, no-javascript-format
+msgctxt "ejects itself"
 msgid "no"
 msgstr ""
 
-#: lib/view.js:735
+#: lib/view.js:798
 #, no-javascript-format
 msgid "Fill not measured yet"
 msgstr ""
 
-#: lib/view.js:743
+#: lib/view.js:806
 #, no-javascript-format
 msgid "{percent}% used of {size}; live"
 msgstr ""
 
-#: lib/view.js:744
+#: lib/view.js:807
 #, no-javascript-format
 msgid "{percent}% used of {size}; measured {when}"
 msgstr ""
 
-#: lib/view.js:747
+#. Translators: used space, a part of the drive's bar
+#: lib/view.js:811
 #, no-javascript-format
 msgid "Used"
 msgstr ""
 
-#: lib/view.js:772
+#: lib/view.js:840
 #, no-javascript-format
 msgid "Margin: the last {size} zark keeps free"
 msgstr ""
 
-#: lib/view.js:848
+#. Translators: {who} is zark's own word for what wrote it (timer, backup, ...), in English
+#: lib/view.js:917
 #, no-javascript-format
 msgid "Status written {when} by {who}, zark {version}"
 msgstr ""

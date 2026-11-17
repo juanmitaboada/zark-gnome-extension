@@ -12,7 +12,7 @@
 import GLib from 'gi://GLib';
 
 import {aboutView} from '../lib/about.js';
-import {Event, driveGoneAlert, newEvents, snapshot} from '../lib/events.js';
+import {Event, WAITING_NOTIFY_MS, driveGoneAlert, newEvents, snapshot} from '../lib/events.js';
 import {formatAge, formatDate, formatDuration, formatPercent, formatWhen} from '../lib/format.js';
 import {N_, _, fmt, ngettext, pgettext, setTranslator} from '../lib/i18n.js';
 import {BACKUP_COMMAND, buildView, stoppedAnswering} from '../lib/view.js';
@@ -95,8 +95,16 @@ function shownTexts(value, path = 'view', out = []) {
     return out;
 }
 
+// Translated through and through: once every balanced "[[...]]" is taken
+// out, innermost first, no letter is left (spaces, punctuation and figures
+// between translated parts are fine; a word of the sentence is not).
 function isWrapped(text) {
-    return text.startsWith('[[') && text.endsWith(']]');
+    let rest = text;
+    for (let prev = null; prev !== rest;) {
+        prev = rest;
+        rest = rest.replace(/\[\[[^[\]]*\]\]/g, '');
+    }
+    return rest !== text && !/[A-Za-z[\]]/.test(rest);
 }
 
 function checkTexts(texts, data, what) {
@@ -124,13 +132,40 @@ const PLAIN = [
         assertEqual(ngettext('{n} day ago', '{n} days ago', 0), '{n} days ago');
         assertEqual(ngettext('{n} day ago', '{n} days ago', 2), '{n} days ago');
     }],
+    ['a count that is not a non-negative integer picks a form and never throws', () => {
+        const seen = [];
+        const recorder = {
+            gettext: t => t,
+            pgettext: (c, t) => t,
+            ngettext: (s, p, n) => {
+                seen.push(n);
+                return n === 1 ? s : p;
+            },
+        };
+        setTranslator(recorder);
+        try {
+            for (const n of [-1, 1.4, 1.5, NaN, Infinity])
+                ngettext('one', 'other', n);
+        } finally {
+            setTranslator(null);
+        }
+        assertEqual(seen, [0, 1, 2, 0, 0]);
+        assertEqual([-1, 1.4, 1.5, NaN].map(n => ngettext('one', 'other', n)), ['other', 'one', 'other', 'other']);
+    }],
+    ['the strict check sees a word left outside the translated parts', () => {
+        assertTrue(isWrapped('[[Last backup [[3 hours ago]]]]'));
+        assertTrue(isWrapped('[[3 hours ago]], [[today 09:18]]'));
+        assertTrue(!isWrapped('[[completed]], [[today 09:18]], took [[5 min]]'));
+        assertTrue(!isWrapped('Never'));
+        assertTrue(!isWrapped('[[Never]'));
+    }],
 ];
 
 // The tests that see the text through the translator.
 export const TRANSLATED = [
     ['the translator is used once set, and dropped with null', () => {
-        translated(() => assertEqual(_('Free'), '[[Free]]'));
-        assertEqual(_('Free'), 'Free');
+        translated(() => assertEqual(_('Used'), '[[Used]]'));
+        assertEqual(_('Used'), 'Used');
     }],
     ['format.js translates its words and keeps the units', () => translated(() => {
         const now = Date.UTC(2026, 9, 24, 12, 0, 0);
@@ -140,6 +175,60 @@ export const TRANSLATED = [
         assertEqual(formatDate(Date.UTC(2026, 9, 19, 8, 2)), '[[19 [[Oct]]]]');
         assertEqual(formatWhen(Date.UTC(2026, 9, 19, 8, 2), now), '[[19 [[Oct]] 08:02]]');
         assertEqual(formatPercent(0.44), '[[44%]]');
+        assertEqual(formatAge(20000), '[[just now]]');
+        assertEqual(formatAge(5 * 60000), '[[5 min ago]]');
+        assertEqual(formatDuration(30), '[[under a minute]]');
+        assertEqual(formatDuration(300), '[[5 min]]');
+        assertEqual(formatWhen(Date.UTC(2026, 9, 24, 9, 18), now), '[[today 09:18]]');
+        assertEqual(formatWhen(Date.UTC(2026, 9, 23, 23, 50), now), '[[yesterday 23:50]]');
+    })],
+    ['what no fixture shows goes through the translator too', () => {
+        // A pool zark could not read, a drive never backed up and not
+        // measured, and a result name this version does not know.
+        const input = fixtureInput('idle', {connected: []});
+        const status = JSON.parse(JSON.stringify(input.statusShown));
+        status.source_pools[0].space = null;
+        status.drives[0].space = null;
+        status.drives[0].last_backup_at = null;
+        status.drives[1].last_run.result = 'exploded';
+        const changed = {...input, statusShown: status};
+        const view = translated(() => buildView(changed));
+        checkTexts(shownTexts(view), zarkStrings([status, input.progressParsed.data]), 'idle, changed');
+        assertEqual(view.pools[0].label, '[[Could not be read]]');
+        assertEqual(view.drives[0].last, '[[Never backed up]]');
+        assertEqual(view.drives[0].fill, '[[Not measured yet]]');
+        assertEqual(view.drives[1].badge, '[[Last run: exploded]]');
+        const drive = view.details.find(t => t.id === 'drive:black');
+        assertEqual(drive.rows.find(r => r.label === '[[Last backup]]').value, '[[Never]]');
+    }],
+    ['the events no fixture reaches go through the translator', () => translated(() => {
+        // A drive plugged in, and one never backed up.
+        const ids = fixtureInput('idle').statusShown.drives.map(d => d.drive_id);
+        const before = fixtureInput('idle');
+        const after = fixtureInput('idle', {connected: ids});
+        after.statusShown = JSON.parse(JSON.stringify(after.statusShown));
+        after.statusShown.drives[1].last_backup_at = null;
+        const prev = snapshot(before);
+        const drives = newEvents(prev, snapshot(after, prev), after, '').filter(e => e.kind === Event.DRIVE);
+        assertEqual(drives.length, 2);
+        for (const e of drives)
+            assertTrue(isWrapped(e.title) && isWrapped(e.body), `${e.title} / ${e.body}`);
+        assertEqual(drives[1].body, '[[Never backed up]]');
+
+        // A question waiting long enough, without zark's text of it.
+        const waiting = fixtureInput('waiting');
+        waiting.progressParsed = {...waiting.progressParsed, data: {...waiting.progressParsed.data, waiting_for: null}};
+        const first = snapshot(waiting);
+        const later = {...waiting, nowMs: waiting.nowMs + WAITING_NOTIFY_MS};
+        const asked = newEvents(first, snapshot(later, first), later, '').find(e => e.kind === Event.WAITING);
+        assertEqual([asked.title, asked.body],
+            ['[[zark is waiting for your answer]]', '[[In the terminal where it runs]]']);
+
+        // A run left behind.
+        const orphan = fixtureInput('orphan');
+        const now = snapshot(orphan);
+        const left = newEvents({...now, orphan: null}, now, orphan, '').find(e => e.kind === Event.ORPHAN);
+        assertTrue(left.title === '[[zark stopped answering]]' && isWrapped(left.body), left.body);
     })],
     ['every text the view shows goes through the translator, on every fixture', () => {
         const cases = fixtureCases();
@@ -184,6 +273,7 @@ export const TRANSLATED = [
         const dpkgs = [
             undefined, null, {version: '2.2.0-1', state: 'installed'}, {version: '2.1.0-1', state: 'installed'},
             {version: '2.2.0-1', state: 'half-configured'}, {version: '', state: ''},
+            {version: '', state: 'installed'}, {version: '2.2.0-1', state: ''}, {version: '', state: 'unpacked'},
         ];
         for (const dpkg of dpkgs) {
             for (const st of [status, null]) {

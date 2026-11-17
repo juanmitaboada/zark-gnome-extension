@@ -57,7 +57,8 @@ export default class ZarkPreferences extends ExtensionPreferences {
                 'and when a pool fills up.'),
         });
         for (const [key, title, subtitle] of NOTIFICATIONS) {
-            const row = new Adw.SwitchRow({title: _(title), subtitle: _(subtitle)});
+            // use_markup false on every row: a translation with "&" or "<" is shown as written.
+            const row = new Adw.SwitchRow({title: _(title), subtitle: _(subtitle), use_markup: false});
             settings.bind(key, row, 'active', Gio.SettingsBindFlags.DEFAULT);
             notifications.add(row);
         }
@@ -68,12 +69,21 @@ export default class ZarkPreferences extends ExtensionPreferences {
             description: _("Read-only: it reads the status files zark writes and dpkg's database, never starts or " +
                 'changes anything, uses no network, and writes to the clipboard only when a Copy button is pressed.'),
         });
-        about.add(new Adw.ActionRow({title: _('Version'), subtitle: this.metadata['version-name'] ?? ''}));
-        const source = new Adw.ActionRow({title: _('Source code'), subtitle: this.metadata.url, activatable: true});
+        about.add(new Adw.ActionRow({
+            title: _('Version'),
+            subtitle: this.metadata['version-name'] ?? '',
+            use_markup: false,
+        }));
+        const source = new Adw.ActionRow({
+            title: _('Source code'),
+            subtitle: this.metadata.url,
+            activatable: true,
+            use_markup: false,
+        });
         source.add_suffix(new Gtk.Image({icon_name: 'adw-external-link-symbolic'}));
         source.connect('activated', () => new Gtk.UriLauncher({uri: this.metadata.url}).launch(window, null, null));
         about.add(source);
-        about.add(new Adw.ActionRow({title: _('License'), subtitle: 'GPL-2.0-or-later'}));
+        about.add(new Adw.ActionRow({title: _('License'), subtitle: 'GPL-2.0-or-later', use_markup: false}));
         page.add(about);
         return page;
     }
@@ -91,7 +101,12 @@ export default class ZarkPreferences extends ExtensionPreferences {
             const group = new Adw.PreferencesGroup({description: `${_(what)} ${_(FOR_TESTS)}`});
             // Applied on Enter or the apply button, not on every key: each
             // change makes the extension watch or read a new path.
-            const row = new Adw.EntryRow({title: _(title), text: settings.get_string(key), show_apply_button: true});
+            const row = new Adw.EntryRow({
+                title: _(title),
+                text: settings.get_string(key),
+                show_apply_button: true,
+                use_markup: false,
+            });
             row.connect('apply', () => settings.set_string(key, row.text));
             settings.connect(`changed::${key}`, () => {
                 if (row.text !== settings.get_string(key))
@@ -101,7 +116,7 @@ export default class ZarkPreferences extends ExtensionPreferences {
             page.add(group);
         }
         const resetGroup = new Adw.PreferencesGroup();
-        const reset = new Adw.ButtonRow({title: _('Restore defaults')});
+        const reset = new Adw.ButtonRow({title: _('Restore defaults'), use_markup: false});
         reset.connect('activated', () => PATHS.forEach(([key]) => settings.reset(key)));
         resetGroup.add(reset);
         page.add(resetGroup);

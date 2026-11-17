@@ -43,8 +43,8 @@ POT := po/$(UUID).pot
 XGETTEXT := xgettext --language=JavaScript --from-code=UTF-8 --add-comments=Translators \
 	--package-name=gnome-shell-extension-zark \
 	--msgid-bugs-address=https://github.com/juanmitaboada/zark-gnome-extension/issues \
-	-k_ -kN_ -kngettext:1,2 -kpgettext:1c,2 \
-	--flag=_:1:no-javascript-format --flag=N_:1:no-javascript-format \
+	-k_ -kN_ -kngettext:1,2 -kpgettext:1c,2 -kNC_:1c,2 \
+	--flag=_:1:no-javascript-format --flag=N_:1:no-javascript-format --flag=NC_:2:no-javascript-format \
 	--flag=ngettext:1:no-javascript-format --flag=ngettext:2:no-javascript-format \
 	--flag=pgettext:2:no-javascript-format \
 	-f po/POTFILES
@@ -57,23 +57,30 @@ pot:
 	$(XGETTEXT) -o $(POT)
 	@echo "  $(POT): $$(grep -c '^msgid ' $(POT)) entries, the header included"
 
-## pot-check: the committed template is current (POT-Creation-Date aside), and holds no command
+## pot-check: the template is current (POT-Creation-Date aside), holds no command, misses no text, and its risk hits are reviewed
+# --extract-all lists every literal of the sources: one that reads as an
+# English text and is not in the template is a text left unmarked. Its
+# warnings (an empty literal is gettext's header) are noise here.
 pot-check:
 	@set -e; tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT INT TERM; \
 	$(XGETTEXT) -o "$$tmp/new.pot"; \
 	diff -u -I '^"POT-Creation-Date: ' $(POT) "$$tmp/new.pot" || { echo "  $(POT) is not current: make pot"; exit 1; }; \
-	echo "  $(POT) is current"
+	echo "  $(POT) is current"; \
+	xgettext --language=JavaScript --from-code=UTF-8 --extract-all -f po/POTFILES -o "$$tmp/all.pot" 2>/dev/null; \
+	python3 -I dev/po-tools.py literals $(POT) "$$tmp/all.pot"
 	python3 -I dev/po-tools.py commands $(POT)
+	python3 -I dev/po-tools.py reviewed $(POT) po/RISK-WORDS po/RISK-REVIEWED
 
-## po-check: every po/*.po compiles with msgfmt -c and keeps its placeholders
+## po-check: po/LINGUAS names every po/*.po; each compiles with msgfmt -c, matches the template and keeps its placeholders
 po-check:
-	@set -e; for po in $(PO_FILES); do msgfmt -c --check-format -o /dev/null "$$po"; done; \
-	test -z "$(PO_FILES)" || python3 -I dev/po-tools.py check $(PO_FILES); \
+	@set -e; python3 -I dev/po-tools.py linguas po; \
+	for po in $(PO_FILES); do msgfmt -c --check-format -o /dev/null "$$po"; done; \
+	test -z "$(PO_FILES)" || python3 -I dev/po-tools.py check $(POT) $(PO_FILES); \
 	echo "  $(words $(PO_FILES)) catalogues checked"
 
-## po-risk: the template's texts with a stem of po/RISK-WORDS, for review (does not fail)
+## po-risk: the template's texts with a stem of po/RISK-WORDS, with their score in po/RISK-REVIEWED (does not fail)
 po-risk:
-	python3 -I dev/po-tools.py risk $(POT) po/RISK-WORDS
+	python3 -I dev/po-tools.py risk $(POT) po/RISK-WORDS po/RISK-REVIEWED
 
 ## test-i18n: the translated-view tests with real gettext and a pseudo catalogue (needs $(I18N_LOCALE))
 # The pseudo catalogue "xx" is built in a temporary directory, never in po/:
@@ -83,7 +90,7 @@ test-i18n:
 	python3 -I dev/po-tools.py pseudo $(POT) "$$tmp/xx.po"; \
 	mkdir -p "$$tmp/locale/xx/LC_MESSAGES"; \
 	msgfmt -c --check-format -o "$$tmp/locale/xx/LC_MESSAGES/$(UUID).mo" "$$tmp/xx.po"; \
-	python3 -I dev/po-tools.py check "$$tmp/xx.po"; \
+	python3 -I dev/po-tools.py check $(POT) "$$tmp/xx.po"; \
 	ZARK_LOCALEDIR="$$tmp/locale" LANGUAGE=xx LC_ALL=$(I18N_LOCALE) TZ=UTC gjs -m tests/i18n-run.js
 
 ## lint: ESLint with GNOME's rules (needs `npm ci` once: the versions in package-lock.json)
