@@ -1,0 +1,1296 @@
+# Catalan translation for gnome-shell-extension-zark.
+# This file is distributed under the same license as the gnome-shell-extension-zark package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-shell-extension-zark\n"
+"Report-Msgid-Bugs-To: https://github.com/juanmitaboada/zark-gnome-extension/issues\n"
+"POT-Creation-Date: 2026-11-17 23:15+0100\n"
+"PO-Revision-Date: 2026-11-18 14:10+0100\n"
+"Last-Translator: Juanmi Taboada <juanmi@juanmitaboada.com>\n"
+"Language-Team: Catalan\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: prefs.js:15 lib/events.js:149
+#, no-javascript-format
+msgid "Backup overdue"
+msgstr "Còpia de seguretat endarrerida"
+
+#: prefs.js:15
+#, no-javascript-format
+msgid "Once a day while zark says the newest backup is too old"
+msgstr ""
+"Un cop al dia, mentre zark indiqui que la còpia més recent és massa antiga"
+
+#: prefs.js:16
+#, no-javascript-format
+msgid "Backup drive plugged in"
+msgstr "Disc de còpies connectat"
+
+#: prefs.js:16
+#, no-javascript-format
+msgid "When a drive zark knows appears, with its last backup"
+msgstr "Quan apareix un disc que zark coneix, amb la seva darrera còpia"
+
+#: prefs.js:17
+#, no-javascript-format
+msgid "Question waiting"
+msgstr "Pregunta en espera"
+
+#: prefs.js:17
+#, no-javascript-format
+msgid "When zark has waited 15 s for an answer in its terminal"
+msgstr "Quan fa 15 s que zark espera una resposta al seu terminal"
+
+#: prefs.js:18
+#, no-javascript-format
+msgid "Run stopped answering"
+msgstr "Una execució ha deixat de respondre"
+
+#: prefs.js:19
+#, no-javascript-format
+msgid "When a zark command ends without cleaning up its progress file"
+msgstr "Quan una ordre de zark acaba sense netejar el seu fitxer de progrés"
+
+#: prefs.js:20
+#, no-javascript-format
+msgid "Backup drive went away"
+msgstr "Disc de còpies desconnectat"
+
+#: prefs.js:21
+#, no-javascript-format
+msgid "A dialog to close, when the drive of a running backup goes away"
+msgstr ""
+"Un diàleg que cal tancar, quan es desconnecta el disc d'una còpia en curs"
+
+#: prefs.js:24
+#, no-javascript-format
+msgid ""
+"It is here so that tests and screenshots can point at example files; leave it"
+" as it is otherwise."
+msgstr ""
+"És aquí perquè les proves i les captures puguin usar fitxers d'exemple; "
+"altrament, deixeu-lo tal com està."
+
+#: prefs.js:28 lib/about.js:141
+#, no-javascript-format
+msgid "Status file"
+msgstr "Fitxer d'estat"
+
+#: prefs.js:29
+#, no-javascript-format
+msgid ""
+"The status.json zark writes at the end of each command and from its hourly "
+"timer: the pools, the backup drives and their last backups, which the menu "
+"shows."
+msgstr ""
+"El fitxer status.json que zark escriu al final de cada ordre i des del seu "
+"temporitzador horari: els pools, els discos de còpies i les seves darreres "
+"còpies, que mostra el menú."
+
+#: prefs.js:31
+#, no-javascript-format
+msgid "Progress file"
+msgstr "Fitxer de progrés"
+
+#: prefs.js:32
+#, no-javascript-format
+msgid ""
+"The progress.json zark writes while a command runs: the running backup's step"
+" and figures."
+msgstr ""
+"El fitxer progress.json que zark escriu mentre s'executa una ordre: el pas i "
+"les xifres de la còpia en curs."
+
+#: prefs.js:33
+#, no-javascript-format
+msgid "Drive links directory"
+msgstr "Carpeta d'enllaços dels discos"
+
+#: prefs.js:34
+#, no-javascript-format
+msgid ""
+"Where a backup drive's link appears when it is plugged in; the extension "
+"looks there for each drive zark registered."
+msgstr ""
+"On apareix l'enllaç d'un disc de còpies quan es connecta; l'extensió hi cerca"
+" cada disc que zark ha registrat."
+
+#: prefs.js:36
+#, no-javascript-format
+msgid "dpkg's database"
+msgstr "Base de dades del dpkg"
+
+#: prefs.js:37
+#, no-javascript-format
+msgid ""
+"dpkg's list of installed packages, read without privileges when the About tab"
+" opens, for the version of the zark package."
+msgstr ""
+"La llista de paquets instal·lats del dpkg, llegida sense privilegis en obrir "
+"la pestanya Quant a, per conèixer la versió del paquet zark."
+
+#: prefs.js:52
+#, no-javascript-format
+msgid "General"
+msgstr "General"
+
+#: prefs.js:55
+#, no-javascript-format
+msgid "Notifications"
+msgstr "Notificacions"
+
+#: prefs.js:56
+#, no-javascript-format
+msgid ""
+"zark itself notifies when a backup starts and ends, when its drive goes away,"
+" and when a pool fills up."
+msgstr ""
+"zark mateix notifica quan una còpia comença i acaba, quan es desconnecta el "
+"seu disc i quan un pool s'omple."
+
+#: prefs.js:68 lib/view.js:871
+#, no-javascript-format
+msgid "About"
+msgstr "Quant a"
+
+#: prefs.js:69
+#, no-javascript-format
+msgid ""
+"Read-only: it reads the status files zark writes and dpkg's database, never "
+"starts or changes anything, uses no network, and writes to the clipboard only"
+" when a Copy button is pressed."
+msgstr ""
+"Només lectura: l'extensió llegeix els fitxers d'estat que escriu zark i la "
+"base de dades del dpkg, mai no inicia ni canvia res, no usa la xarxa i només "
+"escriu al porta-retalls quan es prem un botó Copia."
+
+#: prefs.js:73
+#, no-javascript-format
+msgid "Version"
+msgstr "Versió"
+
+#: prefs.js:78
+#, no-javascript-format
+msgid "Source code"
+msgstr "Codi font"
+
+#: prefs.js:86
+#, no-javascript-format
+msgid "License"
+msgstr "Llicència"
+
+#: prefs.js:93
+#, no-javascript-format
+msgid "Development"
+msgstr "Desenvolupament"
+
+#: prefs.js:95
+#, no-javascript-format
+msgid ""
+"Where the extension reads from. Only for tests and screenshots with example "
+"files: zark, udev and dpkg write the defaults."
+msgstr ""
+"D'on llegeix l'extensió. Només per a proves i captures amb fitxers d'exemple:"
+" zark, udev i dpkg escriuen a les ubicacions predeterminades."
+
+#: prefs.js:119
+#, no-javascript-format
+msgid "Restore defaults"
+msgstr "Restableix els valors predeterminats"
+
+#: lib/about.js:14
+#, no-javascript-format
+msgid ""
+"Read-only: it reads zark's status files and dpkg's database, never starts or "
+"changes anything, uses no network, and writes to the clipboard only when a "
+"Copy button is pressed."
+msgstr ""
+"Només lectura: l'extensió llegeix els fitxers d'estat de zark i la base de "
+"dades del dpkg, mai no inicia ni canvia res, no usa la xarxa i només escriu "
+"al porta-retalls quan es prem un botó Copia."
+
+#: lib/about.js:91
+#, no-javascript-format
+msgid "{version} (package)"
+msgstr "{version} (paquet)"
+
+#: lib/about.js:91
+#, no-javascript-format
+msgid "(package)"
+msgstr "(paquet)"
+
+#: lib/about.js:93
+#, no-javascript-format
+msgid "{version} (package state unknown)"
+msgstr "{version} (estat del paquet desconegut)"
+
+#: lib/about.js:93
+#, no-javascript-format
+msgid "(package state unknown)"
+msgstr "(estat del paquet desconegut)"
+
+#. Translators: {state} is dpkg's own state word, in English (half-configured,
+#. ...)
+#: lib/about.js:96
+#, no-javascript-format
+msgid "{version} (package {state})"
+msgstr "{version} (paquet {state})"
+
+#. Translators: {state} is dpkg's own state word, in English (half-configured,
+#. ...)
+#: lib/about.js:98
+#, no-javascript-format
+msgid "(package {state})"
+msgstr "(paquet {state})"
+
+#: lib/about.js:119
+#, no-javascript-format
+msgid "Reading dpkg's database"
+msgstr "S'està llegint la base de dades del dpkg"
+
+#: lib/about.js:126
+#, no-javascript-format
+msgid "{version} (not installed as a package; from the status file)"
+msgstr "{version} (no instal·lat com a paquet; segons el fitxer d'estat)"
+
+#: lib/about.js:130
+#, no-javascript-format
+msgid "Not found on this system"
+msgstr "No s'ha trobat en aquest sistema"
+
+#: lib/about.js:138
+#, no-javascript-format
+msgid "written by zark {version}, {when}"
+msgstr "escrit per zark {version}, {when}"
+
+#: lib/about.js:140
+#, no-javascript-format
+msgid "written by zark {version}"
+msgstr "escrit per zark {version}"
+
+#: lib/about.js:143
+#, no-javascript-format
+msgid "Extension"
+msgstr "Extensió"
+
+#: lib/about.js:151
+#, no-javascript-format
+msgid "Run them in the directory that holds zark."
+msgstr "Executeu-les a la carpeta que conté zark."
+
+#: lib/about.js:153
+#, no-javascript-format
+msgid "Once zark is installed:"
+msgstr "Un cop instal·lat zark:"
+
+#: lib/alert.js:25
+#, no-javascript-format
+msgid "OK"
+msgstr "D'acord"
+
+#. Translators: a column title: the space a dataset's own data takes
+#: lib/details.js:28
+#, no-javascript-format
+msgid "Data"
+msgstr "Dades"
+
+#. Translators: a column title: the space a dataset's snapshots take
+#: lib/details.js:30
+#, no-javascript-format
+msgid "Snapshots"
+msgstr "Instantànies"
+
+#: lib/details.js:80
+#, no-javascript-format
+msgid "Close"
+msgstr "Tanca"
+
+#: lib/details.js:201
+#, no-javascript-format
+msgid "Bare-metal backup and recovery for ZFS on Ubuntu"
+msgstr "Còpia de seguretat i recuperació des de zero per a ZFS a Ubuntu"
+
+#: lib/details.js:218
+#, no-javascript-format
+msgid "Commands"
+msgstr "Ordres"
+
+#: lib/details.js:228
+#, no-javascript-format
+msgid "Copy"
+msgstr "Copia"
+
+#: lib/details.js:231 lib/details.js:322 lib/indicator.js:135
+#: lib/notifier.js:157
+#, no-javascript-format
+msgid "Copy \"{command}\""
+msgstr "Copia \"{command}\""
+
+#: lib/details.js:283
+#, no-javascript-format
+msgid "Dataset"
+msgstr "Dataset"
+
+#. Translators: a heading over zark's notices about space to free
+#: lib/details.js:318
+#, no-javascript-format
+msgid "Cleanup"
+msgstr "Neteja"
+
+#: lib/details.js:386
+#, no-javascript-format
+msgid "Backup points on the drive"
+msgstr "Punts de restauració al disc"
+
+#: lib/details.js:390
+#, no-javascript-format
+msgid "By month"
+msgstr "Per mes"
+
+#: lib/details.js:390
+#, no-javascript-format
+msgid "By dataset"
+msgstr "Per dataset"
+
+#. Translators: a column title of the drive's backup points by month
+#: lib/details.js:431
+#, no-javascript-format
+msgid "Month"
+msgstr "Mes"
+
+#. Translators: a column title: how many backup points the month has
+#: lib/details.js:433
+#, no-javascript-format
+msgid "Points"
+msgstr "Punts"
+
+#. Translators: a column title: the space only that month's points hold
+#: lib/details.js:435
+#, no-javascript-format
+msgid "Held alone"
+msgstr "En exclusiva"
+
+#. Translators: a column title: the space removing every older point would free
+#: lib/details.js:439
+#, no-javascript-format
+msgid "Frees if older removed"
+msgstr "Allibera si s'eliminen els anteriors"
+
+#. Translators: "zark backup" is the program's name and stays as it is
+#: lib/events.js:73
+#, no-javascript-format
+msgid "Seen gone, while zark backup was writing to it."
+msgstr "S'ha desconnectat mentre zark backup hi escrivia."
+
+#. Translators: "zark backup" is the program's name and stays as it is;
+#. {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
+#: lib/events.js:76
+#, no-javascript-format
+msgid "Seen gone {when}, while zark backup was writing to it."
+msgstr "S'ha desconnectat {when}, mentre zark backup hi escrivia."
+
+#: lib/events.js:78
+#, no-javascript-format
+msgid "{drive}: the backup drive went away"
+msgstr "{drive}: el disc de còpies s'ha desconnectat"
+
+#. Translators: {age} is "3 hours ago"; {command} is a command as typed and
+#. stays as it is
+#: lib/events.js:151
+#, no-javascript-format
+msgid "Last backup {age} on {drive}. Run: {command}"
+msgstr "Darrera còpia {age} a {drive}. Executeu: {command}"
+
+#: lib/events.js:153
+#, no-javascript-format
+msgid "No backup yet. Run: {command}"
+msgstr "Encara no hi ha cap còpia. Executeu: {command}"
+
+#: lib/events.js:157
+#, no-javascript-format
+msgid "zark is waiting for your answer"
+msgstr "zark espera la vostra resposta"
+
+#: lib/events.js:158
+#, no-javascript-format
+msgid "In the terminal where it runs"
+msgstr "Al terminal on s'executa"
+
+#. Translators: a notification's title: a backup drive was plugged in
+#: lib/events.js:175
+#, no-javascript-format
+msgid "{drive} connected"
+msgstr "{drive} connectat"
+
+#: lib/events.js:177 lib/view.js:402
+#, no-javascript-format
+msgid "Never backed up"
+msgstr "Mai no s'hi ha fet cap còpia"
+
+#: lib/events.js:177 lib/view.js:402
+#, no-javascript-format
+msgid "Last backup {age}"
+msgstr "Darrera còpia {age}"
+
+#: lib/events.js:180
+#, no-javascript-format
+msgid "zark stopped answering"
+msgstr "zark ha deixat de respondre"
+
+#. Translators: an age, as "3 hours ago"; it fills {age} in other texts
+#: lib/format.js:42
+#, no-javascript-format
+msgid "just now"
+msgstr "ara mateix"
+
+#. Translators: an age; "min" is a unit and stays as it is
+#: lib/format.js:45
+#, no-javascript-format
+msgid "{n} min ago"
+msgstr "fa {n} min"
+
+#: lib/format.js:48
+#, no-javascript-format
+msgid "{n} hour ago"
+msgid_plural "{n} hours ago"
+msgstr[0] "fa {n} hora"
+msgstr[1] "fa {n} hores"
+
+#: lib/format.js:50
+#, no-javascript-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] "fa {n} dia"
+msgstr[1] "fa {n} dies"
+
+#. Translators: a duration; it fills {duration} in other texts
+#: lib/format.js:60
+#, no-javascript-format
+msgid "under a minute"
+msgstr "menys d'un minut"
+
+#. Translators: a duration; "min" is a unit and stays as it is
+#: lib/format.js:64
+#, no-javascript-format
+msgid "{n} min"
+msgstr "{n} min"
+
+#. Translators: a duration; "h" and "min" are units and stay as they are
+#: lib/format.js:66
+#, no-javascript-format
+msgid "{hours} h {minutes} min"
+msgstr "{hours} h {minutes} min"
+
+#. Translators: a month's short name, as in "19 Oct"
+#: lib/format.js:78
+#, no-javascript-format
+msgctxt "month"
+msgid "Jan"
+msgstr "gen."
+
+#: lib/format.js:78
+#, no-javascript-format
+msgctxt "month"
+msgid "Feb"
+msgstr "febr."
+
+#: lib/format.js:78
+#, no-javascript-format
+msgctxt "month"
+msgid "Mar"
+msgstr "març"
+
+#: lib/format.js:79
+#, no-javascript-format
+msgctxt "month"
+msgid "Apr"
+msgstr "abr."
+
+#: lib/format.js:79
+#, no-javascript-format
+msgctxt "month"
+msgid "May"
+msgstr "maig"
+
+#: lib/format.js:79
+#, no-javascript-format
+msgctxt "month"
+msgid "Jun"
+msgstr "juny"
+
+#: lib/format.js:80
+#, no-javascript-format
+msgctxt "month"
+msgid "Jul"
+msgstr "jul."
+
+#: lib/format.js:80
+#, no-javascript-format
+msgctxt "month"
+msgid "Aug"
+msgstr "ag."
+
+#: lib/format.js:80
+#, no-javascript-format
+msgctxt "month"
+msgid "Sep"
+msgstr "set."
+
+#: lib/format.js:81
+#, no-javascript-format
+msgctxt "month"
+msgid "Oct"
+msgstr "oct."
+
+#: lib/format.js:81
+#, no-javascript-format
+msgctxt "month"
+msgid "Nov"
+msgstr "nov."
+
+#: lib/format.js:81
+#, no-javascript-format
+msgctxt "month"
+msgid "Dec"
+msgstr "des."
+
+#. Translators: a moment; {time} is "09:18"; it fills {when} in other texts
+#: lib/format.js:106
+#, no-javascript-format
+msgid "today {time}"
+msgstr "avui {time}"
+
+#. Translators: a moment; {time} is "09:18"; it fills {when} in other texts
+#: lib/format.js:109
+#, no-javascript-format
+msgid "yesterday {time}"
+msgstr "ahir {time}"
+
+#: lib/format.js:110
+#, no-javascript-format
+msgid "{day} {month} {time}"
+msgstr "{day} {month} {time}"
+
+#: lib/format.js:119
+#, no-javascript-format
+msgid "{day} {month}"
+msgstr "{day} {month}"
+
+#: lib/format.js:127
+#, no-javascript-format
+msgid "{percent}%"
+msgstr "{percent} %"
+
+#. Translators: the panel button's name for screen readers; "zark backup" is
+#. the program's name
+#: lib/indicator.js:106
+#, no-javascript-format
+msgid "zark backup status"
+msgstr "Estat de les còpies de zark"
+
+#: lib/indicator.js:127
+#, no-javascript-format
+msgid "Show details..."
+msgstr "Mostra els detalls..."
+
+#: lib/indicator.js:255
+#, no-javascript-format
+msgid "Waiting for: {question}"
+msgstr "S'està esperant: {question}"
+
+#: lib/indicator.js:275
+#, no-javascript-format
+msgid "This computer"
+msgstr "Aquest ordinador"
+
+#: lib/indicator.js:286
+#, no-javascript-format
+msgid "Backup drives"
+msgstr "Discos de còpies"
+
+#. Translators: said of a backup drive
+#: lib/indicator.js:291 lib/view.js:831
+#, no-javascript-format
+msgid "Connected"
+msgstr "Connectat"
+
+#. Translators: said of a backup drive
+#: lib/indicator.js:293 lib/view.js:833
+#, no-javascript-format
+msgid "Not connected"
+msgstr "No connectat"
+
+#: lib/view.js:18
+#, no-javascript-format
+msgid ""
+"zark wrote its status in a newer format. This shows the last state it could "
+"read; update the extension."
+msgstr ""
+"zark ha escrit el seu estat en un format més recent. L'extensió mostra el "
+"darrer estat que ha pogut llegir; actualitzeu-la."
+
+#: lib/view.js:22
+#, no-javascript-format
+msgid "Last run incomplete"
+msgstr "Darrera execució incompleta"
+
+#: lib/view.js:23
+#, no-javascript-format
+msgid "Last run not verified"
+msgstr "Darrera execució sense verificar"
+
+#: lib/view.js:24
+#, no-javascript-format
+msgid "Last run interrupted"
+msgstr "Darrera execució interrompuda"
+
+#: lib/view.js:25
+#, no-javascript-format
+msgid "Last run aborted"
+msgstr "Darrera execució cancel·lada"
+
+#: lib/view.js:30
+#, no-javascript-format
+msgid "User data"
+msgstr "Dades d'usuari"
+
+#: lib/view.js:31
+#, no-javascript-format
+msgid "User snapshots"
+msgstr "Instantànies d'usuari"
+
+#. Translators: the system's data (the root and boot datasets), a part of a
+#. pool's usage bar
+#: lib/view.js:33
+#, no-javascript-format
+msgid "System"
+msgstr "Sistema"
+
+#: lib/view.js:34
+#, no-javascript-format
+msgid "System snapshots"
+msgstr "Instantànies del sistema"
+
+#: lib/view.js:35
+#, no-javascript-format
+msgid "Other datasets"
+msgstr "Altres datasets"
+
+#: lib/view.js:36
+#, no-javascript-format
+msgid "Pool metadata"
+msgstr "Metadades del pool"
+
+#. Translators: free space, a part of a usage bar
+#: lib/view.js:38
+#, no-javascript-format
+msgctxt "free space"
+msgid "Free"
+msgstr "Lliure"
+
+#. Translators: ZFS is a name; space the file system keeps for itself
+#: lib/view.js:40
+#, no-javascript-format
+msgid "Reserved by ZFS"
+msgstr "Reservat per ZFS"
+
+#: lib/view.js:108
+#, no-javascript-format
+msgid "Snapshots hold {size}, {percent}% of the space in use"
+msgstr "Les instantànies ocupen {size}, el {percent} % de l'espai usat"
+
+#: lib/view.js:114
+#, no-javascript-format
+msgid ""
+"Snapshots: what removing all of a dataset's snapshots would free. {shown} of "
+"{n} dataset; measured {when} by zark."
+msgid_plural ""
+"Snapshots: what removing all of a dataset's snapshots would free. {shown} of "
+"{n} datasets; measured {when} by zark."
+msgstr[0] ""
+"Instantànies: el que alliberaria eliminar totes les instantànies d'un "
+"dataset. {shown} de {n} dataset; mesurat {when} per zark."
+msgstr[1] ""
+"Instantànies: el que alliberaria eliminar totes les instantànies d'un "
+"dataset. {shown} de {n} datasets; mesurat {when} per zark."
+
+#: lib/view.js:170
+#, no-javascript-format
+msgid "Waiting for your answer in the terminal"
+msgstr "S'està esperant la vostra resposta al terminal"
+
+#. Translators: {command} is zark's subcommand as typed, such as prune
+#: lib/view.js:174
+#, no-javascript-format
+msgid "zark {command} is running"
+msgstr "zark {command} en execució"
+
+#: lib/view.js:175
+#, no-javascript-format
+msgid "Backing up to {drive}"
+msgstr "S'està fent la còpia a {drive}"
+
+#: lib/view.js:175
+#, no-javascript-format
+msgid "Backup starting"
+msgstr "S'està iniciant la còpia"
+
+#: lib/view.js:180
+#, no-javascript-format
+msgid "Last backup to {drive} needs attention"
+msgstr "La darrera còpia a {drive} requereix atenció"
+
+#: lib/view.js:186
+#, no-javascript-format
+msgid "Status written by a newer zark"
+msgstr "Estat escrit per un zark més recent"
+
+#: lib/view.js:188
+#, no-javascript-format
+msgid "The status file cannot be read"
+msgstr "No es pot llegir el fitxer d'estat"
+
+#. Translators: {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
+#: lib/view.js:191
+#, no-javascript-format
+msgid "Status not refreshed since {when}"
+msgstr "Estat sense actualitzar des de {when}"
+
+#: lib/view.js:195
+#, no-javascript-format
+msgid "The last zark run ended abnormally"
+msgstr "La darrera execució de zark ha acabat de manera anòmala"
+
+#: lib/view.js:196
+#, no-javascript-format
+msgid "zark is running; its progress cannot be read"
+msgstr "zark s'està executant; no se'n pot llegir el progrés"
+
+#: lib/view.js:198
+#, no-javascript-format
+msgid "No status from zark yet"
+msgstr "Encara no hi ha cap estat de zark"
+
+#: lib/view.js:202
+#, no-javascript-format
+msgid "No backup yet"
+msgstr "Encara no hi ha cap còpia"
+
+#: lib/view.js:205
+#, no-javascript-format
+msgid "Backup overdue, last one {age} on {drive}"
+msgstr "Còpia endarrerida; la darrera, {age} a {drive}"
+
+#: lib/view.js:206
+#, no-javascript-format
+msgid "Backups up to date, last one {age} on {drive}"
+msgstr "Còpies al dia; la darrera, {age} a {drive}"
+
+#: lib/view.js:217
+#, no-javascript-format
+msgid ""
+"The status file exists but does not parse. This shows the last state it could"
+" read."
+msgstr ""
+"El fitxer d'estat existeix però no es pot analitzar. L'extensió mostra el "
+"darrer estat que ha pogut llegir."
+
+#: lib/view.js:219
+#, no-javascript-format
+msgid ""
+"zark 2.1 or later writes its status at the end of every run and from its "
+"hourly timer."
+msgstr ""
+"zark 2.1 o posterior escriu el seu estat al final de cada execució i des del "
+"seu temporitzador horari."
+
+#: lib/view.js:221
+#, no-javascript-format
+msgid ""
+"Is the zark alerts timer installed? The figures below are as old as their "
+"dates say."
+msgstr ""
+"Està instal·lat el temporitzador d'avisos de zark? Les xifres de sota són tan"
+" antigues com indiquen les seves dates."
+
+#: lib/view.js:225
+#, no-javascript-format
+msgid "The progress file does not parse or comes from a newer zark."
+msgstr "El fitxer de progrés no es pot analitzar o prové d'un zark més recent."
+
+#: lib/view.js:231
+#, no-javascript-format
+msgid "zark {command}"
+msgstr "zark {command}"
+
+#: lib/view.js:233
+#, no-javascript-format
+msgid "Backup to {drive}"
+msgstr "Còpia a {drive}"
+
+#. Translators: a noun, the title of a running backup whose drive is not known
+#. yet
+#: lib/view.js:235
+#, no-javascript-format
+msgctxt "run title"
+msgid "Backup"
+msgstr "Còpia"
+
+#: lib/view.js:253
+#, no-javascript-format
+msgid ""
+"zark {command} to {drive} stopped answering at {when}. The next zark command "
+"records it."
+msgstr ""
+"zark {command} a {drive} ha deixat de respondre {when}. La propera ordre de "
+"zark ho registrarà."
+
+#: lib/view.js:254
+#, no-javascript-format
+msgid ""
+"zark {command} stopped answering at {when}. The next zark command records it."
+msgstr ""
+"zark {command} ha deixat de respondre {when}. La propera ordre de zark ho "
+"registrarà."
+
+#: lib/view.js:276
+#, no-javascript-format
+msgid "Drive went away; see zark's terminal"
+msgstr "El disc s'ha desconnectat; consulteu el terminal de zark"
+
+#: lib/view.js:277
+#, no-javascript-format
+msgid "Drive went away {when}; see zark's terminal"
+msgstr "El disc s'ha desconnectat {when}; consulteu el terminal de zark"
+
+#. Translators: {duration} is "5 min", "1 h 12 min" or "under a minute"
+#: lib/view.js:286
+#, no-javascript-format
+msgid "running for {duration}"
+msgstr "en execució des de fa {duration}"
+
+#. Translators: {label} is zark's own English text for the step
+#: lib/view.js:290
+#, no-javascript-format
+msgid "Step {index} of {total}: {label}"
+msgstr "Pas {index} de {total}: {label}"
+
+#: lib/view.js:296
+#, no-javascript-format
+msgid ""
+"No update for {seconds} s. zark is still running; the figures below are not "
+"current."
+msgstr ""
+"Cap actualització des de fa {seconds} s. zark encara s'executa; les xifres de"
+" sota no estan al dia."
+
+#: lib/view.js:311
+#, no-javascript-format
+msgid "Between datasets"
+msgstr "Entre datasets"
+
+#: lib/view.js:320
+#, no-javascript-format
+msgid "{done} of at least {total}"
+msgstr "{done} d'almenys {total}"
+
+#: lib/view.js:322
+#, no-javascript-format
+msgid "{done} of {total}"
+msgstr "{done} de {total}"
+
+#. Translators: one part of a comma-separated line: "7.0 GiB of 17.0 GiB, 107.0
+#. MiB/s, about 5 min left"
+#: lib/view.js:329
+#, no-javascript-format
+msgid "about {duration} left"
+msgstr "queden uns {duration}"
+
+#: lib/view.js:331
+#, no-javascript-format
+msgid "under a minute left"
+msgstr "queda menys d'un minut"
+
+#. Translators: the transfer is ending; one part of a comma-separated line
+#: lib/view.js:334
+#, no-javascript-format
+msgid "finishing"
+msgstr "s'està acabant"
+
+#. Translators: {failed} picks the plural form; {done} and {total} count
+#. datasets
+#: lib/view.js:340
+#, no-javascript-format
+msgid "Transfers: {done} of {total} done, {failed} failed"
+msgid_plural "Transfers: {done} of {total} done, {failed} failed"
+msgstr[0] "Transferències: {done} de {total} fetes, {failed} fallida"
+msgstr[1] "Transferències: {done} de {total} fetes, {failed} fallides"
+
+#: lib/view.js:342
+#, no-javascript-format
+msgid "Transfers: {done} of {total} done"
+msgstr "Transferències: {done} de {total} fetes"
+
+#. Translators: said of a pool whose figures zark could not read
+#: lib/view.js:362 lib/view.js:458
+#, no-javascript-format
+msgid "Could not be read"
+msgstr "No es pot llegir"
+
+#: lib/view.js:373
+#, no-javascript-format
+msgid "{percent}% used, {size} free"
+msgstr "{percent} % usat, {size} lliures"
+
+#: lib/view.js:405
+#, no-javascript-format
+msgid "{percent}%, {size} free"
+msgstr "{percent} %, {size} lliures"
+
+#: lib/view.js:407
+#, no-javascript-format
+msgid "Not measured yet"
+msgstr "Encara sense mesurar"
+
+#. Translators: the result of a backup run, placed in "{result}, {when}, took
+#. {duration}"
+#: lib/view.js:419
+#, no-javascript-format
+msgid "completed"
+msgstr "completada"
+
+#. Translators: the result of a backup run, placed in "{result}, {when}, took
+#. {duration}"
+#: lib/view.js:421
+#, no-javascript-format
+msgid "incomplete"
+msgstr "incompleta"
+
+#. Translators: the result of a backup run, placed in "{result}, {when}, took
+#. {duration}"
+#: lib/view.js:423
+#, no-javascript-format
+msgid "not verified"
+msgstr "sense verificar"
+
+#. Translators: the result of a backup run, placed in "{result}, {when}, took
+#. {duration}"
+#: lib/view.js:425
+#, no-javascript-format
+msgid "aborted"
+msgstr "cancel·lada"
+
+#. Translators: the result of a backup run, placed in "{result}, {when}, took
+#. {duration}"
+#: lib/view.js:427
+#, no-javascript-format
+msgid "interrupted"
+msgstr "interrompuda"
+
+#. Translators: {result} is a result name zark wrote that this version does not
+#. know, in English
+#: lib/view.js:438
+#, no-javascript-format
+msgid "Last run: {result}"
+msgstr "Darrera execució: {result}"
+
+#: lib/view.js:461
+#, no-javascript-format
+msgid "{percent}% used of {size}"
+msgstr "{percent} % usat de {size}"
+
+#: lib/view.js:468
+#, no-javascript-format
+msgid "{n}-day window"
+msgid_plural "{n}-day window"
+msgstr[0] "finestra de {n} dia"
+msgstr[1] "finestra de {n} dies"
+
+#: lib/view.js:471
+#, no-javascript-format
+msgid "nothing older than {n} day"
+msgid_plural "nothing older than {n} days"
+msgstr[0] "res amb més de {n} dia"
+msgstr[1] "res amb més de {n} dies"
+
+#: lib/view.js:474
+#, no-javascript-format
+msgid "{percent}% margin"
+msgstr "marge del {percent} %"
+
+#. Translators: {label} is zark's English text for the step; the whole fills
+#. {step} and {where} below
+#: lib/view.js:488
+#, no-javascript-format
+msgid "step {index} of {total}, {label}"
+msgstr "pas {index} de {total}, {label}"
+
+#. Translators: the run has not reached its first step; fills {step} and
+#. {where} below
+#: lib/view.js:491
+#, no-javascript-format
+msgid "starting"
+msgstr "s'està iniciant"
+
+#. Translators: {step} is "step 7 of 9, <zark's label>" or "starting"; fills
+#. {where} below
+#: lib/view.js:495
+#, no-javascript-format
+msgid "{step}, {percent}% sent"
+msgstr "{step}, {percent} % enviat"
+
+#. Translators: a noun, the title of the row for the command running on this
+#. drive
+#: lib/view.js:498
+#, no-javascript-format
+msgctxt "running command"
+msgid "Run"
+msgstr "Execució"
+
+#: lib/view.js:506
+#, no-javascript-format
+msgid ""
+"Stopped answering at {when}; the next zark command records it as interrupted"
+msgstr ""
+"Ha deixat de respondre {when}; la propera ordre de zark la registrarà com a "
+"interrompuda"
+
+#. Translators: {where} is "step 7 of 9, <zark's label>, 40% sent" or
+#. "starting"
+#: lib/view.js:514
+#, no-javascript-format
+msgid "No update for {seconds} s: {where}"
+msgstr "Cap actualització des de fa {seconds} s: {where}"
+
+#. Translators: {question} is zark's own English question, or the step
+#: lib/view.js:523
+#, no-javascript-format
+msgid "Waiting for your answer: {question}"
+msgstr "S'està esperant la vostra resposta: {question}"
+
+#. Translators: {where} is "step 7 of 9, <zark's label>, 40% sent" or
+#. "starting"
+#: lib/view.js:528
+#, no-javascript-format
+msgid "Running: {where}"
+msgstr "En execució: {where}"
+
+#: lib/view.js:557
+#, no-javascript-format
+msgid "{month} {year}"
+msgstr "{month} {year}"
+
+#. Translators: a table cell: zark did not measure this figure
+#: lib/view.js:584
+#, no-javascript-format
+msgid "not measured"
+msgstr "sense mesurar"
+
+#: lib/view.js:651
+#, no-javascript-format
+msgid ""
+"Frees if older removed, and its bar: what removing every older point zark "
+"would remove frees, as measured {when}. Held alone: what a month's points "
+"hold that no other snapshot shares; those figures do not add up."
+msgstr ""
+"Allibera si s'eliminen els anteriors, i la seva barra: el que allibera "
+"eliminar tots els punts anteriors que zark eliminaria, segons s'ha mesurat "
+"{when}. En exclusiva: el que contenen els punts d'un mes que cap altra "
+"instantània no comparteix; aquestes xifres no se sumen."
+
+#: lib/view.js:654
+#, no-javascript-format
+msgid ""
+"Held alone: what a month's points hold that no other snapshot shares. "
+"Removing several months frees more than their sum."
+msgstr ""
+"En exclusiva: el que contenen els punts d'un mes que cap altra instantània no"
+" comparteix. Eliminar diversos mesos allibera més que la seva suma."
+
+#. Translators: backup points on the drive; {date} is "{day} {month}", as "19
+#. Oct"
+#: lib/view.js:658
+#, no-javascript-format
+msgid "{n} point, oldest {date} {year}"
+msgid_plural "{n} points, oldest {date} {year}"
+msgstr[0] "{n} punt, el més antic {date} {year}"
+msgstr[1] "{n} punts, el més antic {date} {year}"
+
+#: lib/view.js:666
+#, no-javascript-format
+msgid "The next backup's retention removes no point"
+msgstr "La retenció de la propera còpia no elimina cap punt"
+
+#: lib/view.js:673
+#, no-javascript-format
+msgid "The next backup's retention removes at least {n} point"
+msgid_plural "The next backup's retention removes at least {n} points"
+msgstr[0] "La retenció de la propera còpia elimina almenys {n} punt"
+msgstr[1] "La retenció de la propera còpia elimina almenys {n} punts"
+
+#: lib/view.js:675
+#, no-javascript-format
+msgid "The next backup's retention removes {n} point"
+msgid_plural "The next backup's retention removes {n} points"
+msgstr[0] "La retenció de la propera còpia elimina {n} punt"
+msgstr[1] "La retenció de la propera còpia elimina {n} punts"
+
+#. Translators: {sentence} is "The next backup's retention removes 3 points";
+#. {first} and {last} are dates as "19 Oct"
+#: lib/view.js:680
+#, no-javascript-format
+msgid "{sentence} ({first} to {last})"
+msgstr "{sentence} ({first} a {last})"
+
+#. Translators: {sentence} is "The next backup's retention removes 3 points (19
+#. Oct to 24 Oct)"
+#: lib/view.js:688
+#, no-javascript-format
+msgid "{sentence}, freeing about {size}"
+msgstr "{sentence}, alliberant uns {size}"
+
+#: lib/view.js:706
+#, no-javascript-format
+msgid "{shown} of {n} dataset on the drive; measured {when} by zark."
+msgid_plural "{shown} of {n} datasets on the drive; measured {when} by zark."
+msgstr[0] "{shown} de {n} dataset al disc; mesurat {when} per zark."
+msgstr[1] "{shown} de {n} datasets al disc; mesurat {when} per zark."
+
+#: lib/view.js:714
+#, no-javascript-format
+msgid ""
+"Also {intermediate} intermediate snapshots ({intermediateSize}), removed with"
+" their points, and {other} other snapshots ({otherSize}), which it never "
+"removes"
+msgstr ""
+"A més, {intermediate} instantànies intermèdies ({intermediateSize}), "
+"eliminades amb els seus punts, i {other} instantànies més ({otherSize}), que "
+"zark no elimina mai"
+
+#: lib/view.js:737
+#, no-javascript-format
+msgid "Last backup"
+msgstr "Darrera còpia"
+
+#. Translators: the drive's last backup: there was none
+#: lib/view.js:740
+#, no-javascript-format
+msgid "Never"
+msgstr "Mai"
+
+#. Translators: {age} is "3 hours ago"; {when} is "today 09:18", "yesterday
+#. 23:50" or "24 Oct 09:18"
+#: lib/view.js:742
+#, no-javascript-format
+msgid "{age}, {when}"
+msgstr "{age}, {when}"
+
+#: lib/view.js:746
+#, no-javascript-format
+msgid "Backup point"
+msgstr "Punt de restauració"
+
+#: lib/view.js:754
+#, no-javascript-format
+msgid "Last run"
+msgstr "Darrera execució"
+
+#. Translators: {result} is "completed", "not verified" and the like, said of
+#. the run
+#: lib/view.js:756
+#, no-javascript-format
+msgid "{result}, {when}, took {duration}"
+msgstr "{result}, {when}, ha durat {duration}"
+
+#: lib/view.js:763
+#, no-javascript-format
+msgid "Retention"
+msgstr "Retenció"
+
+#. Translators: the free space zark keeps on the drive before a backup
+#: lib/view.js:769
+#, no-javascript-format
+msgid "Margin"
+msgstr "Marge"
+
+#: lib/view.js:771
+#, no-javascript-format
+msgid "{free} free, above the {margin} zark keeps free before a backup"
+msgstr ""
+"{free} lliures, per sobre dels {margin} que zark deixa lliures abans d'una "
+"còpia"
+
+#: lib/view.js:772
+#, no-javascript-format
+msgid "{free} free, below the {margin} zark keeps free before a backup"
+msgstr ""
+"{free} lliures, per sota dels {margin} que zark deixa lliures abans d'una "
+"còpia"
+
+#: lib/view.js:781
+#, no-javascript-format
+msgid "After retention"
+msgstr "Després de la retenció"
+
+#: lib/view.js:782
+#, no-javascript-format
+msgid "about {free} free once the next backup's retention has run"
+msgstr "uns {free} lliures quan s'hagi aplicat la retenció de la propera còpia"
+
+#. Translators: whether zark powers the drive down at the end of a backup; the
+#. value is yes or no
+#: lib/view.js:789
+#, no-javascript-format
+msgid "Ejects itself"
+msgstr "S'expulsa sol"
+
+#. Translators: the value of "Ejects itself"
+#: lib/view.js:792
+#, no-javascript-format
+msgctxt "ejects itself"
+msgid "yes"
+msgstr "sí"
+
+#. Translators: the value of "Ejects itself"
+#: lib/view.js:794
+#, no-javascript-format
+msgctxt "ejects itself"
+msgid "no"
+msgstr "no"
+
+#: lib/view.js:798
+#, no-javascript-format
+msgid "Fill not measured yet"
+msgstr "Ocupació encara sense mesurar"
+
+#: lib/view.js:806
+#, no-javascript-format
+msgid "{percent}% used of {size}; live"
+msgstr "{percent} % usat de {size}; en temps real"
+
+#: lib/view.js:807
+#, no-javascript-format
+msgid "{percent}% used of {size}; measured {when}"
+msgstr "{percent} % usat de {size}; mesurat {when}"
+
+#. Translators: used space, a part of the drive's bar
+#: lib/view.js:811
+#, no-javascript-format
+msgid "Used"
+msgstr "Usat"
+
+#: lib/view.js:840
+#, no-javascript-format
+msgid "Margin: the last {size} zark keeps free"
+msgstr "Marge: els darrers {size} que zark deixa lliures"
+
+#. Translators: {who} is zark's own word for what wrote it (timer, backup,
+#. ...), in English
+#: lib/view.js:917
+#, no-javascript-format
+msgid "Status written {when} by {who}, zark {version}"
+msgstr "Estat escrit {when} per {who}, zark {version}"
