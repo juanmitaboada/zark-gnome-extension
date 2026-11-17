@@ -5,12 +5,15 @@
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import {setTranslator} from './lib/i18n.js';
 import {ZarkIndicator} from './lib/indicator.js';
 import {Notifier} from './lib/notifier.js';
 import {StatusReader} from './lib/reader.js';
 
 export default class ZarkExtension extends Extension {
     enable() {
+        // Before anything is built: the modules translate when they draw.
+        setTranslator(this);
         this._settings = this.getSettings();
         this._indicator = new ZarkIndicator(this.path, {
             settings: this._settings,
@@ -31,5 +34,6 @@ export default class ZarkExtension extends Extension {
         this._indicator.destroy();
         this._indicator = null;
         this._settings = null;
+        setTranslator(null);
     }
 }

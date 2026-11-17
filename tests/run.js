@@ -14,6 +14,7 @@ const MODULES = [
     './test-events.js',
     './test-compat.js',
     './test-about.js',
+    './test-i18n.js',
 ];
 
 let failed = 0;
