@@ -6,13 +6,19 @@ series (`1.3-1~ubuntu26.04.1`, `1.3-1~ubuntu26.10.1`).
 
 ## Unreleased
 
+- The extension in Spanish, and in Brazilian Portuguese, Portuguese,
+  French, Italian, Catalan, Galician, German and Dutch: the menu, the
+  details dialog, the notifications, the drive-gone dialog's title and
+  first line, and the preferences follow the session's language. Commands
+  and zark's own text (its hints, questions and notices) stay in English,
+  as zark writes them.
 - Ready for translations: the texts the extension shows go through gettext
   in the domain `zark@juanmitaboada.com` (`gettext-domain` in
   `metadata.json`), with named placeholders and plural forms; with no
   catalogue they stay English, as before. Commands, and zark's own text
   (its hints, questions and notices), stay as they are.
 - `po/`: the template `zark@juanmitaboada.com.pot`, with comments for the
-  translators, `POTFILES`, `LINGUAS` (empty for now), `RISK-WORDS`, the
+  translators, `POTFILES`, `LINGUAS`, `RISK-WORDS`, the
   same file as zark's app, and `RISK-REVIEWED`, the score of each template
   text that has a risk stem. `make pot`,
   `pot-check`, `po-check`, `po-risk` and `test-i18n`; CI checks that the

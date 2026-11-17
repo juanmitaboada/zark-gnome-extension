@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-shell-extension-zark\n"
 "Report-Msgid-Bugs-To: https://github.com/juanmitaboada/zark-gnome-extension/"
 "issues\n"
-"POT-Creation-Date: 2026-11-17 23:15+0100\n"
+"POT-Creation-Date: 2026-11-18 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -304,7 +304,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: lib/details.js:231 lib/details.js:322 lib/indicator.js:135
+#: lib/details.js:231 lib/details.js:322 lib/indicator.js:136
 #: lib/notifier.js:157
 #, no-javascript-format
 msgid "Copy \"{command}\""
@@ -360,13 +360,13 @@ msgstr ""
 msgid "Frees if older removed"
 msgstr ""
 
-#. Translators: "zark backup" is the program's name and stays as it is
+#. Translators: "zark backup" is zark's command and stays as it is
 #: lib/events.js:73
 #, no-javascript-format
 msgid "Seen gone, while zark backup was writing to it."
 msgstr ""
 
-#. Translators: "zark backup" is the program's name and stays as it is;
+#. Translators: "zark backup" is zark's command and stays as it is;
 #. {when} is "today 09:18", "yesterday 23:50" or "24 Oct 09:18"
 #: lib/events.js:76
 #, no-javascript-format
@@ -564,40 +564,41 @@ msgstr ""
 msgid "{percent}%"
 msgstr ""
 
-#. Translators: the panel button's name for screen readers; "zark backup" is the program's name
-#: lib/indicator.js:106
+#. Translators: the panel button's name for screen readers: the status of zark's backups;
+#. "zark" is the program's name
+#: lib/indicator.js:107
 #, no-javascript-format
 msgid "zark backup status"
 msgstr ""
 
-#: lib/indicator.js:127
+#: lib/indicator.js:128
 #, no-javascript-format
 msgid "Show details..."
 msgstr ""
 
-#: lib/indicator.js:255
+#: lib/indicator.js:256
 #, no-javascript-format
 msgid "Waiting for: {question}"
 msgstr ""
 
-#: lib/indicator.js:275
+#: lib/indicator.js:276
 #, no-javascript-format
 msgid "This computer"
 msgstr ""
 
-#: lib/indicator.js:286
+#: lib/indicator.js:287
 #, no-javascript-format
 msgid "Backup drives"
 msgstr ""
 
 #. Translators: said of a backup drive
-#: lib/indicator.js:291 lib/view.js:831
+#: lib/indicator.js:292 lib/view.js:831
 #, no-javascript-format
 msgid "Connected"
 msgstr ""
 
 #. Translators: said of a backup drive
-#: lib/indicator.js:293 lib/view.js:833
+#: lib/indicator.js:294 lib/view.js:833
 #, no-javascript-format
 msgid "Not connected"
 msgstr ""
