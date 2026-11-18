@@ -1,10 +1,12 @@
 # Changelog
 
 The extension's versions, as `version-name` in `metadata.json`. The
-Debian package adds a revision (`1.3-1`), and the PPA one per Ubuntu
-series (`1.3-1~ubuntu26.04.1`, `1.3-1~ubuntu26.10.1`).
+Debian package adds a revision (`1.4-1`), and the PPA one per Ubuntu
+series (`1.4-1~ubuntu26.04.1`, `1.4-1~ubuntu26.10.1`).
 
-## Unreleased
+## 1.4
+
+It reads the status files of zark 2.1.0 and later, as 1.3 did.
 
 - The extension in Spanish, and in Brazilian Portuguese, Portuguese,
   French, Italian, Catalan, Galician, German and Dutch: the menu, the
