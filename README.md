@@ -28,6 +28,17 @@ in a terminal, or go through
 app that shows the same in a window and runs zark's operations. What changed
 in each version is in [CHANGELOG.md](CHANGELOG.md).
 
+A user guide walks through every task with this extension and zark for
+GNOME, from installing to recovering: zark's
+[docs/GUIDE.md](https://github.com/juanmitaboada/zark/blob/main/docs/GUIDE.md),
+also as a [video](https://youtu.be/dy-WW9qjaIo).
+
+It speaks English, Spanish, Brazilian and European Portuguese, French,
+Italian, Catalan, Galician, German and Dutch, following the desktop's
+language (on Ubuntu, with that language's `language-pack-*` installed). If
+you are a native speaker and a translation reads wrong, please open an issue
+or a pull request on its `po/<lang>.po` file.
+
 ## Requirements
 
 - Ubuntu 26.04 LTS with GNOME Shell 50, or Ubuntu 26.10 with GNOME Shell 51.
