@@ -51,6 +51,12 @@ concurrency:
 permissions:
   contents: read
 
+# What make pack needs: gnome-extensions comes with the gnome-shell package,
+# and it compiles po/*.po with gettext's msgfmt. The pack and release jobs
+# both install this one list, so the two cannot drift apart.
+env:
+  PACK_PACKAGES: gnome-shell gettext
+
 jobs:
 
   test:
@@ -158,12 +164,10 @@ jobs:
         with:
           path: second
 
-      - name: Install gnome-extensions and gettext
-        # /usr/bin/gnome-extensions comes with the gnome-shell package; it
-        # compiles po/*.po with gettext's msgfmt.
+      - name: Install what make pack needs
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gnome-shell gettext
+          sudo apt-get install -y --no-install-recommends ${PACK_PACKAGES}
 
       - name: Pack and check the entries
         working-directory: first
@@ -222,10 +226,10 @@ jobs:
               || { echo "debian/changelog's top entry is ${top}, not ${version}-<revision>"; exit 1; }
           echo "tag ${GITHUB_REF_NAME}, metadata.json ${version}, debian/changelog ${top}"
 
-      - name: Install gnome-extensions
+      - name: Install what make pack needs
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gnome-shell
+          sudo apt-get install -y --no-install-recommends ${PACK_PACKAGES}
 
       - name: Pack, check, checksum
         run: |
